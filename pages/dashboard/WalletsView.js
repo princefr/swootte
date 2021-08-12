@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import SendMoneyButton from '../buttons/SendMoneyButton'
-import ReceiveMoneyButton from '../buttons/ReceiveMoneyButton'
+import SendMoneyButton from '../../components/buttons/SendMoneyButton'
+import ReceiveMoneyButton from '../../components/buttons/ReceiveMoneyButton'
 
 
 

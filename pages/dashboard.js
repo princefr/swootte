@@ -2,12 +2,12 @@
 import Head from 'next/head'
 import SideBar from '../components/dashboard/sidebar'
 import DashBoardNav from '../components/dashboard/nav'
-import MainView from '../components/dashboard/mainview'
-import WalletsView from '../components/dashboard/WalletsView'
+// import MainView from '../components/dashboard/mainview'
+// import WalletsView from '../components/dashboard/WalletsView'
 import { useContext } from 'react'
 import { SideBarMenuContext } from '../context/SideBarMenuContext'
-import TransfersView from '../components/dashboard/transfertsView'
-import UsersView from '../components/dashboard/usersView'
+// import TransfersView from './dashboard/TransfertsView'
+// import UsersView from '../components/dashboard/usersView'
 import { withAuthUser, withAuthUserTokenSSR, AuthAction } from 'next-firebase-auth'
 
 
@@ -31,7 +31,7 @@ export  function Dashboard() {
                     <div className="bg-gray-100 flex w-full h-full flex-col">
                         <DashBoardNav></DashBoardNav>
 
-                        {
+                        {/* {
                             sidemenu.map((page) => {
                                 if(page.pageName == "home" && page.isActive){
                                     return <MainView></MainView>
@@ -44,7 +44,7 @@ export  function Dashboard() {
                                     return <UsersView></UsersView>
                                 }
                             })
-                        }
+                        } */}
                         
 
                         </div>

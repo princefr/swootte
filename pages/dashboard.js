@@ -8,10 +8,11 @@ import { useContext } from 'react'
 import { SideBarMenuContext } from '../context/SideBarMenuContext'
 import TransfersView from '../components/dashboard/transfertsView'
 import UsersView from '../components/dashboard/usersView'
+import { withAuthUser, withAuthUserTokenSSR, AuthAction } from 'next-firebase-auth'
 
 
 
-export default function Dashboard() {
+export  function Dashboard() {
     const {sidemenu, } = useContext(SideBarMenuContext)
     return (
         <div>
@@ -54,3 +55,36 @@ export default function Dashboard() {
         </div>
     )
 }
+
+
+// export const getServerSideProps = withAuthUserTokenSSR({
+//     whenAuthed: AuthAction.RENDER,
+//     whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
+//   })(async ({AuthUser}) => {
+//     await firebaseAdmin.auth().getUser(AuthUser.id)
+//     const { data } = await loadUser(AuthUser.id).catch((reason) => {
+//         console.log(reason)
+//       })
+
+//       if(data.usersExist == null){
+//           return {
+//             redirect: {
+//               permanent: false,
+//               destination: "/"
+//             }
+//           }
+//       }
+
+
+
+//       return {
+//         props: {
+//             auth_id: AuthUser.id
+//         }
+//       }
+// })
+
+
+
+// export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN, whenUnauthed:AuthAction.REDIRECT_TO_LOGIN})(Dashboard)
+export default Dashboard

@@ -3,13 +3,27 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export"
   },
   "dependencies": {
+    "@apollo/client": "^3.4.7",
+    "apollo-link-ws": "^1.0.20",
+    "firebase": "^8.9.0",
+    "firebase-admin": "^9.11.0",
+    "graphql": "^15.5.1",
     "next": "latest",
+    "next-firebase-auth": "^0.13.3-alpha.1",
+    "nookies": "^2.5.2",
+    "nprogress": "^0.2.0",
+    "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
+    "react-datepicker": "^4.2.0",
     "react-dom": "^17.0.2",
-    "react-onclickoutside": "^6.11.2"
+    "react-dropzone": "^11.3.4",
+    "react-onclickoutside": "^6.11.2",
+    "react-phone-input-2": "^2.14.0",
+    "react-uuid": "^1.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",

@@ -4,394 +4,60 @@ export const Feature = () => {
         <div className="flex flex-col mb-6 lg:flex-row md:mb-10">
           <div className="lg:w-1/2">
             <h2 className="max-w-md mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none xl:max-w-lg">
-              To conquer the space you must trust.
+              Accept USDC payments wherever you are
             </h2>
           </div>
           <div className="lg:w-1/2">
             <p className="text-base text-gray-700 md:text-lg">
-              For those who have seen the Earth from space, and for the hundreds
-              and perhaps thousands more who will, the experience most certainly
-              changes your perspective.
+            While every business is unique, they all need to be paid. Installed in a snap, the Swoosh terminal is easy to use. It lets you contactless payments anywhere, anytime. Enjoy secure payments all day long in a stylish package.
             </p>
           </div>
         </div>
         <div className="grid gap-8 row-gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-7 h-7 text-deep-purple-accent-400"
-                strokeLinecap="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <circle cx="11" cy="13" fill="none" r="9" stroke="currentColor" />
-                <path
-                  d=" M21.955,18.005c1.089,2.145,1.378,3.816,0.622,4.572C20.92,24.234,14.799,20.799,9,15S-0.234,3.08,1.423,1.423 C2.18,0.666,3.853,0.956,6,2.047"
-                  stroke="currentColor"
-                  fill="none"
-                />
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+</svg>
             </div>
-            <h6 className="mb-2 font-semibold leading-5">Our planet</h6>
+            <h6 className="mb-2 font-semibold leading-5">Fast payments</h6>
             <p className="mb-3 text-sm text-gray-900">
-              We choose to go to the moon, not because it's easy, but because it's
-              hard.
+              Using solana networks we can process up to 60K transactions/sec. That's make us the fastest solution in the market.
             </p>
-            <ul className="mb-4 -ml-1 space-y-2">
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Earth
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Space
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Humans
-              </li>
-            </ul>
-            <a
-              href="/"
-              aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-            >
-              Learn more
-            </a>
           </div>
           <div>
             <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-7 h-7 text-deep-purple-accent-400"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-              >
-                <path
-                  d="M2,10C2,5.029,6.47,1,12,1c5.379,0,10,4.029,10,9S15.712,23,12,23C8.212,23,2,14.971,2,10Z"
-                  fill="none"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                />
-                <path
-                  d="M5,9a6.529,6.529,0,0,1,4.393,1.607C10.705,11.92,10,15,10,15a6.59,6.59,0,0,1-3.436-1.564C5.022,11.894,5,9,5,9Z"
-                  fill="none"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                />
-                <path
-                  d="M19,9a6.523,6.523,0,0,0-4.392,1.608C13.3,11.92,14,15,14,15a6.59,6.59,0,0,0,3.436-1.564C18.978,11.894,19,9,19,9Z"
-                  fill="none"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                />
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
             </div>
-            <h6 className="mb-2 font-semibold leading-5">Another life</h6>
+            <h6 className="mb-2 font-semibold leading-5">Easier accounting</h6>
             <p className="mb-3 text-sm text-gray-900">
-              There can be no thought of finishing for "aiming for the stars".
+              Integrate accounting software in a snap to automate the tracking of all your payments.
             </p>
-            <ul className="mb-4 -ml-1 space-y-2">
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Life
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Aliens
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Shrek
-              </li>
-            </ul>
-            <a
-              href="/"
-              aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-            >
-              Learn more
-            </a>
           </div>
           <div>
             <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-7 h-7 text-deep-purple-accent-400"
-                strokeLinecap="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M8.291,18.709,4.182,22.818c-.419.419-1.43.086-2.258-.742s-1.161-1.839-.742-2.258l4.11-4.11"
-                  fill="none"
-                  stroke="currentColor"
-                />
-                <ellipse
-                  cx="19.078"
-                  cy="4.922"
-                  fill="none"
-                  rx="2.5"
-                  ry="4.95"
-                  stroke="currentColor"
-                  transform="translate(2.107 14.932) rotate(-45)"
-                />
-                <path
-                  d="M9.185,9.815,5.3,13.7c-.7.7-.143,2.382,1.238,3.762S9.6,19.4,10.3,18.7l3.885-3.885"
-                  fill="none"
-                  stroke="currentColor"
-                />
-                <path
-                  d="M15.578,1.422,9.422,7.578c-.976.976-.2,3.335,1.732,5.268s4.292,2.708,5.268,1.732l6.156-6.156"
-                  fill="none"
-                  stroke="currentColor"
-                />
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+</svg>
             </div>
-            <h6 className="mb-2 font-semibold leading-5">Explore space</h6>
+            <h6 className="mb-2 font-semibold leading-5">Foolproof protection</h6>
             <p className="mb-3 text-sm text-gray-900">
-              We are all connected to the universe atomically, strong bonds.
+            When you use the Swoosh secure payment platform, your data is protected by the highest security standards.
             </p>
-            <ul className="mb-4 -ml-1 space-y-2">
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Infinity
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Stars
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Black Holes
-              </li>
-            </ul>
-            <a
-              href="/"
-              aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-            >
-              Learn more
-            </a>
           </div>
           <div>
             <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-7 h-7 text-deep-purple-accent-400"
-                strokeLinecap="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M8,13l3,3,9.379-9.379a2.122,2.122,0,0,0,0-3h0a2.122,2.122,0,0,0-3,0Z"
-                  fill="none"
-                  stroke="currentColor"
-                />
-                <polyline
-                  fill="none"
-                  points="10 11 10 6 6 2 3 5 7 9"
-                  stroke="currentColor"
-                />
-                <polyline
-                  fill="none"
-                  points="15 12 15 17 19 21 22 18 18 14"
-                  stroke="currentColor"
-                />
-                <path d="M8,23a7,7,0,0,1-7-7" fill="none" stroke="currentColor" />
-                <path d="M8,19a3,3,0,0,1-3-3" fill="none" stroke="currentColor" />
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+</svg>
             </div>
-            <h6 className="mb-2 font-semibold leading-5">First contact</h6>
+            <h6 className="mb-2 font-semibold leading-5">Transparent fees</h6>
             <p className="mb-3 text-sm text-gray-900">
-              For those who have seen the Earth from space or in dreams.
+            Pay a 0.5% transaction fee. No fixed costs. No subscription and no commitment. We like to keep it simple!
             </p>
-            <ul className="mb-4 -ml-1 space-y-2">
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Listen
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Communicate
-              </li>
-              <li className="flex items-start">
-                <span className="mr-1">
-                  <svg
-                    className="w-5 h-5 mt-px text-deep-purple-accent-400"
-                    stroke="currentColor"
-                    viewBox="0 0 52 52"
-                  >
-                    <polygon
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                      points="29 13 14 29 25 29 23 39 38 23 27 23"
-                    />
-                  </svg>
-                </span>
-                Run
-              </li>
-            </ul>
-            <a
-              href="/"
-              aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-            >
-              Learn more
-            </a>
           </div>
         </div>
       </div>

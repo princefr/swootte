@@ -9,7 +9,7 @@ export const Feature = () => {
           </div>
           <div className="lg:w-1/2">
             <p className="text-base text-gray-700 md:text-lg">
-            While every business is unique, they all need to be paid. Installed in a snap, the Swoosh terminal is easy to use. It lets you contactless payments anywhere, anytime. Enjoy secure payments all day long in a stylish package.
+            While every business is unique, they all need to be paid. Installed in a snap, the Swootte terminal is easy to use. It lets you contactless payments anywhere, anytime. Enjoy secure payments all day long in a stylish package.
             </p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export const Feature = () => {
             </div>
             <h6 className="mb-2 font-semibold leading-5">Foolproof protection</h6>
             <p className="mb-3 text-sm text-gray-900">
-            When you use the Swoosh secure payment platform, your data is protected by the highest security standards.
+            When you use the Swootte secure payment platform, your data is protected by the highest security standards.
             </p>
           </div>
           <div>

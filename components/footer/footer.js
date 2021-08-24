@@ -14,7 +14,7 @@ export const Footer = () => {
         <div className="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
           <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
             <div className="md:max-w-md lg:col-span-2">
-              <img src="images/Sootte_logo_white.svg" className="w-36"></img>
+              <img src="images/Swootte_logo_white.svg" className="w-36" alt="swootte logo"></img>
               <div className="mt-4 lg:max-w-sm">
               Swoosh Terminal allows you to create your point of sales solution to accept digital dollar payments on the spot. Designed for modern merchants and platforms, our terminals helps you enter the new internet financial world.
               </div>

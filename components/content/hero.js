@@ -18,7 +18,7 @@ export const Header = () => {
               for your physical{' '}
               <span className="inline-block text-blue-400">commerce</span>
             </h2>
-            <p className="text-gray-700 text-base font-montserrat md:text-lg">Swoosh Terminal allows you to create your point of sales solution to accept digital dollar payments on the spot. Designed for modern merchants and platforms, our terminals helps you enter the new internet financial world.</p>
+            <p className="text-gray-700 text-base font-montserrat md:text-lg">Swootte Terminal allows you to create your point of sales solution to accept digital dollar payments on the spot. Designed for modern merchants and platforms, our terminals helps you enter the new internet financial world.</p>
           </div>
           <div className="">
             <a href="#">

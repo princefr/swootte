@@ -168,7 +168,7 @@ function ConnnectButton() {
                                     </div>
 
                                     <div className="flex flex-row py-8  mx-auto">
-                                        <img src="images/swoosh_logo_black.svg" className="h-10" />
+                                        <img src="images/Swootte_logo_black.svg" className="h-10" alt="swoote logo" />
                                     </div>
                                     <div className="flex flex-col items-start space-y-3 px-14">
                                         <div className="text-2xl font-montserrat font-semibold">Connexion</div>

@@ -16,11 +16,11 @@ export const NavAlone = () => {
                         <div className="flex items-center">
                             <a
                                 href="/"
-                                aria-label="Company"
-                                title="Company"
+                                aria-label="landing"
+                                title="landing"
                                 className="inline-flex items-center mr-8"
                             >
-                                <img src="images/swootte_logo_black.svg" className="h-10" >
+                                <img src="images/Swootte_logo_black.svg" className="h-10" alt="swootte logo" >
                                     
                                 </img>
                             </a>

@@ -20,7 +20,7 @@ export const NavAlone = () => {
                                 title="Company"
                                 className="inline-flex items-center mr-8"
                             >
-                                <img src="images/swoosh_logo.svg" className="h-10" >
+                                <img src="images/swootte_logo_black.svg" className="h-10" >
                                     
                                 </img>
                             </a>

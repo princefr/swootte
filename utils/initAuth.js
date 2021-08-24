@@ -2,6 +2,8 @@
 import { init } from 'next-firebase-auth'
 const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000
 
+// 0x269c5aB2E955d24f5A8F3dA9fD44696EbA15548A contrat
+
 const initAuth = () => {
   init({
     debug: false,

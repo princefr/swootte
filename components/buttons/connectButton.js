@@ -145,7 +145,12 @@ function ConnnectButton() {
 
     return (
         <div className="relative inline-block text-left">
-            <a href="#" onClick={toggleModal} className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">Sign in/Sign up</a>
+            <a href="#" onClick={toggleModal} className="flex bg-black p-2.5 rounded-full text-white justify-center items-center space-x-3 font-medium tracking-wide  transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">
+                <button>Connexion</button>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+</svg>
+            </a>
             {
                 showModal ?
                     <div className="fixed z-10 inset-0 overflow-y-auto">

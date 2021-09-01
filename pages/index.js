@@ -70,17 +70,25 @@ export default function Home() {
       </section>
           <Feature></Feature>
           <Content></Content>
-          <section className="text-gray-600 body-font">
-            <div className="container px-5 py-24 mx-auto">
-              <div className="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-                <div className="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">
-                  <h1 className="text-green-600 font-bold text-3xl">Ridiculous 0.5% fees.</h1>
-                  <h1>75% cheaper than most traditional companies.</h1>
-                </div>
-                <button className="flex-shrink-0 text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 text-lg mt-10 sm:mt-0">Start today</button>
-              </div>
-            </div>
-          </section>
+
+
+          
+<div class="bg-gray-50">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+      <span class="block">Ridiculous 0.5% fees</span>
+      <span class="block text-indigo-600">75% cheaper than most traditional companies.</span>
+    </h2>
+    <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+      <div class="inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-3 py-2 border border-transparent text-base font-medium  text-white bg-black hover:bg-gray-700">
+          Get started
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
           <section className="text-gray-600 body-font relative">
             <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
               <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">

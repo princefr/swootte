@@ -30,9 +30,12 @@ export const Nav = () => {
                                         href="/"
                                         aria-label="Our product"
                                         title="Our product"
-                                        className="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400"
+                                        className="flex items-center space-x-2"
                                     >
-                                        Product
+                                        <button className="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400">Products</button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+</svg>
                                     </a>
                                 </li>
                                 <li>
@@ -40,9 +43,27 @@ export const Nav = () => {
                                         href="/"
                                         aria-label="Our product"
                                         title="Our product"
-                                        className="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400"
+                                        className="flex items-center space-x-2"
                                     >
-                                        Features
+                                        <button className
+                                        ="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400">Use cases</button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+</svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="/"
+                                        aria-label="Product pricing"
+                                        title="Product pricing"
+                                        className="flex items-center space-x-2"
+                                    >
+                                        <button className
+                                        ="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400">Devellopers</button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+</svg>
                                     </a>
                                 </li>
                                 <li>
@@ -150,7 +171,7 @@ export const Nav = () => {
                                                         title="Our product"
                                                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                     >
-                                                        Product
+                                                        Products
                                                     </a>
                                                 </li>
                                                 <li>
@@ -160,7 +181,16 @@ export const Nav = () => {
                                                         title="Our product"
                                                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                     >
-                                                        Features
+                                                        Use cases                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="/"
+                                                        aria-label="Product pricing"
+                                                        title="Product pricing"
+                                                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                    >
+                                                        Developpers
                                                     </a>
                                                 </li>
                                                 <li>

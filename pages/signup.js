@@ -139,7 +139,7 @@ export function Signup({ }) {
     return (
         <div className="bg-gray-200">
             <NavAlone></NavAlone>
-            <header className="bg-white shadow-b flex flex-row justify-between items-start p-4 top-0 sticky">
+            <header className="bg-white shadow-b flex flex-row justify-between items-start p-4 top-0 z-50 sticky">
                 <div className="px-12">
                     <h1 className="text-3xl font-bold text-gray-900">Signup</h1>
                 </div>
@@ -261,7 +261,7 @@ export function Signup({ }) {
 
 
                                             <div className="col-span-6 sm:col-span-4">
-                                                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                                                <label htmlFor="birthday" className="block text-sm font-medium text-gray-700">
                                                     Birthday {!userEmail.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <DatePicker selected={userBirthDay} dateFormat="MMMM d, yyyy" onChange={date => setuserBirthDay(date)} className="bg-gray-200 h-10 px-5 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-black focus:ring-black w-96 font-montserrat" />

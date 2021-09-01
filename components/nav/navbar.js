@@ -60,7 +60,7 @@ export const Nav = () => {
                                         className="flex items-center space-x-2"
                                     >
                                         <button className
-                                        ="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400">Devellopers</button>
+                                        ="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400">Developers</button>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 </svg>
@@ -190,7 +190,7 @@ export const Nav = () => {
                                                         title="Product pricing"
                                                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                     >
-                                                        Developpers
+                                                        Developers
                                                     </a>
                                                 </li>
                                                 <li>

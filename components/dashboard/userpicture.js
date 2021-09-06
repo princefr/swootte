@@ -8,6 +8,7 @@ import { UserContext } from "../../context/UserContext";
 
 import Toogle from "../toogle/toggle";
 import DisconnectButton from "../buttons/DisconnectButton"
+import { Transition } from "@headlessui/react";
 
 
 export function PhotoView({photoUrl, height, width }) {
@@ -65,9 +66,13 @@ const UserPicture = props => {
                 <PhotoView height={8} width={8} photoUrl={data.usersExist.photoUrl}></PhotoView>
             </button>
 
-            {
-                showDropDown ?
-                    <div className="origin-top-right absolute right-0 mt-2 w-96 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <Transition show={showDropDown} enter= "transition ease-out duration-100"
+             enterFrom="transform opacity-0 scale-95"
+             enterTo= "transform opacity-100 scale-100"
+             leave="transition ease-in duration-75"
+             leaveFrom="transform opacity-100 scale-100"
+             leaveTo="transform opacity-0 scale-95">
+                 <div className="origin-top-right absolute right-0 mt-2 w-96 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <div className="py-1" role="none">
                             <div className="flex flex-col p-4">
                                 <div onClick={goToProfil} className="flex flex-row">
@@ -126,8 +131,10 @@ const UserPicture = props => {
                         <div className="py-1" role="none">
                             <DisconnectButton></DisconnectButton>
                         </div>
-                    </div> : null
-            }
+                    </div>
+            </Transition>
+
+            
 
         </div>
     )

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { Transition } from "@headlessui/react";
+import { Fragment, useEffect, useState } from "react";
 
 
 const Notification = (props) => {
@@ -58,7 +59,8 @@ const Notification = (props) => {
 
     return (
         
-        <div onMouseEnter={handlePauseTimer} onMouseLeave={HandleStartTimer}  className={`${exit == false? "animate-slideleft" : "animate-slideright"} flex-col flex-wrap justify-between shadow-lg  rounded-xl  w-full bg-white z-50`}>
+        <Transition as={Fragment} show={!exit} enter="transform transition ease-in-out duration-500 sm:duration-700" leave="transform transition ease-in-out duration-500 sm:duration-700" enterFrom="translate-x-full" enterTo="translate-x-0" leaveFrom="translate-x-0" leaveTo="translate-x-full">
+            <div onMouseEnter={handlePauseTimer} onMouseLeave={HandleStartTimer}  className="flex-col flex shadow-lg  rounded-xl  w-full mt-3 justify-between py-1 bg-white z-100">
             <div className="flex flex-row w-full items-start justify-between px-4 pt-5 pb-4">
             {(() => {
                     switch(props.payload.type){
@@ -98,15 +100,16 @@ const Notification = (props) => {
                 {(() => {
                     switch(props.payload.type){
                         case "SUCCESS":
-                            return <div className={`h-1 bg-green-600 bottom-0 px-2`} style={{ width: `${width}%` }}></div>
+                            return <div className="h-1 bg-green-600 bottom-0 px-2" style={{ width: `${width}%` }}></div>
                         case "WARNING":
-                            return <div className={`h-1 bg-blue-600 bottom-0 px-2`} style={{ width: `${width}%` }}></div>
+                            return <div className="h-1 bg-blue-600 bottom-0 px-2" style={{ width: `${width}%` }}></div>
                         case "ERROR":
-                            return <div className={`h-1 bg-red-600 bottom-0 px-2`} style={{ width: `${width}%` }}></div>
+                            return <div className="h-1 bg-red-600 bottom-0 px-2" style={{ width: `${width}%` }}></div>
                     }
                 })()}
             </div>
         </div>
+        </Transition>
     )
 }
 

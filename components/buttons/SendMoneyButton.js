@@ -1,5 +1,6 @@
 
 
+import { Transition } from "@headlessui/react";
 import { useState } from "react";
 
 export function SendMoneyButton() {
@@ -19,8 +20,8 @@ export function SendMoneyButton() {
 
 
 
-            {
-                showModal ? <div className="fixed z-50 inset-0 overflow-y-auto">
+            <Transition show={showModal}>
+            <div className="fixed z-50 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen  px-4  text-center sm:block sm:p-0">
                         <div className="fixed inset-0 transition-opacity" onClick={toggleModal} aria-hidden="true">
                             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -41,8 +42,12 @@ export function SendMoneyButton() {
                             </div>
                         </div>
                     </div>
-                </div> : null
-            }
+                </div>
+            </Transition>
+
+
+
+
 
         </div>
     )

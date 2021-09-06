@@ -38,7 +38,7 @@ function Toogle({ id, uid }) {
 
     return (
 
-        <div className="py-1 overflow-hidden">
+        <div className="py-1">
             <Switch
                 checked={enabled}
                 onChange={setEnabled}

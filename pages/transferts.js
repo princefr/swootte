@@ -1,5 +1,4 @@
 import Dashboard from "../components/dashboard/dashboard";
-import AddTransferButton from "../components/transferts/buttons/AddTransferButton";
 import FilterTransfersButton from "../components/transferts/buttons/FilterTransfersButtons";
 import TransferExportButton from "../components/transferts/buttons/TransferExportButton";
 
@@ -17,7 +16,6 @@ export default function TransfersView(){
                 <div className="flex flex-row space-x-3">
                         <FilterTransfersButton></FilterTransfersButton>
                         <TransferExportButton></TransferExportButton>
-                        <AddTransferButton></AddTransferButton>
                     </div>
             </header>
 

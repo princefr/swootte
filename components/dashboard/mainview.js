@@ -1,6 +1,8 @@
 
 import ReceiveMoneyButton from "../buttons/ReceiveMoneyButton"
 import SendMoneyButton from "../buttons/SendMoneyButton"
+import AddDeposit from "../transferts/buttons/AddDeposit"
+import AddWithdraw from "../transferts/buttons/AddWithdraw"
 import { PhotoView } from "./userpicture"
 
 
@@ -49,6 +51,8 @@ const MainView = (props) => {
                     <div className="flex flex-row space-x-4">
                         <ReceiveMoneyButton></ReceiveMoneyButton>
                         <SendMoneyButton></SendMoneyButton>
+                        <AddWithdraw></AddWithdraw>
+                        <AddDeposit></AddDeposit>
                     </div>
 
 

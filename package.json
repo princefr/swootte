@@ -27,6 +27,7 @@
     "react-onclickoutside": "^6.11.2",
     "react-phone-input-2": "^2.14.0",
     "react-uuid": "^1.0.2",
+    "subscriptions-transport-ws": "^0.9.19",
     "validator": "^13.6.0"
   },
   "devDependencies": {

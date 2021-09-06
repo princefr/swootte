@@ -12,8 +12,8 @@ import dynamic from 'next/dynamic'
 import NotificationProvider from '../notifications/NotificationContext';
 import { ApolloProvider } from '@apollo/client';
 import client from '../utils/graphql';
-import { loadUser } from '../queries/getUser';
 import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
+import FirebaseClient from '../utils/firebase';
 
 
 
@@ -30,6 +30,7 @@ const TopProgressBar = dynamic(
 
 initAuth()
 function MyApp({ Component, pageProps }) {
+  FirebaseClient()
   const router = useRouter()
   const [user, setUser] = useState(null);
   const [firebaseUID, setFirebaseUID] = useState(null)

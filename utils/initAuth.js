@@ -8,7 +8,7 @@ const initAuth = () => {
   init({
     debug: false,
     authPageURL: '/',
-    appPageURL: '/dashboard',
+    appPageURL: '/home',
     loginAPIEndpoint: '/api/login', // required
     logoutAPIEndpoint: '/api/logout', // required
     // Required in most cases.
@@ -30,7 +30,7 @@ const initAuth = () => {
       projectId: process.env.NEXT_PUBLIC_firebase_projectId,
     },
     cookies: {
-      name: 'kookers',
+      name: 'Swootte',
       keys: [
         process.env.COOKIE_SECRET_CURRENT,
         process.env.COOKIE_SECRET_PREVIOUS,
@@ -39,7 +39,7 @@ const initAuth = () => {
       maxAge: TWELVE_DAYS_IN_MS,
       overwrite: true,
       path: '/',
-      sameSite: 'strict',
+      sameSite: 'Strict',
       secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === 'true',
       signed: true,
     },

@@ -1,57 +1,34 @@
-import Head from 'next/head'
-import SendMoneyButton from '../../components/buttons/SendMoneyButton'
-import ReceiveMoneyButton from '../../components/buttons/ReceiveMoneyButton'
+import AddClientButton from "../components/clients/buttons/AddClientButton";
+import ClientExportButton from "../components/clients/buttons/ClientExportButton";
+import FilterClientsButton from "../components/clients/buttons/FilterClientsButtons";
+import Dashboard from "../components/dashboard/dashboard";
 
 
 
 
 
-
-export default function WalletsView() {
+export default function UsersView() {
     return (
 
-        <div>
-            <Head>
-                <title>Mon portefeuille</title>
-            </Head>
-
+        <Dashboard pageName={"users"}>{
+            <div>
             <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                 <div className="px-12">
-                    <h1 className="text-3xl font-bold text-gray-900">Portefeuille</h1>
+                    <h1 className="text-3xl font-bold text-gray-900">Clients</h1>
                 </div>
-                <div className="flex flex-row space-x-4">
-                    <ReceiveMoneyButton></ReceiveMoneyButton>
-                    <SendMoneyButton></SendMoneyButton>
-                </div>
+                <div className="flex flex-row space-x-3">
+                        <FilterClientsButton></FilterClientsButton>
+                        <ClientExportButton></ClientExportButton>
+                        <AddClientButton></AddClientButton>
+                        
+                    </div>
+
             </header>
-            <main>
-                <div className="flex flex-col p-10 container container px-1 mx-auto">
 
-                    <div className="flex flew-row h-36 w-full mt-5">
-                        <div className="flex flex-col w-1/5 h-full space-x-3 items-center justify-center border-r border-gray-300">
-                            <div className="text-lg font-montserrat font-medium">
-                                Votre solde
-                            </div>
-                            <div className="text-4xl font-montserrat font-medium">
-                                1600 €
-                            </div>
-                        </div>
-                        <div className="flex flex-col w-3/5 px-16 justify-center h-full text-justify">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                        </div>
-                    </div>
-
-
-
-                    <div className="flex flex-row h-10 mt-5 border-b border-gray-200">
-                        <h2 className="text-lg font-montserrat font-medium">Transactions</h2>
-                    </div>
-
-
-
-                    <div className="flex flex-col">
+            <nav className="py-4 px-6">
+                <div className="flex flex-col px-10">
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div className="flex flex-col py-8">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -117,7 +94,6 @@ export default function WalletsView() {
                         </div>
                     </div>
 
-
                     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-lg">
                         <div className="flex-1 flex justify-between sm:hidden">
                             <a href="#" className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -181,12 +157,15 @@ export default function WalletsView() {
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
-            </main>
+
+
+
+
+            </nav>
+
         </div>
+        }</Dashboard>
+        
     )
 }

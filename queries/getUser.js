@@ -40,14 +40,11 @@ query GetIfUSerExist($firebase_uid: String!) {
         email
         first_name
         last_name
-        is_seller
         phonenumber
         country
         currency
         notificationPermission
         is_online
-
-
         createdAt
         photoUrl
         updatedAt

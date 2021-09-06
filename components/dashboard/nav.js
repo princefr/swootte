@@ -1,12 +1,19 @@
 import UserPicture from "./userpicture"
 import NotificationBell from "../buttons/notificationBell"
+import StableCoinSelectButton from "./stableCoinSelectButton"
+import DevisePicker from "../pickers/DevisePicker"
 
 
 
-export default function DashBoardNav(){
+const DashBoardNav = (props) =>{
     return(
-        <div className="flex flex-row h-16  justify-between p-1 bg-white sticky top-0 z-40 border-b border-gray-200">
-            <div className="container mx-auto flex flex-wrap  flex-col md:flex-row items-center">
+        <div className="flex flex-row h-16 items-center   p-1 w-full bg-white sticky top-0 z-40 border-b border-gray-200">
+            <div className="flex justify-between w-full px-3  flex-col md:flex-row items-center">
+
+			<a className="flex items-center justify-center mt-3" href="#">
+				<img src="images/Swootte_logo_black.svg" className="h-8"></img>
+			</a>
+
                 <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                     <div className="relative text-gray-600 mx-7">
                         <input type="search" name="serch" placeholder="Rechercher une transaction .." className="bg-gray-200 h-10 px-5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-offset-black focus:ring-black w-96  font-montserrat rounded-full" />
@@ -15,7 +22,7 @@ export default function DashBoardNav(){
                         </button>
                     </div>
                 </nav>
-                <div className="inline-flex items-center space-x-2 lg:space-x-3">
+                <div className="flex flex-row items-center space-x-2 lg:space-x-3">
                     {/* <button
                         type="button"
                         onClick={() => router.push('/publish')} className="transition ease-out duration-700 w-full mr-5 flex  justify-center space-x-4 px-5 py-2 overflow-hidden focus:outline-none focus:shadow-outline bg-teal-400 hover:bg-red-800 bg-red-500 text-white text-xs items-center font-medium"
@@ -27,9 +34,10 @@ export default function DashBoardNav(){
                     <span className="font-montserrat text-sm">Arret d'urgence</span>
 
                     </button> */}
-                    <NotificationBell></NotificationBell>
 
-                    <UserPicture firebaseUser={null}></UserPicture>
+                    <DevisePicker></DevisePicker>
+                    <NotificationBell></NotificationBell>
+                    <UserPicture useUser={props.useUser}></UserPicture>
                     
                     
                 </div>
@@ -37,3 +45,6 @@ export default function DashBoardNav(){
         </div>
     )
 }
+
+
+export default DashBoardNav

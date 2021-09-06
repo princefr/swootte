@@ -11,15 +11,15 @@ export function ReceiveMoneyButton() {
     const toggleModal = () => setshowModal(!showModal);
     return (
         <div className="relative inline-block text-left">
-            <button onClick={toggleModal} className="transition ease-out duration-700 w-full mr-5 flex  justify-center space-x-4 px-5 py-2 overflow-hidden focus:outline-none focus:shadow-outline bg-teal-400 hover:bg-gray-800 bg-black text-white text-xs items-center font-medium">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button onClick={toggleModal} className="transition ease-out duration-700 w-full  rounded-lg bg-gray-200  flex items-center space-x-4 px-5 py-2 focus:outline-none focus:shadow-outline text-xs font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
-                <span className="font-montserrat text-sm">Recevoir</span>
+                <span className="font-montserrat text-xs">Recevoir</span>
             </button>
 
             {
-                showModal ? <div className="fixed z-10 inset-0 overflow-y-auto">
+                showModal ? <div className="fixed z-50 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen  px-4 pb-20 text-center sm:block sm:p-0">
                         <div className="fixed inset-0 transition-opacity" onClick={toggleModal} aria-hidden="true">
                             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -51,10 +51,10 @@ export function ReceiveMoneyButton() {
                                 <div className="flex items-start justify-start text-left text-sm">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 </div>
-                                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                        <input type="text" name="company-website" id="company-website" class="focus:ring-indigo-500  focus:border-indigo-500 flex-1  block w-full rounded-none p-2 rounded-l-md sm:text-sm border-gray-400" placeholder="www.example.com"/>
-                                        <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+                                    <div className="mt-1 flex rounded-lg bg-gray-200">
+                                        <input type="text" name="company-website" id="company-website" className=" flex-1 rounded-lg bg-gray-200 text-sm focus:outline-none   w-full p-2 " placeholder="www.example.com"/>
+                                        <span className="inline-flex items-center px-3  border-gray-300 border-l  text-gray-500 text-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                                             </svg>

@@ -1,11 +1,32 @@
 import styles from "../../styles/Home.module.css"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from 'next/link'
 import ConnectButton from '../buttons/connectButton'
+import LandingProductsButton from "../landing/buttons/LandingProductsButton";
+import { FirebaseUIDContext } from "../../context/FirebaseUIDContext";
+import { useRouter } from "next/router";
+
+export const DashboardButton = () => {
+    const router = useRouter()
+    const gotoDashboard =(event) => {
+        event.preventDefault()
+        router.push("/home")
+    }
+    return (
+        <button onClick={gotoDashboard} className="flex bg-black p-2.5 rounded-full text-white justify-center items-center space-x-3 font-medium tracking-wide  transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">
+                <button>Dashboard</button>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+    )
+}
+
 
 
 export const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const {firebaseUID, } = useContext(FirebaseUIDContext)
 
     return (
         <div style={styles} className="bg-white w-full h-20">
@@ -26,17 +47,7 @@ export const Nav = () => {
                             </a>
                             <ul className="flex items-center hidden space-x-8 lg:flex">
                                 <li>
-                                    <a
-                                        href="/"
-                                        aria-label="Our product"
-                                        title="Our product"
-                                        className="flex items-center space-x-2"
-                                    >
-                                        <button className="font-medium font-montserrat tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400">Products</button>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-</svg>
-                                    </a>
+                                    <LandingProductsButton></LandingProductsButton>
                                 </li>
                                 <li>
                                     <a
@@ -90,7 +101,10 @@ export const Nav = () => {
                         </div>
                         <ul className="flex items-center hidden space-x-8 lg:flex">
                             <li>
-                                <ConnectButton></ConnectButton>
+                                {
+                                    firebaseUID ? <DashboardButton></DashboardButton> : <ConnectButton></ConnectButton>
+                                }
+                                
                             </li>
                         </ul>
                         <div className="lg:hidden">

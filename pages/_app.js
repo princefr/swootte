@@ -13,6 +13,8 @@ import NotificationProvider from '../notifications/NotificationContext';
 import { ApolloProvider } from '@apollo/client';
 import client from '../utils/graphql';
 import { loadUser } from '../queries/getUser';
+import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
+
 
 
 
@@ -29,18 +31,18 @@ const TopProgressBar = dynamic(
 initAuth()
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-
   const [user, setUser] = useState(null);
+  const [firebaseUID, setFirebaseUID] = useState(null)
+
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
+  const firebaseUIDValue = useMemo(() => ({firebaseUID, setFirebaseUID}), [firebaseUID, setFirebaseUID])
 
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(async (_user) => {
-      if(_user){
-        const {data} = await loadUser(_user.uid)
-      }
-      
-    })
+  firebase.auth().onAuthStateChanged(async (_user) => {
+    if(_user){
+      setFirebaseUID(_user.uid)
+    }
+    
   })
 
 
@@ -52,7 +54,6 @@ function MyApp({ Component, pageProps }) {
     // https://stackoverflow.com/questions/55624695/loading-screen-on-next-js-page-transition
 
     router.events.on('routeChangeStart', (url) => {
-      console.log(`Loading: ${url}`)
       NProgress.start()
     })
 
@@ -74,13 +75,16 @@ function MyApp({ Component, pageProps }) {
     <>
     <TopProgressBar/>
     <ApolloProvider client={client}>
-      <UserContext.Provider value={providerValue}>
-        <NotificationProvider>
-          <SideBarMenuContext.Provider value={sideMenuValue}>
-          <Component {...pageProps} />
-        </SideBarMenuContext.Provider>
-        </NotificationProvider>
-    </UserContext.Provider>
+      <FirebaseUIDContext.Provider value={firebaseUIDValue}>
+        <UserContext.Provider value={providerValue}>
+          
+          <NotificationProvider>
+            <SideBarMenuContext.Provider value={sideMenuValue}>
+            <Component {...pageProps} />
+          </SideBarMenuContext.Provider>
+          </NotificationProvider>
+      </UserContext.Provider>
+      </FirebaseUIDContext.Provider>
     </ApolloProvider>
   </>
   )

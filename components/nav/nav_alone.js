@@ -20,7 +20,7 @@ export const NavAlone = () => {
                                 title="landing"
                                 className="inline-flex items-center mr-8"
                             >
-                                <img src="images/Swootte_logo_black.svg" className="h-10" alt="swootte logo" >
+                                <img src="images/Swootte_logo_black.svg" className="h-8" alt="swootte logo" >
                                     
                                 </img>
                             </a>

@@ -1,12 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState} from 'react'
-import FirebaseClient from "../utils/firebase"
+
 import firebase from 'firebase/app'
 import { useNotification } from '../../notifications/NotificationContext'
+import FirebaseClient from '../../utils/firebase'
 
 
 
-function AskPasswordToCompleteAction({isOpen, runProcess}) {
+const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
     
     FirebaseClient()
     const [password, setPassword] = useState("")
@@ -42,7 +43,7 @@ function AskPasswordToCompleteAction({isOpen, runProcess}) {
                 <Dialog
                     as="div"
                     className="fixed inset-0 z-10 overflow-y-auto"
-                    onClose={closeModal}
+                    onClose={(() => setOpenModal(false))}
                 >
                     <div className="min-h-screen px-4 text-center">
                         <Transition.Child
@@ -90,10 +91,11 @@ function AskPasswordToCompleteAction({isOpen, runProcess}) {
                                 </div>
 
                                 
-                                <input value={userWebsite} onChange={((e) => setPassword(e.target.value))}
+                                <input value={password} onChange={((e) => setPassword(e.target.value))}
                                                         type="password"
-                                                        name="company-website"
-                                                        id="company-website"
+                                                        name="password"
+                                                        id="password"
+                                                        autoComplete="password"
                                                         className="flex w-full  sm:text-sm bg-gray-200 px-10 mt-4 focus:outline-none"
                                                         placeholder="www.example.com"
                                                     />

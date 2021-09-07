@@ -70,8 +70,9 @@ function AddDeposit() {
             </button>
 
 
-            {
-                showPanel ? <div className="fixed z-50 inset-0 overflow-y-auto">
+            <Transition show={showPanel}>
+
+                <div className="fixed z-50 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen  px-4 pb-20 text-center sm:block sm:p-0">
                         <div className="fixed inset-0 transition-opacity" onClick={dismissPanel} aria-hidden="true">
                             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -175,20 +176,20 @@ function AddDeposit() {
 
 
                                         <button disabled={amount == null || amount <= 0}
-                                                type="button"
-                                                className="inline-flex w-full justify-center px-4 py-2 mt-4 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                                onClick={handleWithDraw}
-                                            >
+                                            type="button"
+                                            className="inline-flex w-full justify-center px-4 py-2 mt-4 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                            onClick={handleWithDraw}
+                                        >
 
-                                                                                
-                                                <Transition show={loading}>
+
+                                            <Transition show={loading}>
                                                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                 </svg>
-                                                </Transition>
-                                                <span>Ask a deposit</span>
-                                            </button>
+                                            </Transition>
+                                            <span>Ask a deposit</span>
+                                        </button>
                                     </div>
 
                                 </div>
@@ -201,9 +202,9 @@ function AddDeposit() {
                             </div>
                         </div>
                     </div>
-                </div> : null
-            }
+                </div>
 
+            </Transition>
 
         </div>
     )
@@ -211,18 +212,18 @@ function AddDeposit() {
 
 function CheckIcon(props) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" {...props}>
-        <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
-        <path
-          d="M7 13l3 3 7-7"
-          stroke="#fff"
-          strokeWidth={1.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+        <svg viewBox="0 0 24 24" fill="none" {...props}>
+            <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
+            <path
+                d="M7 13l3 3 7-7"
+                stroke="#fff"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
     )
-  }
+}
 
 
 

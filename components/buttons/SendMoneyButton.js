@@ -2,7 +2,6 @@
 
 import { useMutation } from "@apollo/client";
 import { Transition } from "@headlessui/react";
-import { set } from "nprogress";
 import { useState } from "react";
 import { CREATE_TRANSFER } from "../../mutation/CreateTransfer";
 import { useNotification } from "../../notifications/NotificationContext";
@@ -60,7 +59,7 @@ export function SendMoneyButton() {
                 <span className="font-montserrat text-xs">Envoyer</span>
             </button>
 
-
+        
 
             <Transition show={showModal}>
                 <div className="fixed z-40 inset-0 overflow-y-auto">

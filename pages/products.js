@@ -14,7 +14,7 @@ export default function Products() {
         <Dashboard pageName={"Products"}>{
             <div>
                 <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
-                    <div className="px-12">
+                    <div className="px-8">
                         <h1 className="text-3xl font-bold text-gray-900">Products</h1>
                     </div>
                     <div className="flex flex-row space-x-3">
@@ -28,7 +28,9 @@ export default function Products() {
 
                 <div className="flex flex-col px-12">
                     <div className="flex flex-col">
-                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+
+                        <div className="-my-2 overflow-x-auto sm:-mx-6 mt-5 lg:-mx-8">
                             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                     <table className="min-w-full divide-y divide-gray-200">

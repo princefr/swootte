@@ -2,7 +2,33 @@ import Head from 'next/head'
 import SendMoneyButton from '../components/buttons/SendMoneyButton'
 import ReceiveMoneyButton from '../components/buttons/ReceiveMoneyButton'
 import Dashboard from '../components/dashboard/dashboard'
+import { useContext } from 'react'
+import { FirebaseUIDContext } from '../context/FirebaseUIDContext'
+import { DeviseContext } from '../context/DeviseContext'
+import { useQuery } from '@apollo/client'
+import { GET_BALANCE } from '../queries/getBalance'
 
+
+
+export function Balance(){
+    const { firebaseUID, } = useContext(FirebaseUIDContext)
+    const {Devise, } = useContext(DeviseContext)
+    const {loading, error, data, refetch} = useQuery(GET_BALANCE, {
+        variables : {
+            firebase_uid : firebaseUID,
+            token: Devise
+        }
+    })
+
+    if (loading) return <p>Loading ...</p>;
+    if (error) return `Error! ${error}`;
+
+    return (
+        <div className="text-4xl font-montserrat font-medium">
+                                1600 €
+        </div>
+    )
+}
 
 
 
@@ -28,15 +54,12 @@ export default function WalletsView() {
             </header>
             <main>
                 <div className="flex flex-col p-10 px-12  mx-auto">
-
-                    <div className="flex flew-row h-36 w-full mt-5">
+                    <div className="flex flew-row h-36 w-full">
                         <div className="flex flex-col w-1/5 h-full space-x-3 items-center justify-center border-r border-gray-300">
                             <div className="text-lg font-montserrat font-medium">
                                 Votre solde
                             </div>
-                            <div className="text-4xl font-montserrat font-medium">
-                                1600 €
-                            </div>
+                            <Balance></Balance>
                         </div>
                         <div className="flex flex-col w-3/5 px-16 justify-center h-full text-justify">
                             <p>

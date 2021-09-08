@@ -74,12 +74,12 @@ function AddWithdraw() {
 
             
 
-            <Transition appear enter="transition-opacity duration-75"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="transition-opacity duration-150"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0" show={showPanel}>
+            <Transition appear enter="ease-out duration-300"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0" show={showPanel}>
 
                 <div className="fixed z-50 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen  px-4 pb-20 text-center sm:block sm:p-0">

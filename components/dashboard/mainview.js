@@ -1,4 +1,11 @@
 
+import { useQuery } from "@apollo/client"
+import { useContext, useEffect } from "react"
+import { DeviseContext } from "../../context/DeviseContext"
+import { FirebaseUIDContext } from "../../context/FirebaseUIDContext"
+import { GET_CUSTOMERS_GAINED_ON_30DAYS } from "../../queries/getCustomersGained30days"
+import { GET_REVENUE_ON_30DAYS } from "../../queries/getRevenueOn30days"
+import { GET_SALES_ON_30DAYS } from "../../queries/getSalesOn30days"
 import ReceiveMoneyButton from "../buttons/ReceiveMoneyButton"
 import SendMoneyButton from "../buttons/SendMoneyButton"
 import AddDeposit from "../transferts/buttons/AddDeposit"
@@ -36,9 +43,116 @@ const PictureOnDashboard = (props) => {
     )
 }
 
+const CustomersGained30Days = (props) => {
+    const { firebaseUID, } = useContext(FirebaseUIDContext)
+    const {Devise, } = useContext(DeviseContext)
+    const {loading, error, data, refetch} = useQuery(GET_CUSTOMERS_GAINED_ON_30DAYS, {
+        variables : {
+            firebase_uid : firebaseUID,
+            token: Devise
+        }
+    }) 
+
+
+    if (loading) return <p>Loading ...</p>;
+    if (error) return `Error! ${error}`;
+
+
+    return (
+<div className="flex items-center p-4 bg-white rounded">
+                    <div className="flex flex-shrink-0 items-center justify-center bg-green-200 h-16 w-16 rounded-full">
+                        <svg className="w-6 h-6 fill-current text-green-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg>
+                    </div>
+                    <div className="flex-grow flex flex-col ml-4">
+                        <span className="text-xl font-bold">140</span>
+                        <div className="flex items-center justify-between">
+                            <span className="text-gray-500">Customers last 30 days</span>
+                            <span className="text-green-500 text-sm font-semibold ml-2">+28.4%</span>
+                        </div>
+                    </div>
+                </div>
+    )
+}
+
+
+const Sale30DAYS = (props) => {
+    const { firebaseUID, } = useContext(FirebaseUIDContext)
+    const {Devise, } = useContext(DeviseContext)
+    const {loading, error, data, refetch} = useQuery(GET_SALES_ON_30DAYS, {
+        variables : {
+            firebase_uid : firebaseUID,
+            token: Devise
+        }
+    })
+
+
+    if (loading) return <p>Loading ...</p>;
+    if (error) return `Error! ${error}`;
+    
+    
+    return (
+<div className="flex items-center p-4 bg-white rounded">
+                    <div className="flex flex-shrink-0 items-center justify-center bg-red-200 h-16 w-16 rounded-full">
+                        <svg className="w-6 h-6 fill-current text-red-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                    </div>
+                    <div className="flex-grow flex flex-col ml-4">
+                        <span className="text-xl font-bold">211</span>
+                        <div className="flex items-center justify-between">
+                            <span className="text-gray-500">Sales last 30 days</span>
+                            <span className="text-red-500 text-sm font-semibold ml-2">-8.1%</span>
+                        </div>
+                    </div>
+                </div>
+    )
+}
+
+
+
+const RevenueOn30DAYS = (props) => {
+    const { firebaseUID, } = useContext(FirebaseUIDContext)
+    const {Devise, } = useContext(DeviseContext)
+    const {loading, error, data, refetch} = useQuery(GET_REVENUE_ON_30DAYS, {
+        variables : {
+            firebase_uid : firebaseUID,
+            token: Devise
+        }
+    })
+
+    if (loading) return <p>Loading ...</p>;
+    if (error) return `Error! ${error}`;
+
+    return (
+        <div className="flex items-center p-4 bg-white rounded">
+                    <div className="flex flex-shrink-0 items-center justify-center bg-gray-200 h-16 w-16 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                        </svg>
+                    </div>
+                    <div className="flex-grow flex flex-col ml-4">
+                        <span className="text-xl font-bold">$8,430</span>
+                        <div className="flex items-center justify-between">
+                            <span className="text-gray-500">Revenue last 30 days</span>
+                            <span className="text-green-500 text-sm font-semibold ml-2">+12.6%</span>
+                        </div>
+                    </div>
+
+                </div>
+    )
+}
 
 
 const MainView = (props) => {
+    const {Devise, setDevice} = useContext(DeviseContext)
+
+
+    useEffect(() => {
+        console.log(Devise)
+    }, [Devise])
+
     return (
         <div className="flex flex-col  w-full">
 
@@ -65,53 +179,10 @@ const MainView = (props) => {
             </div>
 
             <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6 w-full px-12  mt-4 items-center justify-center mx-auto">
-                <div className="flex items-center p-4 bg-white rounded">
-                    <div className="flex flex-shrink-0 items-center justify-center bg-gray-200 h-16 w-16 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                        </svg>
-                    </div>
-                    <div className="flex-grow flex flex-col ml-4">
-                        <span className="text-xl font-bold">$8,430</span>
-                        <div className="flex items-center justify-between">
-                            <span className="text-gray-500">Revenue last 30 days</span>
-                            <span className="text-green-500 text-sm font-semibold ml-2">+12.6%</span>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div className="flex items-center p-4 bg-white rounded">
-                    <div className="flex flex-shrink-0 items-center justify-center bg-red-200 h-16 w-16 rounded-full">
-                        <svg className="w-6 h-6 fill-current text-red-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                    </div>
-                    <div className="flex-grow flex flex-col ml-4">
-                        <span className="text-xl font-bold">211</span>
-                        <div className="flex items-center justify-between">
-                            <span className="text-gray-500">Sales last 30 days</span>
-                            <span className="text-red-500 text-sm font-semibold ml-2">-8.1%</span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className="flex items-center p-4 bg-white rounded">
-                    <div className="flex flex-shrink-0 items-center justify-center bg-green-200 h-16 w-16 rounded-full">
-                        <svg className="w-6 h-6 fill-current text-green-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                        </svg>
-                    </div>
-                    <div className="flex-grow flex flex-col ml-4">
-                        <span className="text-xl font-bold">140</span>
-                        <div className="flex items-center justify-between">
-                            <span className="text-gray-500">Customers last 30 days</span>
-                            <span className="text-green-500 text-sm font-semibold ml-2">+28.4%</span>
-                        </div>
-                    </div>
-                </div>
+                
+                <RevenueOn30DAYS></RevenueOn30DAYS>
+                <Sale30DAYS></Sale30DAYS>
+                <CustomersGained30Days></CustomersGained30Days>
             </div>
 
 

@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/client'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon} from '@heroicons/react/solid'
-import { Fragment,   useContext,   useState } from 'react'
+import { Fragment,   useContext,   useEffect,   useState } from 'react'
+import { DeviseContext } from '../../context/DeviseContext'
 import { FirebaseUIDContext } from '../../context/FirebaseUIDContext'
 import { GET_CURRENCIES } from '../../queries/getCurrencies'
 
@@ -15,13 +16,23 @@ const devises = [
 
 function DevisePicker(){
     const { firebaseUID, } = useContext(FirebaseUIDContext)
-    const {loading, error, data} = useQuery(GET_CURRENCIES, {
+    const {Devise, setDevice} = useContext(DeviseContext)
+    const {loading, error, data, refetch} = useQuery(GET_CURRENCIES, {
         variables: {
             firebase_uid: firebaseUID
         }
     })
     
     const [selected, setSelected] = useState(devises[0])
+
+
+    useEffect(() => {
+        setDevice(selected.name)
+    }, [selected.name])
+
+
+
+
     return (
         <div className="w-full rounded-lg mr-6">
             <Listbox value={selected} onChange={setSelected}>

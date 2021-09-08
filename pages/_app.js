@@ -14,6 +14,7 @@ import { ApolloProvider } from '@apollo/client';
 import client from '../utils/graphql';
 import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
 import FirebaseClient from '../utils/firebase';
+import { DeviseContext } from '../context/DeviseContext';
 
 
 
@@ -34,6 +35,11 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [user, setUser] = useState(null);
   const [firebaseUID, setFirebaseUID] = useState(null)
+
+  const [Devise, setDevice] = useState(null)
+  const deviseValue = useMemo(() => ({Devise, setDevice}), [Devise, setDevice])
+
+ 
 
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
   const firebaseUIDValue = useMemo(() => ({firebaseUID, setFirebaseUID}), [firebaseUID, setFirebaseUID])
@@ -78,12 +84,14 @@ function MyApp({ Component, pageProps }) {
     <ApolloProvider client={client}>
       <FirebaseUIDContext.Provider value={firebaseUIDValue}>
         <UserContext.Provider value={providerValue}>
-          
-          <NotificationProvider>
-            <SideBarMenuContext.Provider value={sideMenuValue}>
-            <Component {...pageProps} />
-          </SideBarMenuContext.Provider>
-          </NotificationProvider>
+            <DeviseContext.Provider value={deviseValue}>
+            <NotificationProvider>
+              <SideBarMenuContext.Provider value={sideMenuValue}>
+              <Component {...pageProps} />
+            </SideBarMenuContext.Provider>
+            </NotificationProvider>
+
+            </DeviseContext.Provider>
       </UserContext.Provider>
       </FirebaseUIDContext.Provider>
     </ApolloProvider>

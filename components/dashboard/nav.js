@@ -1,7 +1,7 @@
 import UserPicture from "./userpicture"
 import NotificationBell from "../buttons/notificationBell"
-import StableCoinSelectButton from "./stableCoinSelectButton"
 import DevisePicker from "../pickers/DevisePicker"
+import CreateAddPicker from "../pickers/CreateAddPicker"
 
 
 
@@ -22,20 +22,12 @@ const DashBoardNav = (props) =>{
                         </button>
                     </div>
                 </nav>
-                <div className="flex flex-row items-center space-x-2 lg:space-x-3">
-                    {/* <button
-                        type="button"
-                        onClick={() => router.push('/publish')} className="transition ease-out duration-700 w-full mr-5 flex  justify-center space-x-4 px-5 py-2 overflow-hidden focus:outline-none focus:shadow-outline bg-teal-400 hover:bg-red-800 bg-red-500 text-white text-xs items-center font-medium"
-                    >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                    </svg>
+                <div className="flex flex-row items-center space-x-3 lg:space-x-3">
                     
-                    <span className="font-montserrat text-sm">Arret d'urgence</span>
-
-                    </button> */}
 
                     <DevisePicker></DevisePicker>
+                    <CreateAddPicker></CreateAddPicker>
+
                     <NotificationBell></NotificationBell>
                     <UserPicture useUser={props.useUser}></UserPicture>
                     

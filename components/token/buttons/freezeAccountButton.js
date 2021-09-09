@@ -1,24 +1,23 @@
-import { TrashIcon } from "@heroicons/react/solid"
+import { UserRemoveIcon } from "@heroicons/react/solid"
 import { Fragment, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { useMutation } from "@apollo/client"
-import { BURN_TOKENS } from "../../../mutation/burnTokens"
 import { useNotification } from "../../../notifications/NotificationContext"
+import { FREEZE_ACCOUNT } from "../../../mutation/freezeAccount"
 
 
 
 
 
-const BurnTokenButton = () => {
+const FreezeTokenButton = () => {
     const [showPanel, setShowPanel] = useState(false)
-    const [amount, setAmount] = useState("")
     const [address, setAddress] = useState("")
 
-    const [BurnTokens, { loading }] = useMutation(BURN_TOKENS)
+    const [FreezeAccount, { loading }] = useMutation(FREEZE_ACCOUNT)
     const dispatch = useNotification()
 
 
-    const handleBurnTokens = (event) => {
+    const handleFreezeAccount = (event) => {
         event.preventDefault()
     }
 
@@ -34,8 +33,8 @@ const BurnTokenButton = () => {
     return (
         <div onClick={(() => setShowPanel(true))} className="relative inline-block">
             <button className="transition ease-out duration-700 w-full mr-5  rounded-lg bg-gray-200  flex items-center space-x-4 px-5 py-1 focus:outline-none focus:shadow-outline text-xs font-medium">
-                <TrashIcon className="h-4 w-4 text-gray-700"></TrashIcon>
-                <span className="font-montserrat text-sm font-light">Burn</span>
+                <UserRemoveIcon className="h-4 w-4 text-gray-700"></UserRemoveIcon>
+                <span className="font-montserrat text-sm  font-light">Freeze account</span>
             </button>
 
             <Transition show={showPanel} as={Fragment}>
@@ -82,27 +81,21 @@ const BurnTokenButton = () => {
                                     as="h3"
                                     className="text-lg font-medium leading-6 text-gray-900"
                                 >
-                                    Burn tokens
+                                    Freeze Account
                                 </Dialog.Title>
 
                                 <Dialog.Description className="text-sm">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
                                 </Dialog.Description>
 
-                                <input required value={amount} onChange={((e) => setAmount(e.target.value))}
-                                    type="number"
-                                    name="amount"
-                                    id="amount"
-                                    placeholder="Amount to burn"
-                                    className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
-                                />
+                                
 
 
                                 <input required value={address} onChange={((e) => setAddress(e.target.value))}
                                     type="text"
                                     name="address"
-                                    id="amount"
-                                    placeholder="Adress where to burn"
+                                    id="adress"
+                                    placeholder="Account address to freeze"
                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
                                 />
 
@@ -111,10 +104,10 @@ const BurnTokenButton = () => {
                                 </Dialog.Description>
 
 
-                                <button disabled={!address.length || amount == null || amount <= 0 || !address.length}
+                                <button disabled={!address.length}
                                     type="button"
                                     className="inline-flex w-full justify-center px-4 py-2 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                    onClick={handleBurnTokens}
+                                    onClick={handleFreezeAccount}
                                 >
 
                                     <Transition show={loading}>
@@ -123,7 +116,7 @@ const BurnTokenButton = () => {
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
                                     </Transition>
-                                    <span>Burn tokens</span>
+                                    <span>Freeze Account</span>
                                 </button>
                             </div>
 
@@ -138,4 +131,4 @@ const BurnTokenButton = () => {
 }
 
 
-export default BurnTokenButton
+export default FreezeTokenButton

@@ -26,6 +26,7 @@ function DevisePicker(){
     const [selected, setSelected] = useState(devises[0])
 
 
+
     useEffect(() => {
         setDevice(selected.name)
     }, [selected.name])
@@ -67,7 +68,7 @@ function DevisePicker(){
                                     key={deviseIdx}
                                     className={({ active }) =>
                                         `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
-                          cursor-default select-none relative  py-2 items-center pl-10 pr-6 px-4`
+                          cursor-default select-none relative  py-2 items-center pl-10 pr-6 px-4 hover:bg-blue-50`
                                     }
                                     value={devise}
                                 >

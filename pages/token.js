@@ -5,6 +5,7 @@ import { SwitchHorizontalIcon, UserGroupIcon, ViewGridAddIcon } from "@heroicons
 import { useContext } from "react"
 import Dashboard from "../components/dashboard/dashboard"
 import BurnTokenButton from "../components/token/buttons/burnTokenButton"
+import FreezeTokenButton from "../components/token/buttons/freezeAccountButton"
 import MintTokenButton from "../components/token/buttons/mintTokenButton"
 import { DeviseContext } from "../context/DeviseContext"
 import { FirebaseUIDContext } from "../context/FirebaseUIDContext"
@@ -111,6 +112,7 @@ export default function Token(){
                     <h1 className="text-3xl font-bold text-gray-900">Token</h1>
                 </div>
                 <div className="flex flex-row space-x-4">
+                    <FreezeTokenButton></FreezeTokenButton>
                     <BurnTokenButton></BurnTokenButton>
                     <MintTokenButton></MintTokenButton>
                 </div>

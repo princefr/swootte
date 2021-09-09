@@ -21,6 +21,7 @@ import { DeviseContext } from '../context/DeviseContext';
 
 
 
+
 const TopProgressBar = dynamic(
   () => {
     return import("../components/TopProgressBar");
@@ -35,22 +36,27 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [user, setUser] = useState(null);
   const [firebaseUID, setFirebaseUID] = useState(null)
+  
 
   const [Devise, setDevice] = useState(null)
   const deviseValue = useMemo(() => ({Devise, setDevice}), [Devise, setDevice])
+  // Set an initializing state whilst Firebase connects
+  // const [initializing, setInitializing] = useState(true);
 
  
 
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
   const firebaseUIDValue = useMemo(() => ({firebaseUID, setFirebaseUID}), [firebaseUID, setFirebaseUID])
 
-
-  firebase.auth().onAuthStateChanged(async (_user) => {
-    if(_user){
-      setFirebaseUID(_user.uid)
-    }
-    
-  })
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(async (_user) => {
+      //if (initializing) setInitializing(false);
+      if(_user){
+        //setTokenId(_user.getIdToken())
+        setFirebaseUID(_user.uid)
+      }
+    })
+  }, [])
 
 
   useEffect(() => { 
@@ -78,6 +84,10 @@ function MyApp({ Component, pageProps }) {
   const [sidemenu, setActiveMenu] = useState([{pageName: "home", isActive: true}, {pageName: "balance", isActive: false}, {pageName: "transferts", isActive: false}, {pageName: "users", isActive: false}])
   const sideMenuValue = useMemo(() => ({sidemenu, setActiveMenu}), [sidemenu, setActiveMenu])
 
+
+
+
+  
   return (
     <>
     <TopProgressBar/>

@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, split, HttpLink} from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
+import { setContext } from "apollo-link-context";
 
 
 // https://github.com/apollographql/subscriptions-transport-ws/issues/333#issuecomment-359261024
@@ -17,8 +18,11 @@ const httpLink = new HttpLink({
     }
   }) : null;
 
-  
-  // The split function takes three parameters:
+
+
+
+
+      // The split function takes three parameters:
   //
   // * A function that's called for each operation to execute
   // * The Link to use for an operation if the function returns a "truthy" value
@@ -42,6 +46,11 @@ const httpLink = new HttpLink({
 
 
  
+ export default client
+
+  
 
 
-export default client;
+ 
+
+

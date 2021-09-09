@@ -32,7 +32,7 @@ const MintTokenButton = () => {
         <div className="relative inline-block">
             <button onClick={(() => setShowPanel(true))} className="transition ease-out duration-700 w-full mr-5  rounded-lg bg-gray-200  flex items-center space-x-4 px-5 py-1 focus:outline-none focus:shadow-outline text-xs font-medium">
                 <PlusSmIcon className="h-4 w-4 text-gray-700"></PlusSmIcon>
-                <span className="font-montserrat text-sm">Mint</span>
+                <span className="font-montserrat text-sm font-light">Mint</span>
             </button>
 
             <Transition show={showPanel} as={Fragment}>

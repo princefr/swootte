@@ -1,6 +1,5 @@
 import styles from "../../styles/Home.module.css"
 import { useContext, useState } from "react";
-import Link from 'next/link'
 import ConnectButton from '../buttons/connectButton'
 import LandingProductsButton from "../landing/buttons/LandingProductsButton";
 import { FirebaseUIDContext } from "../../context/FirebaseUIDContext";
@@ -14,7 +13,7 @@ export const DashboardButton = () => {
     }
     return (
         <button onClick={gotoDashboard} className="flex bg-black p-2.5 rounded-full text-white justify-center items-center space-x-3 font-medium tracking-wide  transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">
-                <button>Dashboard</button>
+                <span>Dashboard</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -45,7 +44,7 @@ export const Nav = () => {
                                     
                                 </img>
                             </a>
-                            <ul className="flex items-center hidden space-x-8 lg:flex">
+                            <ul className="flex items-center space-x-8 lg:flex">
                                 <li>
                                     <LandingProductsButton></LandingProductsButton>
                                 </li>
@@ -99,7 +98,7 @@ export const Nav = () => {
                                 </li>
                             </ul>
                         </div>
-                        <ul className="flex items-center hidden space-x-8 lg:flex">
+                        <ul className="flex items-center space-x-8 lg:flex">
                             <li>
                                 {
                                     firebaseUID ? <DashboardButton></DashboardButton> : <ConnectButton></ConnectButton>

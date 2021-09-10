@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState} from 'react'
+import { Fragment, useState } from 'react'
 
 import firebase from 'firebase/app'
 import { useNotification } from '../../notifications/NotificationContext'
@@ -7,8 +7,7 @@ import FirebaseClient from '../../utils/firebase'
 
 
 
-const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
-    
+const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
     FirebaseClient()
     const [password, setPassword] = useState("")
     const dispatch = useNotification()
@@ -16,12 +15,12 @@ const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
     const handleReAuth = (event) => {
         event.preventDefault()
         const user = firebase.auth().currentUser;
-        
+
         var credentials = firebase.auth.EmailAuthProvider.credential(
             user.email,
             password
-          );
-          
+        );
+
         user.reauthenticateWithCredential(credentials).then((res) => {
             runProcess()
         }).catch((err) => {
@@ -42,7 +41,7 @@ const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="fixed inset-0 z-10 overflow-y-auto"
+                    className="fixed inset-0 z-50 overflow-y-auto"
                     onClose={(() => setOpenModal(false))}
                 >
                     <div className="min-h-screen px-4 text-center">
@@ -55,7 +54,7 @@ const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Dialog.Overlay className="fixed inset-0" />
+                            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
                         </Transition.Child>
 
                         {/* This element is to trick the browser into centering the modal contents. */}
@@ -65,6 +64,7 @@ const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
                         >
                             &#8203;
                         </span>
+
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -82,23 +82,23 @@ const AskPasswordToCompleteAction = (isOpen, runProcess, setOpenModal) => {
                                     S'authentifier pour continuer
                                 </Dialog.Title>
 
-                                
-                                <div className="mt-2">
+
+                                <div className="mt-2 mb-6">
                                     <p className="text-sm text-gray-500">
                                         Your payment has been successfully submitted. We’ve sent
                                         your an email with all of the details of your order.
                                     </p>
                                 </div>
 
-                                
+
                                 <input value={password} onChange={((e) => setPassword(e.target.value))}
-                                                        type="password"
-                                                        name="password"
-                                                        id="password"
-                                                        autoComplete="password"
-                                                        className="flex w-full  sm:text-sm bg-gray-200 px-10 mt-4 focus:outline-none"
-                                                        placeholder="www.example.com"
-                                                    />
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    autoComplete="password"
+                                    className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3  rounded-lg focus:outline-none"
+                                    placeholder="passord"
+                                />
 
 
                                 <div className="mt-4">

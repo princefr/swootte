@@ -1,5 +1,4 @@
-import { useContext, useState } from "react"
-import { FirebaseUIDContext } from "../../context/FirebaseUIDContext"
+import {useState } from "react"
 import DisconnectConfirm from "../ConfirmationPanels/disconnectConfirm"
 
 

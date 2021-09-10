@@ -4,14 +4,14 @@ import TransferExportButton from "../components/transferts/buttons/TransferExpor
 
 
 
-export default function TransfersView(){
+export default function PaiementsView(){
 
     return (
-        <Dashboard pageName={"Transferts"}>{
+        <Dashboard pageName={"Paiements"}>{
             <div>
             <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                 <div className="px-12">
-                    <h1 className="text-3xl font-bold text-gray-900">Transferts</h1>
+                    <h1 className="text-3xl font-bold text-gray-900">Paiements</h1>
                 </div>
                 <div className="flex flex-row space-x-3">
                         <FilterTransfersButton></FilterTransfersButton>

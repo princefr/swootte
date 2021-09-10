@@ -1,7 +1,6 @@
 import UserPicture from "./userpicture"
 import NotificationBell from "../buttons/notificationBell"
 import DevisePicker from "../pickers/DevisePicker"
-import CreateAddPicker from "../pickers/CreateAddPicker"
 
 
 
@@ -26,7 +25,7 @@ const DashBoardNav = (props) =>{
                     
 
                     <DevisePicker></DevisePicker>
-                    <CreateAddPicker></CreateAddPicker>
+                
 
                     <NotificationBell></NotificationBell>
                     <UserPicture useUser={props.useUser}></UserPicture>

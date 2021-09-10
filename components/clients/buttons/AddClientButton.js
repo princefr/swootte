@@ -2,7 +2,7 @@ import { useState } from "react"
 
 
 
-function AddClientButton({}){
+function AddClientButton(){
     const [showPanel, setShowPanel] =  useState(false)
 
     const dismissPanel = (event) => {

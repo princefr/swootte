@@ -2,7 +2,7 @@ import { useState } from "react"
 
 
 
-function ClientExportButton({}){
+function ClientExportButton(){
     const [showPanel, setShowPanel] =  useState(false)
 
     const dismissPanel = (event) => {

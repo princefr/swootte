@@ -12,7 +12,6 @@ export default function  Home(){
         <div>
 
             <Dashboard pageName={"home - dashboard"}>{
-                
                 <MainView  displayName={"blabla"}></MainView>
             }</Dashboard>
         </div>

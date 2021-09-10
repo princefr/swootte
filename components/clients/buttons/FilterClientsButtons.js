@@ -2,7 +2,7 @@ import { useState } from "react"
 
 
 
-function FilterClientsButton({}){
+function FilterClientsButton(){
     const [showPanel, setShowPanel] =  useState(false)
 
     const dismissPanel = (event) => {

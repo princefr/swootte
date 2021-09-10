@@ -146,7 +146,7 @@ const RevenueOn30DAYS = (props) => {
 
 
 const MainView = (props) => {
-    const {Devise, setDevice} = useContext(DeviseContext)
+    const {Devise, } = useContext(DeviseContext)
 
 
     useEffect(() => {

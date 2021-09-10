@@ -1,7 +1,4 @@
 
-import { useRouter } from "next/router"
-import { useContext } from "react"
-import { SideBarMenuContext } from "../../context/SideBarMenuContext"
 import NavButton from "../navButtons"
 
 
@@ -20,16 +17,7 @@ const SideBar = props => {
 	// menu  d'urgence mettre en pause les  retraits poiur une personne ou pour un groupe de personne ou la totalité.
 	// Audit.
 
-	const { sidemenu, setActiveMenu } = useContext(SideBarMenuContext)
-
-	const router = useRouter()
-
-	const handleClick = (page) => {
-		setActiveMenu(prevState => prevState.map((pref) => pref.pageName == page.pageName ? { pageName: pref.pageName, isActive: !pref.isActive } : { pageName: pref.pageName, isActive: false }))
-		router.push(page.pageName)
-
-
-	}
+	
 
 	return (
 		<div className="flex flex-col items-center w-16 h-full m-0 overflow-hidden text-gray-700 fixed  bg-white border-r">

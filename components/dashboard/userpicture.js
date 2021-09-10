@@ -1,14 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { Fragment, useState } from "react";
 import onClickOutside from "react-onclickoutside";
 
 import LanguageButton from "../buttons/languageButton";
 import CookiesButton from "../buttons/cookieButton";
 import { useRouter } from 'next/router'
-import { UserContext } from "../../context/UserContext";
 
 import Toogle from "../toogle/toggle";
 import DisconnectButton from "../buttons/DisconnectButton"
 import { Transition } from "@headlessui/react";
+import AddTokenButton from "../token/buttons/addTokenButton";
+import CreateTokenButton from "../token/buttons/createTokenButton";
 
 
 export function PhotoView({photoUrl, height, width }) {
@@ -61,12 +62,13 @@ const UserPicture = props => {
 
     return (
 
-        <div className="relative inline-block text-left font-montserrat">
+        <div id="yes" className="relative inline-block text-left font-montserrat">
             <button onClick={toggleDropdown} className="group rounded-full overflow-hidden bg-transparent hover:bg-blue-600 hover:bg-opacity-25 h-10 w-10 p-1 transition-all ease-out duration-200 focus:outline-none focus:shadow-outline focus:bg-teal-300 focus:bg-opacity-25">
                 <PhotoView height={8} width={8} photoUrl={data.usersExist.photoUrl}></PhotoView>
             </button>
 
-            <Transition show={showDropDown} enter= "transition ease-out duration-100"
+            <Transition show={showDropDown} as={Fragment}
+             enter="transition ease-out duration-100"
              enterFrom="transform opacity-0 scale-95"
              enterTo= "transform opacity-100 scale-100"
              leave="transition ease-in duration-75"
@@ -95,6 +97,14 @@ const UserPicture = props => {
                             </div>
                         </div>
                         <div className="py-1" role="none">
+                        <div  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                            <CreateTokenButton></CreateTokenButton>
+                            </div>
+                            <div  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                            <AddTokenButton dismiss={toggleDropdown}></AddTokenButton>
+                            </div>
+                            
+                            
                             <button className="flex flex-row items-center px-4 py-2 text-sm justify-between  text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                                 <div className="flex flex-row items-center space-x-2 ml-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,10 +1,35 @@
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import QRCode from "qrcode.react";
 import { Transition } from "@headlessui/react";
 import { useNotification } from "../../notifications/NotificationContext";
+import { useQuery } from "@apollo/client";
+import { GET_QR_CODE } from "../../queries/getQRCode";
+import { FirebaseUIDContext } from "../../context/FirebaseUIDContext";
+import { DeviseContext } from "../../context/DeviseContext";
 
 
+
+
+export function ReceiveQRCode() {
+    const { firebaseUID, } = useContext(FirebaseUIDContext)
+    const {Devise, } = useContext(DeviseContext)
+    const {loading, error, data, refetch} = useQuery(GET_QR_CODE, {
+        variables : {
+            firebase_uid : firebaseUID,
+            token: Devise
+        }
+    })
+
+    if (loading) return <p>Loading ...</p>;
+    if (error) return `Error! ${error}`;
+    
+    return (
+        <div className="flex items-center justify-center  h-3/5">
+            <QRCode value="http://facebook.github.io/react/" height="60%" width="60%" />
+        </div>
+    )
+}
 
 
 export function ReceiveMoneyButton() {
@@ -41,7 +66,7 @@ export function ReceiveMoneyButton() {
 
     return (
         <div className="relative inline-block text-left">
-            <button onClick={toggleModal} className="transition ease-out duration-700 w-full  rounded-lg bg-gray-200  flex items-center space-x-4 px-5 py-2 focus:outline-none focus:shadow-outline text-xs font-medium">
+            <button onClick={toggleModal} className="transition ease-out duration-700 w-full  rounded-lg bg-gray-200  flex items-center space-x-2 px-2 py-2 focus:outline-none focus:shadow-outline text-xs font-medium">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
@@ -76,9 +101,9 @@ export function ReceiveMoneyButton() {
                                 <div className="flex items-start justify-start text-left text-sm">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 </div>
-                                <div className="flex items-center justify-center  h-3/5">
-                                    <QRCode value="http://facebook.github.io/react/" height="60%" width="60%" />
-                                </div>
+
+                                <ReceiveQRCode></ReceiveQRCode>
+                                
 
                                 <div className="flex items-start justify-start text-left text-sm">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

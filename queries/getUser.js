@@ -1,5 +1,6 @@
+
 import gql from "graphql-tag";
-import client from "../utils/graphql";
+import { useClient } from "../components/auth/auth";
 
 
 export const loadUser = async (firebase_uid) => {
@@ -33,9 +34,23 @@ export const loadUser = async (firebase_uid) => {
 }
 
 
+export const getDefaultToken = async (token) => {
+    const client = useClient(token)
+    return client.query({
+        query: gql`
+        query GetIfUSerExist {
+            usersExist{
+                defaultWallet
+            }
+        }
+        `
+    })
+}
+
+
 export const GET_USER = gql`
-query GetIfUSerExist($firebase_uid: String!) {
-    usersExist(firebase_uid: $firebase_uid){
+query GetIfUSerExist {
+    usersExist{
         _id
         email
         first_name

@@ -1,12 +1,14 @@
 
 import Dashboard from "../../components/dashboard/dashboard"
 import { useMutation } from "@apollo/client"
-import { Dialog, Transition } from "@headlessui/react"
-import { useState } from "react"
+import { Transition } from "@headlessui/react"
+import { useContext, useState } from "react"
 import { CREATE_NEW_TOKEN } from "../../mutation/CreateNewToken"
+import { FirebaseUIDContext } from "../../context/FirebaseUIDContext"
+import { useNotification } from "../../notifications/NotificationContext"
 
 const CreateToken = () => {
-
+    const { firebaseUID, } = useContext(FirebaseUIDContext)
     const [name, setName] = useState("")
     const [tick, setTick] = useState("")
     const [decimals, setDecimals] = useState("")
@@ -14,9 +16,44 @@ const CreateToken = () => {
     const [freezeAuthority, setFreezeAuthority] = useState("")
 
     const [CreateNewToken, { loading }] = useMutation(CREATE_NEW_TOKEN)
+    const dispatch = useNotification()
 
     const handleCreateToken = (event) => {
         event.preventDefault()
+        CreateNewToken({
+            variables: {
+                token: {
+                    name: name,
+                    symbol: tick,
+                    decimals: parseInt(decimals),
+                    mintAuthority: mintAuthority,
+                    freezeAuthority: mintAuthority,
+                    imgUrl: "https://img1.freepng.fr/20180904/thw/kisspng-dogecoin-portable-network-graphics-cryptocurrency-5b8ec4ed5d5872.4481355215360831813823.jpg",
+                    creator: firebaseUID
+                }
+            }
+        }).then(() => {
+            setName("")
+            setTick("")
+            setDecimals("")
+            setMintAuthority("")
+            setFreezeAuthority("")
+            dispatch({
+                payload: {
+                    type: "SUCCESS",
+                    title: "Create Token",
+                    message: "Bravo, vous etes inscrit"
+                }
+            })
+        }).catch((err) => {
+            dispatch({
+                payload: {
+                    type: "ERROR",
+                    title: "Create Token",
+                    message: err.message
+                }
+            })
+        })
     }
 
     return (

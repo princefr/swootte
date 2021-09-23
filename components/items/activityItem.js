@@ -12,7 +12,7 @@ function ActivityItem({activity}) {
     const {loading, error, data, refetch} = useQuery(GET_ACTIVITIES, {
         variables: {
             firebase_uid : firebaseUID,
-            token: Devise
+            token: Devise.publicKey
         }
     })
 

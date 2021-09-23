@@ -1,18 +1,32 @@
+
 import { ApolloClient, InMemoryCache, split, HttpLink} from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import { setContext } from "apollo-link-context";
+import firebase from 'firebase/app';
+import 'firebase/auth'
+import initAuth from '../../utils/initAuth';
 
 
-// https://github.com/apollographql/subscriptions-transport-ws/issues/333#issuecomment-359261024
+
+
+initAuth()
+export function useClient(token) {
 const httpLink = new HttpLink({
-    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+    headers: {authorization: `Bearer ${token}`}
   });
   
   const wsLink = process.browser ? new WebSocketLink({
     uri: process.env.NEXT_PUBLIC_GRAPHQL_WSS_URL,
     options: {
-      reconnect: true
+      reconnect: true,
+      connectionParams: async () => {
+        return {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      }
     }
   }) : null;
 
@@ -37,18 +51,13 @@ const httpLink = new HttpLink({
     httpLink,
   ): httpLink;
 
-  const client = new ApolloClient({
+  return new ApolloClient({
     link: splitLink,
     cache: new InMemoryCache()
   });
 
-
  
- export default client
 
-  
-
-
- 
+}
 
 

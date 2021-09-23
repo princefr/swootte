@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import onClickOutside from "react-onclickoutside";
 
 import LanguageButton from "../buttons/languageButton";
@@ -10,6 +10,8 @@ import DisconnectButton from "../buttons/DisconnectButton"
 import { Transition } from "@headlessui/react";
 import AddTokenButton from "../token/buttons/addTokenButton";
 import CreateTokenButton from "../token/buttons/createTokenButton";
+import { ModeContext } from "../../context/ModeContext";
+import Skeleton from 'react-loading-skeleton';
 
 
 export function PhotoView({photoUrl, height, width }) {
@@ -40,6 +42,7 @@ const UserPicture = props => {
     const [showDropDown, setshowDropDown] = useState(false);
     const toggleDropdown = () => setshowDropDown(!showDropDown);
     UserPicture.handleClickOutside = () => setshowDropDown(false)
+    const {LiveMode, setLiveMode} = useContext(ModeContext)
 
     
 
@@ -53,12 +56,9 @@ const UserPicture = props => {
 
    
 
-
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
-
-
-
+    
+    if (loading) return <Skeleton circle={true} height={30} width={30} duration={2}/>;
+    if (error) return null;
 
     return (
 
@@ -113,7 +113,7 @@ const UserPicture = props => {
                                     <div>Test mode</div>
 
                                 </div>
-                                <Toogle id="tooglesetOnline" uid={"dsdsds"} />
+                                <Toogle enabled={LiveMode} setEnabled={setLiveMode} />
                             </button>
                             <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                                 <LanguageButton />

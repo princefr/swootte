@@ -2,6 +2,7 @@
 
 import { useQuery } from "@apollo/client"
 import { SwitchHorizontalIcon, UserGroupIcon, ViewGridAddIcon } from "@heroicons/react/solid"
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
 import { useContext } from "react"
 import Dashboard from "../components/dashboard/dashboard"
 import BurnTokenButton from "../components/token/buttons/burnTokenButton"
@@ -103,9 +104,9 @@ const TokensTotalAccountView = () => {
 }
 
 
-export default function Token(){
+export  function Token({token}){
     return (
-        <Dashboard pageName={"Token"}>{
+        <Dashboard pageName={"Home - Token"} token={token}>{
             <div>
             <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                 <div className="px-8">
@@ -209,3 +210,18 @@ export default function Token(){
             }</Dashboard>
     )
 }
+
+
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    return {
+      props: {
+        token: token
+      }
+    }
+  }) 
+
+
+export default withAuthUser()(Token)

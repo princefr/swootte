@@ -1,13 +1,14 @@
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
 import Dashboard from "../components/dashboard/dashboard";
 import FilterTransfersButton from "../components/transferts/buttons/FilterTransfersButtons";
 import TransferExportButton from "../components/transferts/buttons/TransferExportButton";
 
 
 
-export default function PaiementsView(){
+export function PaiementsView({token}){
 
     return (
-        <Dashboard pageName={"Paiements"}>{
+        <Dashboard pageName={"Paiements"} token={token}>{
             <div>
             <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                 <div className="px-12">
@@ -162,3 +163,17 @@ export default function PaiementsView(){
         
     )
 }
+
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    return {
+      props: {
+        token: token
+      }
+    }
+  }) 
+
+
+export default withAuthUser()(PaiementsView)

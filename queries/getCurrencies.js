@@ -3,12 +3,13 @@ import gql from "graphql-tag";
 
 
 export const GET_CURRENCIES = gql`
-query GetCurrencies($firebase_uid: String!) {
-    getAllCurrencies(firebase_uid: $firebase_uid){
+query GetCurrencies {
+    getAllCurrencies {
             _id
             publicKey
             name
-            tick
+            symbol
+            isDefault
             decimals
             mintAuthority
             freezeAuthority

@@ -4,11 +4,14 @@ import { useMutation } from "@apollo/client"
 import Dashboard from "../../components/dashboard/dashboard"
 import { useNotification } from "../../notifications/NotificationContext"
 import { BURN_TOKENS } from "../../mutation/burnTokens"
+import AskPasswordToCompleteAction from "../../components/dialogs/AskPasswordToCompleteAction"
 
 const Burn = () => {
     const [amount, setAmount] = useState("")
     const [address, setAddress] = useState("")
     const dispatch = useNotification()
+
+    const [openConfirmation, setOpenConfirmation] = useState(false)
 
     const [BurnTokens, { loading }] = useMutation(BURN_TOKENS)
 
@@ -61,7 +64,7 @@ const Burn = () => {
                                 <button disabled={!address.length || amount == null || amount <= 0 || !address.length}
                                     type="button"
                                     className="inline-flex w-full justify-center px-4 py-2 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                    onClick={handleBurnTokens}
+                                    onClick={(() => {setOpenConfirmation(true)})}
                                 >
 
                                     <Transition show={loading}>
@@ -78,6 +81,8 @@ const Burn = () => {
 
 
                     </nav>
+
+                    <AskPasswordToCompleteAction isOpen={openConfirmation} runProcess={handleBurnTokens} setOpenModal={setOpenConfirmation}></AskPasswordToCompleteAction>
                 </div>
 
             }

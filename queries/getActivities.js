@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 
 
 export const GET_ACTIVITIES = gql`
-query LoadBalance($firebase_uid: String!, $token: String!) {
-    loadBalance(firebase_uid: $firebase_uid, token: $token)
+query LoadBalance($token: String!) {
+    loadBalance(token: $token)
         }
 
 `

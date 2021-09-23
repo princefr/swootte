@@ -7,34 +7,8 @@ import { useState } from "react"
 
 
 
-function Toogle({ id, uid }) {
-    //const { user, setUser } = useContext(UserContext)
-    //const [ToogleOnline] = useMutation(TOOGLE_ONLINE)
-    const dispatch = useNotification()
-    const [enabled, setEnabled] = useState(false)
-
-
-
-
-    const handleOnChange = () => {
-        // ToogleOnline({
-        //     variables: {
-        //         firebaseUid: uid,
-        //         isOnline: !user.is_online
-        //     }
-        // }).then((result) => {
-        //     setUser(result.data.toogleOnline)
-        // }).catch((err) => {
-        //     dispatch({
-        //         payload: {
-        //             type: "ERROR",
-        //             title: "Profil utilisateur",
-        //             message: err.message
-        //         }
-        //     })
-
-        // })
-    }
+function Toogle({enabled, setEnabled }) {
+    
 
     return (
 

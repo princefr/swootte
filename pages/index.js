@@ -36,35 +36,35 @@ export default function Home() {
               <div className="flex items-center justify-center">
                 <img
                   src="/images/ethereum-logo.png"
-                  alt="Google Logo"
+                  alt="Ethereum logo"
                   className="block object-contain h-16 greyC"
                 ></img>
               </div>
               <div className="flex items-center justify-center">
                 <img
                   src="/images/usdc_logo.png"
-                  alt="Shopify Logo"
+                  alt="USDC logo"
                   className="block object-contain h-16 greyC"
                 ></img>
               </div>
               <div className="flex items-center justify-center">
                 <img
                   src="/images/tron-logo.png"
-                  alt="Shopify Logo"
+                  alt="Tron logo"
                   className="block object-contain h-16 greyC"
                 ></img>
               </div>
               <div className="flex items-center justify-center">
                 <img
                   src="/images/Binance.png"
-                  alt="Cloudflare Logo"
+                  alt="Binance logo"
                   className="block object-contain h-16 greyC"
                 ></img>
               </div>
               <div className="flex items-center justify-center">
                 <img
                   src="/images/Solana_Logo_2021_Color.png"
-                  alt="Cloudflare Logo"
+                  alt="Solana logo"
                   className="block object-contain h-16 greyC"
                 ></img>
               </div>

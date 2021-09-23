@@ -1,12 +1,13 @@
 
 
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
 import Dashboard from "../components/dashboard/dashboard"
 
 
-export default function Settings(){
+export function Settings({token}){
 
     return (
-        <Dashboard pageName={"Settings"}>{
+        <Dashboard pageName={"Settings"} token={token}>{
             <div>
             <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                 <div className="px-12">
@@ -18,3 +19,18 @@ export default function Settings(){
             }</Dashboard>
     )
 }
+
+
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    return {
+      props: {
+        token: token
+      }
+    }
+  }) 
+
+
+export default withAuthUser()(Settings)

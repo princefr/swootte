@@ -1,87 +1,66 @@
 
-import SendMoneyButton from '../components/buttons/SendMoneyButton'
-import ReceiveMoneyButton from '../components/buttons/ReceiveMoneyButton'
-import Dashboard from '../components/dashboard/dashboard'
-import { useContext, useEffect } from 'react'
-import { FirebaseUIDContext } from '../context/FirebaseUIDContext'
-import { DeviseContext } from '../context/DeviseContext'
-import { useQuery } from '@apollo/client'
-import { GET_BALANCE } from '../queries/getBalance'
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
-import Skeleton from 'react-loading-skeleton';
-import { getDefaultToken } from '../queries/getUser'
+import { useLazyQuery } from "@apollo/client";
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { useState } from "react";
+import ClientExportButton from "../components/clients/buttons/ClientExportButton";
+import FilterClientsButton from "../components/clients/buttons/FilterClientsButtons";
+import Dashboard from "../components/dashboard/dashboard";
+import { SEARCH_USER } from "../queries/searchUser";
 
 
 
-export function Balance({ token }) {
-    const { firebaseUID, } = useContext(FirebaseUIDContext)
-    const { Devise, } = useContext(DeviseContext)
-    const { loading, error, data, refetch } = useQuery(GET_BALANCE, {
-        variables: {
-            token: token
+function SearchContact() {
+    const [text, setText] = useState("")
+    const [searchUser, { loading, error, data }] = useLazyQuery(SEARCH_USER)
+
+
+    const onChangeText = (_text) => {
+        setText(_text)
+        if (_text.length > 0) {
+            searchUser({
+                variables: {
+                    searchText: _text
+                }
+            })
         }
-    })
+    }
 
-    useEffect(() => {
-        if (Devise != null) {
-            console.log(Devise)
-            console.log("hgghg")
-        }
-    }, [Devise])
-
-    if (loading) return <Skeleton count={1} height={25} width={60}></Skeleton>;
-    if (error) return null;
 
     return (
-        <div className="text-4xl font-montserrat font-medium">
-            {data.loadBalance.amount}
+        <div className="relative text-gray-600 mx-7">
+            <input type="search" value={text} onChange={((e) => onChangeText(e.target.value))} name="serch" placeholder="Rechercher un contact .." className="bg-gray-200 h-10 px-5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-offset-black focus:ring-black w-96  font-montserrat rounded-full" />
+            <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
         </div>
+
     )
+
 }
 
-
-
-
-
-export function WalletsView({ token }) {
+export function ContactView({token}) {
     return (
-        <Dashboard pageName={"home - portefeuille"} token={token}>{
-            <div>
 
+        <Dashboard pageName={"Contacts"} token= {token}>{
+            <div>
                 <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                     <div className="px-12">
-                        <h1 className="text-3xl font-bold text-gray-900">Portefeuille</h1>
+                        <h1 className="text-3xl font-bold text-gray-900">Contacts</h1>
                     </div>
-                    <div className="flex flex-row space-x-4">
-                        <ReceiveMoneyButton></ReceiveMoneyButton>
-                        <SendMoneyButton></SendMoneyButton>
+
+                    {/* <SearchContact /> */}
+
+                    <div className="flex flex-row space-x-3">
+                        <FilterClientsButton></FilterClientsButton>
+                        <ClientExportButton></ClientExportButton>
                     </div>
+
                 </header>
-                <main>
-                    <div className="flex flex-col p-10 px-12  mx-auto">
-                        <div className="flex flew-row h-36 w-full">
-                            <div className="flex flex-col w-1/5 h-full space-x-3 items-center justify-center border-r border-gray-300">
-                                <div className="text-lg font-montserrat font-medium">
-                                    Votre solde
-                                </div>
-                                <Balance token={token}></Balance>
-                            </div>
-                            <div className="flex flex-col w-3/5 px-16 justify-center h-full text-justify">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                </p>
-                            </div>
-                        </div>
 
-
-
-                        <div className="flex flex-row h-10 mt-5 border-b border-gray-200">
-                            <h2 className="text-lg font-montserrat font-medium">Transactions</h2>
-                        </div>
-
-
-
-                        <div className="flex flex-col">
+                <nav className="py-4 px-6">
+                    <div className="flex flex-col px-10">
+                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                        <div className="flex flex-col py-8">
                             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -147,7 +126,6 @@ export function WalletsView({ token }) {
                             </div>
                         </div>
 
-
                         <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-lg">
                             <div className="flex-1 flex justify-between sm:hidden">
                                 <a href="#" className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -211,15 +189,15 @@ export function WalletsView({ token }) {
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
-                </main>
+
+
+
+
+                </nav>
+
             </div>
         }</Dashboard>
-
 
     )
 }
@@ -227,15 +205,14 @@ export function WalletsView({ token }) {
 
 export const getServerSideProps = withAuthUserTokenSSR({
     whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
+  })(async ({ AuthUser }) => {
     const token = await AuthUser.getIdToken()
-    const { data } = await getDefaultToken(token)
     return {
-        props: {
-            token: data.usersExist.defaultWallet
-        }
+      props: {
+        token: token
+      }
     }
-})
+  }) 
 
 
-export default withAuthUser()(WalletsView)
+export default withAuthUser()(ContactView)

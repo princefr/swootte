@@ -3,22 +3,18 @@ import Head from 'next/head'
 import SideBar from './sidebar'
 import DashBoardNav from './nav'
 import React, { useContext } from 'react'
-import { withAuthUser,  AuthAction } from 'next-firebase-auth'
 import navButtons from '../../configs/buttons'
 import { GET_USER} from '../../queries/getUser'
-import { FirebaseUIDContext } from '../../context/FirebaseUIDContext'
 import { useQuery } from '@apollo/client'
+import { ModeContext } from '../../context/ModeContext'
+import { Transition } from '@headlessui/react'
 
 
 
 
 const Dashboard = props => {
-    const { firebaseUID, } = useContext(FirebaseUIDContext)
-    const { loading, error, data, refetch } = useQuery(GET_USER, {
-        variables: {
-            firebase_uid: firebaseUID
-        }
-    })
+    const {LiveMode, } = useContext(ModeContext)
+    const { loading, error, data, refetch } = useQuery(GET_USER)
 
     return (
         <div>
@@ -32,7 +28,12 @@ const Dashboard = props => {
             </div>
             <main>
                 <div className="flex flex-col">
-                    <DashBoardNav useUser={[loading, error, data, refetch]}></DashBoardNav>
+                    <Transition show={LiveMode}>
+                        <div className="flex flex-row h-6 bg-yellow-400 justify-center">
+                            <span className="items-center text-sm mt-0.5 text-white font-light">Test Mode</span>
+                        </div>
+                    </Transition>
+                    <DashBoardNav useUser={[loading, error, data, refetch]} token={props}></DashBoardNav>
                     <div className="flex flex-row h-screen w-full">
                     <SideBar navButtons={navButtons}/>
                     <div className="Content w-full px-12" >{React.cloneElement(props.children, {...{loading, error, data, refetch}})}</div>
@@ -48,5 +49,9 @@ const Dashboard = props => {
 
 
 
-export default withAuthUser({ whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Dashboard)
+
+
+
+
+export default Dashboard
 

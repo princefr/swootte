@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 
 
 export const GET_QR_CODE = gql`
-query LoadBalance($firebase_uid: String!, $token: String!) {
-    loadBalance(firebase_uid: $firebase_uid, token: $token)
+query LoadQRCode($token: String!) {
+    loadQRCode(token: $token)
         }
 
 `

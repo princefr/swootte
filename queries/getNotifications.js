@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 
 
 export const GET_NOTIFICATION = gql`
-query LoadNotification($firebase_uid: String!) {
-        loadNotification(firebase_uid: $firebase_uid){
+query LoadNotification{
+        loadNotification{
             _id
             text
             type

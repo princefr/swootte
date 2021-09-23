@@ -1,11 +1,11 @@
 import { useQuery, useSubscription } from "@apollo/client";
 import { Transition } from "@headlessui/react";
-import React, { useContext, useState } from "react";
+import React, {useState } from "react";
 import onClickOutside from "react-onclickoutside";
-import { FirebaseUIDContext } from "../../context/FirebaseUIDContext";
 import { GET_NOTIFICATION } from "../../queries/getNotifications";
 import { NOTIFICATION_SUBSCRIPTION } from "../../subscription/subscriptoNotification";
 import NotificationItem from "../items/notification";
+import Skeleton from 'react-loading-skeleton';
 
 
 function NewNotificationWarningonBell({ firebaseUID }) {
@@ -23,26 +23,21 @@ function NewNotificationWarningonBell({ firebaseUID }) {
     )
 }
 
-function BellComponent() {
+function BellComponent({token}) {
     const [showDropDown, setshowDropDown] = useState(false);
-    const { firebaseUID, } = useContext(FirebaseUIDContext)
     const toggleDropdown = () => setshowDropDown(!showDropDown);
     BellComponent.handleClickOutside = () => setshowDropDown(false)
-    const { loading, error, data, refetch } = useQuery(GET_NOTIFICATION, {
-        variables: {
-            firebase_uid: firebaseUID
-        }
-    })
+    const { loading, error, data, refetch } = useQuery(GET_NOTIFICATION)
 
 
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
+    if (loading) return <Skeleton circle={true} height={30} width={30}></Skeleton>;
+    if (error) return null;
 
 
     return (
         <div className="relative inline-block text-left">
             <button onClick={toggleDropdown} className="relative group rounded-full overflow-hidden bg-transparent hover:bg-blue-600 hover:bg-opacity-25 h-8 w-8 p-1 transition-all ease-out duration-200 focus:outline-none focus:shadow-outline focus:bg-teal-300 focus:bg-opacity-25">
-                <NewNotificationWarningonBell firebaseUID={firebaseUID}></NewNotificationWarningonBell>
+                {/* <NewNotificationWarningonBell firebaseUID={firebaseUID}></NewNotificationWarningonBell> */}
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
             </button>
 

@@ -1,23 +1,40 @@
 import MainView from "../components/dashboard/mainview";
 import Dashboard from "../components/dashboard/dashboard";
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { getDefaultToken } from "../queries/getUser";
 
 
 
 
 
 
-export default function  Home(){
-    
+export  function  Home({token}){
     return (
         <div>
-
-            <Dashboard pageName={"home - dashboard"}>{
-                <MainView  displayName={"blabla"}></MainView>
+            <Dashboard pageName={"home - dashboard"} token={token}>{
+                <MainView  displayName={"blabla"} token={token}></MainView>
             }</Dashboard>
         </div>
 
     )
 }
+
+
+
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    const { data } = await getDefaultToken(token)
+    return {
+      props: {
+        token: data.usersExist.defaultWallet
+      }
+    }
+  }) 
+
+
+export default withAuthUser()(Home)
 
 
 

@@ -1,9 +1,100 @@
 
 
+import { useCallback, useContext } from "react";
+import { useDropzone } from "react-dropzone";
 import Dashboard from "../components/dashboard/dashboard";
-import { PhotoView } from "../components/dashboard/userpicture";
+import FirebaseClient from "../utils/firebase";
+import firebase from 'firebase/app'
+import "firebase/storage"
+import { FirebaseUIDContext } from "../context/FirebaseUIDContext";
+import { useNotification } from "../notifications/NotificationContext";
+import { useMutation } from "@apollo/client";
+import { UPDATE_PROFIL_PICTURE } from "../mutation/updateProfilePicture";
+import { CameraIcon } from "@heroicons/react/solid";
 
 
+export function PhotoViewWithUpload({photoUrl, height, width }) {
+    FirebaseClient()
+    const {firebaseUID, } = useContext(FirebaseUIDContext)
+    const dispatch = useNotification()
+
+    const [UpdateProfilPicture, {loading}] = useMutation(UPDATE_PROFIL_PICTURE)
+
+
+    const handlePicture = (binary) => {
+        console.log(binary)
+        const storage = firebase.app().storage("gs://" + process.env.NEXT_PUBLIC_firebase_storageBucket);
+        const ref = "user/" + firebaseUID + "/photoUrl" + ".jpg"
+        var metadata = {
+            contentType: 'image/jpeg',
+        };
+
+        return storage.ref(ref).put(binary, metadata).then(async () => {
+            const url = await  storage.ref(ref).getDownloadURL()
+            return UpdateProfilPicture({
+                variables: {
+                    "firebase_uid": firebaseUID,
+                    link: url
+                }
+            }).then(() => {
+                dispatch({
+                    payload: {
+                        type: "SUCCESS",
+                        title: "Photo",
+                        message:"Votre photo a été publié"
+                    }
+                })
+            })
+            .catch((e) => {
+                dispatch({
+                    payload: {
+                        type: "ERROR",
+                        title: "Photo",
+                        message: e.message
+                    }
+                })
+            })
+        })
+
+
+
+
+
+
+    }
+    
+    const onDrop = useCallback(acceptedFiles => {
+        const file = acceptedFiles[0]
+        const reader = new FileReader()
+        reader.onabort = () => console.log('file reading was aborted')
+        reader.onerror = () => console.log('file reading has failed')
+        reader.onload = () => {
+              const binaryStr = reader.result
+              handlePicture(binaryStr)
+            }
+        reader.readAsDataURL(file)
+    }, [])
+    const { getRootProps, getInputProps } = useDropzone({onDrop})
+    return (
+        <div className="relative items-center" {...getRootProps()}>
+            <div className={`h-10 w-10 bg-black bottom-0 flex items-center justify-center right-0 absolute rounded-full`}>
+                <input className=" bg-gray-300" {...getInputProps()}/>
+                <CameraIcon className="h-4 w-4 text-white"></CameraIcon>
+            </div>
+            {
+            photoUrl == null ? <div className={`h-${height} w-${width} bg-gray-200 rounded-full`}>
+            <svg className={`h-${height} w-${width} rounded-full text-gray-400`} fill="currentColor"  viewBox="0 0 24 24">
+                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            </div> : <img src={photoUrl} className="w-8 h-8 object-cover group-hover:shadow group-focus:shadow  rounded-full"
+
+                    alt="user picture"
+                />
+            }
+        </div>
+
+    )
+}
 
 const FormProfil = (props) => {
     const {loading, error, data, refetch } = props
@@ -20,7 +111,7 @@ const FormProfil = (props) => {
 
                 <div className="flex flex-col py-4 px-14 items-center">
                     <div className="flex items-center">
-                        <PhotoView photoUrl={data.usersExist.photoUrl} height={36} width={36}></PhotoView>
+                        <PhotoViewWithUpload photoUrl={data.usersExist.photoUrl} height={36} width={36}></PhotoViewWithUpload>
                     </div>
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-10">
                         <div className="px-4 py-5 sm:px-6">

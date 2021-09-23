@@ -98,7 +98,7 @@ export const Nav = () => {
                                 </li>
                             </ul>
                         </div>
-                        <ul className="flex items-center space-x-8 lg:flex">
+                        <ul className="flex items-center space-x-8 lg:flex xs:hidden">
                             <li>
                                 {
                                     firebaseUID ? <DashboardButton></DashboardButton> : <ConnectButton></ConnectButton>

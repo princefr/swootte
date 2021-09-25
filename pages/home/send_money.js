@@ -11,7 +11,7 @@ import AskPasswordToCompleteAction from "../../components/dialogs/AskPasswordToC
 const SendMoney = (props) => {
     const {Devise, } = useContext(DeviseContext)
     const [adress, setAdress] = useState("")
-    const [amount, setAmount] = useState("")
+    const [amount, setAmount] = useState()
     const dispatch = useNotification()
     const [CreateTransfer, { loading }] = useMutation(CREATE_TRANSFER)
 
@@ -22,23 +22,17 @@ const SendMoney = (props) => {
         console.log("devise")
     }, [Devise])
 
-
-    const test = () => {
-        console.log("youpi")
-    }
-
-    const handleCreateTransfer = (event) => {
-        event.preventDefault()
+    const handleCreateTransfer = () => {
         CreateTransfer({
             variables: {
-                publicKey: adress,
-                token: "sqsdq",
+                address: adress,
+                token: "GvWfymh6DW5cQ1n8KuvdN5yjPEbeFmwqBSz6MhyLX6qe",
                 amount: parseFloat(amount)
             }
-        }).then((result) => {
+        }).then(() => {
             setAdress("")
             setAmount("")
-            setshowModal(false)
+            setConfirm(false)
             dispatch({
                 payload: {
                     type: "SUCCESS",
@@ -122,7 +116,7 @@ const SendMoney = (props) => {
                     </nav>
 
 
-                    <AskPasswordToCompleteAction isOpen={confirmBool} runProcess={test}  setOpenModal={setConfirm}></AskPasswordToCompleteAction>
+                    <AskPasswordToCompleteAction isOpen={confirmBool} runProcess={handleCreateTransfer}  setOpenModal={setConfirm}></AskPasswordToCompleteAction>
                 </div>
 
         

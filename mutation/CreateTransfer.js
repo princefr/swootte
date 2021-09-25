@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 
 
 export const CREATE_TRANSFER = gql`
-mutation CreateTransfer($publicKey: String, $token: String!, $amount: Float!) {
-    createTransfer(publicKey: $publicKey, token: $token, amount: $amount)
+mutation CreateTransfer($address: String, $token: String!, $amount: Float!) {
+    createTransfer(address: $address, token: $token, amount: $amount)
         }
 `

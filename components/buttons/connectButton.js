@@ -123,7 +123,8 @@ function ConnnectButton() {
         event.preventDefault();
         setConnectLoading(true)
         verificationCode.confirm(useCode).then(async () => {
-            const { data } = await loadUser(firebase.auth().currentUser.uid)
+            const token = await firebase.auth().currentUser.getIdToken()
+            const { data } = await loadUser(token)
             if (data.usersExist == null) {
                 setshowModal(false)
                 setConnectLoading(false)

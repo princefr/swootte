@@ -12,10 +12,10 @@ import dynamic from 'next/dynamic'
 import NotificationProvider from '../notifications/NotificationContext';
 import { ApolloProvider } from '@apollo/client';
 import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
-import FirebaseClient from '../utils/firebase';
 import { DeviseContext } from '../context/DeviseContext';
 import { ModeContext } from '../context/ModeContext';
 import { useClient } from '../components/auth/auth';
+import FirebaseClient from '../utils/firebase';
 
 
 
@@ -40,6 +40,7 @@ function MyApp({ Component, pageProps }) {
   const [authorizationToken, setAuthorizationToken] = useState("")
   const [LiveMode, setLiveMode] = useState(false)
   const modeValue = useMemo(() => ({ LiveMode, setLiveMode }), [LiveMode, setLiveMode])
+  const [client, setClient] = useState(useClient(""))
 
 
   const [Devise, setDevice] = useState(null)
@@ -49,14 +50,16 @@ function MyApp({ Component, pageProps }) {
   const firebaseUIDValue = useMemo(() => ({ firebaseUID, setFirebaseUID }), [firebaseUID, setFirebaseUID])
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(async (_user) => {
+    firebase.auth().onIdTokenChanged(async (_user) => {
       if (_user) {
         const token = await _user.getIdToken()
         setAuthorizationToken(token)
+        setClient(useClient(token))
       }
-
     })
   }, [])
+
+
 
 
   useEffect(() => {
@@ -69,7 +72,7 @@ function MyApp({ Component, pageProps }) {
       NProgress.start()
     })
 
-
+  
     router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
@@ -77,20 +80,16 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router.events])
 
-
+  
 
   // pageName , isActive
   const [sidemenu, setActiveMenu] = useState([{ pageName: "home", isActive: true }, { pageName: "balance", isActive: false }, { pageName: "transferts", isActive: false }, { pageName: "users", isActive: false }])
   const sideMenuValue = useMemo(() => ({ sidemenu, setActiveMenu }), [sidemenu, setActiveMenu])
 
-
-
-
-
   return (
     <>
       <TopProgressBar />
-      <ApolloProvider client={useClient(authorizationToken)}>
+      <ApolloProvider client={client}>
         <FirebaseUIDContext.Provider value={firebaseUIDValue}>
           <UserContext.Provider value={providerValue}>
             <ModeContext.Provider value={modeValue}>
@@ -100,7 +99,6 @@ function MyApp({ Component, pageProps }) {
                     <Component {...pageProps} />
                   </SideBarMenuContext.Provider>
                 </NotificationProvider>
-
               </DeviseContext.Provider>
             </ModeContext.Provider>
           </UserContext.Provider>

@@ -1,5 +1,5 @@
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import QRCode from "qrcode.react";
 import { Transition } from "@headlessui/react";
 import { useNotification } from "../../notifications/NotificationContext";
@@ -13,11 +13,17 @@ import { DeviseContext } from "../../context/DeviseContext";
 
 export function ReceiveQRCode({setQrCode, token}) {
     const { firebaseUID, } = useContext(FirebaseUIDContext)
+    const {Devise, } = useContext(DeviseContext)
     const {loading, error, data, refetch} = useQuery(GET_QR_CODE, {
         variables : {
             token: token
         }
     })
+
+
+    useEffect(() => {
+        if (Devise != null) refetch({token: Devise.publicKey})
+    }, [])
 
     if (loading) return <p>Loading ...</p>;
     if (error) return `Error! ${error}`;

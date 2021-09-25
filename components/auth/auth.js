@@ -2,15 +2,14 @@
 import { ApolloClient, InMemoryCache, split, HttpLink} from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import firebase from 'firebase/app';
 import 'firebase/auth'
-import initAuth from '../../utils/initAuth';
 
 
 
 
-initAuth()
-export function useClient(token) {
+
+
+export const useClient = (token) => {
 const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
     headers: {authorization: `Bearer ${token}`}

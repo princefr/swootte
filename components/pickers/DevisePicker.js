@@ -127,8 +127,8 @@ function DevisePicker(){
 
 
     useEffect(() => {
-        setDevice(selected)
-    }, [data])
+        if(selected != null) setDevice(selected)
+    }, [selected])
 
     if(selected == null) return null;
     if (loading) return <p>Loading ...</p>;

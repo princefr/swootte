@@ -1,16 +1,25 @@
 
+import { useLazyQuery } from "@apollo/client";
 import { Transition } from "@headlessui/react"
 import { useEffect, useState } from "react"
 import onClickOutside from "react-onclickoutside";
+import { SEARCH_USER } from "../../queries/searchUser";
 
 
 const SearchNavBar = () => {
     const [text, setText] = useState("")
     const [isOpen, setIsOpen] = useState(false)
+    const [searchUser, { loading, error, data }] = useLazyQuery(SEARCH_USER)
 
     useEffect(() => {
         text.length > 0 ? setIsOpen(true) : setIsOpen(false)
     }, [text])
+
+    useEffect(() => {
+        text.length > 0 ? searchUser({variables: {searchText: text}}) : null
+    }, [text])
+
+
 
     SearchNavBar.handleClickOutside = () => setIsOpen(false)
 

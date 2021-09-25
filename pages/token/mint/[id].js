@@ -1,23 +1,25 @@
-import {useState } from "react"
-import { Transition } from "@headlessui/react"
-import { useMutation } from "@apollo/client"
-import Dashboard from "../../components/dashboard/dashboard"
-import { useNotification } from "../../notifications/NotificationContext"
-import { BURN_TOKENS } from "../../mutation/burnTokens"
-import AskPasswordToCompleteAction from "../../components/dialogs/AskPasswordToCompleteAction"
 
-const Burn = () => {
-    const [amount, setAmount] = useState("")
+import Dashboard from "../../../components/dashboard/dashboard"
+import { useMutation } from "@apollo/client"
+import {Transition } from "@headlessui/react"
+import {useState } from "react"
+import { useRouter } from "next/router";
+import { MINT_TOKENS } from "../../../mutation/minTokens"
+import { useNotification } from "../../../notifications/NotificationContext"
+
+const Mint = () => {
+    const router = useRouter()
+    const { id } = router.query
+    const [amount, setAmount] = useState()
     const [address, setAddress] = useState("")
+    console.log(router.query)
+
+    const [MintTokens, { loading }] = useMutation(MINT_TOKENS)
     const dispatch = useNotification()
 
-    const [openConfirmation, setOpenConfirmation] = useState(false)
-
-    const [BurnTokens, { loading }] = useMutation(BURN_TOKENS)
-
-
-    const handleBurnTokens = () => {
-        BurnTokens({
+    const handleMintToken = (event) => {
+        event.preventDefault()
+        MintTokens({
             variables: {
                 address : address,
                 token: "GvWfymh6DW5cQ1n8KuvdN5yjPEbeFmwqBSz6MhyLX6qe",
@@ -28,14 +30,14 @@ const Burn = () => {
                 payload: {
                     type: "SUCCESS",
                     title: "Mint tokens",
-                    message: "tokens burn"
+                    message: "Bravo, vous etes inscrit"
                 }
             })
         }).catch((err) => {
             dispatch({
                 payload: {
                     type: "ERROR",
-                    title: "Burn tokens",
+                    title: "Mint tokens",
                     message: err.message
                 }
             })
@@ -50,7 +52,7 @@ const Burn = () => {
 
                     <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
                         <div className="px-12">
-                            <h1 className="text-3xl  text-gray-900 font-light font-montserrat">Burn tokens</h1>
+                            <h1 className="text-3xl  text-gray-900 font-light font-montserrat">Retirer de l'argent</h1>
                         </div>
                         <div className="flex flex-row space-x-3">
 
@@ -63,12 +65,11 @@ const Burn = () => {
 
                             <div className="mx-auto w-2/5 mt-10">
                                 <div className="flex flex-col relative p-4 space-y-3 items-center">
-
                                 <input required value={amount} onChange={((e) => setAmount(e.target.value))}
                                     type="number"
                                     name="amount"
                                     id="amount"
-                                    placeholder="Amount to burn"
+                                    placeholder="Amount to mint"
                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
                                 />
 
@@ -77,16 +78,19 @@ const Burn = () => {
                                     type="text"
                                     name="address"
                                     id="amount"
-                                    placeholder="Adress where to burn"
+                                    placeholder="Adress where to mint"
                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
                                 />
 
+                                <div className="text-sm">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                </div>
 
 
                                 <button disabled={!address.length || amount == null || amount <= 0 || !address.length}
                                     type="button"
                                     className="inline-flex w-full justify-center px-4 py-2 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                    onClick={(() => {setOpenConfirmation(true)})}
+                                    onClick={handleMintToken}
                                 >
 
                                     <Transition show={loading}>
@@ -95,7 +99,7 @@ const Burn = () => {
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
                                     </Transition>
-                                    <span>Burn tokens</span>
+                                    <span>Mint tokens</span>
                                 </button>
                                 </div>
                             </div>
@@ -103,8 +107,6 @@ const Burn = () => {
 
 
                     </nav>
-
-                    <AskPasswordToCompleteAction isOpen={openConfirmation} runProcess={handleBurnTokens} setOpenModal={setOpenConfirmation}></AskPasswordToCompleteAction>
                 </div>
 
             }
@@ -114,4 +116,5 @@ const Burn = () => {
 
 
 
-export default Burn
+
+export default Mint

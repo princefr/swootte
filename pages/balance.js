@@ -24,8 +24,7 @@ export function Balance({ token }) {
 
     useEffect(() => {
         if (Devise != null) {
-            console.log(Devise)
-            console.log("hgghg")
+            refetch({token: Devise.publicKey})
         }
     }, [Devise])
 
@@ -53,7 +52,7 @@ export function WalletsView({ token }) {
                         <h1 className="text-3xl font-bold text-gray-900">Portefeuille</h1>
                     </div>
                     <div className="flex flex-row space-x-4">
-                        <ReceiveMoneyButton></ReceiveMoneyButton>
+                        <ReceiveMoneyButton token={token}></ReceiveMoneyButton>
                         <SendMoneyButton></SendMoneyButton>
                     </div>
                 </header>

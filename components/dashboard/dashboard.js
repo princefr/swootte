@@ -16,6 +16,7 @@ const Dashboard = props => {
     const {LiveMode, } = useContext(ModeContext)
     const { loading, error, data, refetch } = useQuery(GET_USER)
 
+
     return (
         <div>
             <Head>

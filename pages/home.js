@@ -4,10 +4,6 @@ import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-au
 import { getDefaultToken } from "../queries/getUser";
 
 
-
-
-
-
 export  function  Home({token}){
     return (
         <div>

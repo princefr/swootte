@@ -22,6 +22,7 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
         );
 
         user.reauthenticateWithCredential(credentials).then((res) => {
+            setOpenModal(false)
             runProcess()
         }).catch((err) => {
             dispatch({

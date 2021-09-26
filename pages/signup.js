@@ -265,11 +265,6 @@ registerLocale('fr', fr)
                                             </Transition>
                                             </div>
 
-                                            
-
-
-
-
                                             <div className="col-span-6 p-4 sm:col-span-4">
                                                 <label htmlFor="birthday" className="block text-sm font-medium text-gray-700">
                                                     Birthday {!userEmail.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}

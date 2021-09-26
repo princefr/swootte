@@ -1,21 +1,63 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-
 import firebase from 'firebase/app'
 import { useNotification } from '../../notifications/NotificationContext'
 import FirebaseClient from '../../utils/firebase'
+import { InformationCircleIcon } from '@heroicons/react/solid'
+import { SpinLogo } from '../items/productItem'
 
 
+const PasswordReset = () => {
+    FirebaseClient()
+    const dispatch  = useNotification()
+    const [loading, setLoading] = useState(false)
+    const handleResetPassword = (event) => {
+        event.preventDefault()
+        setLoading(true)
+        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email).then((res) => {
+            dispatch({
+                payload: {
+                    type: "SUCCESS",
+                    title: "Password reset",
+                    message: "Votre argent à bien été envoyé"
+                }
+            })
+            setLoading(false)
+        }).catch((err) => {
+            dispatch({
+                payload: {
+                    type: "ERROR",
+                    title: "Password reset",
+                    message: err.message
+                }
+            })
+            setLoading(false)
+        })
+    }
+
+return(
+    <button onClick={handleResetPassword}  className="flex flex-row space-x-2 items-center mt-5">
+        <Transition show={loading}>
+            <SpinLogo height={"h-4"}></SpinLogo>
+        </Transition>
+        <Transition show={!loading}>
+            <InformationCircleIcon className="h-4 text-yellow-500"></InformationCircleIcon>
+        </Transition>
+        <span className="text-sm">Mot de passe oublié ?</span>
+    </button>
+)
+}
 
 const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
     FirebaseClient()
     const [password, setPassword] = useState("")
     const dispatch = useNotification()
+    const  [loading, setLoading] = useState(false)
 
     const handleReAuth = (event) => {
         event.preventDefault()
+        setLoading(true)
         const user = firebase.auth().currentUser;
-
         var credentials = firebase.auth.EmailAuthProvider.credential(
             user.email,
             password
@@ -23,7 +65,9 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
 
         user.reauthenticateWithCredential(credentials).then((res) => {
             setOpenModal(false)
+            setLoading(false)
             runProcess()
+            setPassword("")
         }).catch((err) => {
             dispatch({
                 payload: {
@@ -32,6 +76,7 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
                     message: err.message
                 }
             })
+            setLoading(false)
         })
 
 
@@ -42,7 +87,7 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="fixed inset-0 z-50 overflow-y-auto"
+                    className="fixed inset-0 z-40 overflow-y-auto"
                     onClose={(() => setOpenModal(false))}
                 >
                     <div className="min-h-screen px-4 text-center">
@@ -101,14 +146,20 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
                                     placeholder="passord"
                                 />
 
+                                <PasswordReset></PasswordReset>
 
-                                <div className="mt-4">
+
+                                <div className="flex mt-10 items-center justify-center">
                                     <button
                                         type="button"
                                         className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                         onClick={handleReAuth} disabled={!password.length}
                                     >
-                                        S'authentifier
+
+                                        <Transition show={loading}>
+                                            <SpinLogo height={"h-4"}></SpinLogo>
+                                        </Transition>
+                                        <span>S'authentifier</span>
                                     </button>
                                 </div>
                             </div>

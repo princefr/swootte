@@ -10,7 +10,6 @@ import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-au
 
 
 export  function Products({token}) {
-
     return (
         <Dashboard pageName={"Products"} token={token}>{
             <div>

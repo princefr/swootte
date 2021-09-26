@@ -37,7 +37,6 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [user, setUser] = useState(null);
   const [firebaseUID, setFirebaseUID] = useState(null)
-  const [authorizationToken, setAuthorizationToken] = useState("")
   const [LiveMode, setLiveMode] = useState(false)
   const modeValue = useMemo(() => ({ LiveMode, setLiveMode }), [LiveMode, setLiveMode])
   const [client, setClient] = useState(useClient(""))
@@ -50,11 +49,12 @@ function MyApp({ Component, pageProps }) {
   const firebaseUIDValue = useMemo(() => ({ firebaseUID, setFirebaseUID }), [firebaseUID, setFirebaseUID])
 
   useEffect(() => {
+    
     firebase.auth().onIdTokenChanged(async (_user) => {
       if (_user) {
-        const token = await _user.getIdToken()
-        setAuthorizationToken(token)
+        const token = await _user.getIdToken(true)
         setClient(useClient(token))
+        
       }
     })
   }, [])

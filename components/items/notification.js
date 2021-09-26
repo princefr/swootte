@@ -7,7 +7,7 @@ import { GET_NOTIFICATION } from "../../queries/getNotifications"
 
 
 
-function NotificationItem() {
+function NotificationItem({notification}) {
 
     const { firebaseUID, }  = useContext(FirebaseUIDContext)
     const {Devise, } = useContext(DeviseContext)

@@ -4,7 +4,33 @@ import { Transition } from "@headlessui/react"
 import { useEffect, useState } from "react"
 import onClickOutside from "react-onclickoutside";
 import { SEARCH_USER } from "../../queries/searchUser";
+import { ContactItemSearch } from "../contacts/items/ContactItem";
 
+
+
+const ResultItems = ({ loading, error, data }) => {
+    if (loading) return <p className="p-2">Loading ...</p>;
+    if (error) return <p>{error.message}</p>;
+
+    console.log(data.searchUser)
+    return (
+        <div>
+            {
+                data.searchUser.map((result) => {
+                    console.log(result)
+                    switch (result.__typename) {
+                        case "UserSmall":
+                            return <ContactItemSearch key={result._id} contact={result}></ContactItemSearch>
+                        case "Transaction":
+                            return <div>dddd</div>
+                        default:
+                            return <div>dddd</div>
+                    }
+                })
+            }
+        </div>
+    )
+}
 
 const SearchNavBar = () => {
     const [text, setText] = useState("")
@@ -16,7 +42,7 @@ const SearchNavBar = () => {
     }, [text])
 
     useEffect(() => {
-        text.length > 0 ? searchUser({variables: {searchText: text}}) : null
+        text.length > 0 ? searchUser({ variables: { searchText: text } }) : null
     }, [text])
 
 
@@ -44,12 +70,7 @@ const SearchNavBar = () => {
 
                 <div div className="origin-top-right absolute right-0 mt-2 w-96 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                     <div className="py-1" role="none">
-                        <div className="flex flex-col p-4">
-                                <div>dlldjlqjsq</div>
-                                <div>dlldjlqjsq</div>
-                                <div>dlldjlqjsq</div>
-                                <div>dlldjlqjsq</div>
-                        </div>
+                        <ResultItems loading={loading} error={error} data={data}></ResultItems>
                     </div>
 
                 </div>
@@ -62,4 +83,4 @@ const clickOutsideConfig = {
     handleClickOutside: () => SearchNavBar.handleClickOutside
 };
 
-export default  onClickOutside(SearchNavBar, clickOutsideConfig);
+export default onClickOutside(SearchNavBar, clickOutsideConfig);

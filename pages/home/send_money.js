@@ -116,7 +116,7 @@ const SendMoney = (props) => {
                     </nav>
 
 
-                    <AskPasswordToCompleteAction isOpen={confirmBool} runProcess={handleCreateTransfer}  setOpenModal={setConfirm}></AskPasswordToCompleteAction>
+                    <AskPasswordToCompleteAction isOpen={confirmBool} runProcess={handleCreateTransfer}  setOpenModal={setConfirm} phrase={"envoyer de l'argent"} explanationText={`Une reconnexion est necessaire pour pouvoir valider l'envoie de ${amount} à l'adresse suivante: ${adress}`}></AskPasswordToCompleteAction>
                 </div>
 
         

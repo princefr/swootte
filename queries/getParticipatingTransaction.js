@@ -2,10 +2,10 @@ import gql from "graphql-tag";
 
 
 
-export const GET_ACTIVITIES = gql`
-query GetActivity($token: String!) {
-            getActivity(token: $token){
-                __typename
+export const GET_ALL_PARTICIPATING_TRANSACTION = gql`
+query GetAllParticipatingTransactions($token: String!) {
+        getAllParticipatingTransactions(token: $token){
+            __typename
             ...on Paiement {
                 _id
                 createdAt

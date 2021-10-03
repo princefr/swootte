@@ -7,13 +7,14 @@ import { MyRadioGroup } from "../components/agencies/buttons/TabSelectSeverity";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_AGENCY_TRANSACTIONS } from "../queries/getAgencyTransactions";
 import AskPasswordToCompleteAction from "../components/dialogs/AskPasswordToCompleteAction";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { CONFIRM_TRANSACTION_AGENT } from "../mutation/ConfirmWithdraw";
 import { CANCEL_TRANSACTION_AGENT } from "../mutation/CancelWithdraw";
 import { useNotification } from "../notifications/NotificationContext";
 import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import { Transition } from "@headlessui/react";
 import { SpinLogo } from "../components/items/productItem";
+import { DeviseContext } from "../context/DeviseContext";
 
 
 
@@ -21,12 +22,14 @@ const ValidateTransactionButton = ({ transaction }) => {
     const [ValidateTransaction, { loading }] = useMutation(CONFIRM_TRANSACTION_AGENT)
     const [confirmBool, setConfirm] = useState(false)
     const dispatch = useNotification()
+    const {Devise, } = useContext(DeviseContext)
 
     const handleValidateTransaction = () => {
         ValidateTransaction({
             variables: {
                 transaction_id: transaction._id,
-                type: transaction.type
+                type: transaction.type,
+                token: Devise.publicKey
             }
         }).then(() => {
             dispatch({

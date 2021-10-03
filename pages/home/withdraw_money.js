@@ -1,33 +1,89 @@
 
 import Dashboard from "../../components/dashboard/dashboard"
-import { useMutation } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { RadioGroup, Transition } from "@headlessui/react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CREATE_WITHDRAW } from "../../mutation/CreateWithDraw"
 import { useNotification } from "../../notifications/NotificationContext"
+import { GET_AGENCIES } from "../../queries/getAgencies"
+
+
+export const AgencySelect = ({ selected, setSelected }) => {
+
+    const { loading, error, data, refetch } = useQuery(GET_AGENCIES)
+
+
+    useEffect(() => {
+        if(data != null) setSelected(data.retrieveAllAgnecies[0])
+    }, [data])
+
+    if (loading) return <div>djkdj</div>;
+    if (error) return null;
+
+    return (
+        <RadioGroup value={selected} onChange={setSelected}>
+            <RadioGroup.Label className="sr-only">Addresse de dépot</RadioGroup.Label>
+            <div className="space-y-2">
+                {data.retrieveAllAgnecies.map((agency) => (
+                    <RadioGroup.Option
+                        key={agency.title}
+                        value={agency}
+                        className={({ active, checked }) =>
+                            `${active
+                                ? 'ring-2 ring-offset-2 ring-offset-green-300 ring-white ring-opacity-60'
+                                : ''
+                            }
+                                                        ${checked ? 'bg-green-700 bg-opacity-75 text-white' : 'bg-blue-100'
+                            }
+                                                        relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
+                        }
+                    >
+                        {({ active, checked }) => (
+                            <>
+
+                                <div className="flex items-center justify-between w-full">
+                                    <div className="flex items-center">
+                                        <div className="text-sm">
+                                            <RadioGroup.Label
+                                                as="p"
+                                                className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'
+                                                    }`}
+                                            >
+                                                {agency.title}
+                                            </RadioGroup.Label>
+                                            <RadioGroup.Description
+                                                as="span"
+                                                className={`inline ${checked ? 'text-blue-100' : 'text-gray-500'
+                                                    }`}
+                                            >
+                                                <span>
+                                                    {agency.address}
+                                                </span>
+                                            </RadioGroup.Description>
+                                        </div>
+                                    </div>
+                                    {checked && (
+                                        <div className="flex-shrink-0 text-white">
+                                            <CheckIcon height={24} width={24}></CheckIcon>
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </RadioGroup.Option>
+                ))}
+            </div>
+        </RadioGroup>
+    )
+}
 
 
 
 
-const plans = [
-    {
-        name: 'Mazala',
-        adress: '12GB',
-    },
-    {
-        name: 'Business',
-        adress: '16GB',
-    },
-    {
-        name: 'Enterprise',
-        adress: '32GB',
-    },
-]
 
 const WithdrawMoney = () => {
-    const [selected, setSelected] = useState(plans[0])
-    const [openConfirmation, setOpenConfirmation] = useState(false)
+    const [selected, setSelected] = useState(null)
     const [amount, setAmount] = useState("")
 
     const [CreateWithDraw, { loading }] = useMutation(CREATE_WITHDRAW)
@@ -37,14 +93,17 @@ const WithdrawMoney = () => {
         event.preventDefault()
         CreateWithDraw({
             variables: {
-
+                withdraw: {
+                    amount: parseFloat(amount),
+                    agency:  selected._id
+                }
             }
         }).then((result) => {
             dispatch({
                 payload: {
                     type: "SUCCESS",
                     title: "Withdraw",
-                    message: "Votre argent à bien été envoyé"
+                    message: "Votre demande de retrait a été bien enregistré"
                 }
             })
         }).catch((err) => {
@@ -52,7 +111,7 @@ const WithdrawMoney = () => {
                 payload: {
                     type: "ERROR",
                     title: "Withdraw",
-                    message: "Votre argent à bien été envoyé"
+                    message: err.message
                 }
             })
         })
@@ -79,8 +138,8 @@ const WithdrawMoney = () => {
 
                             <div className="mx-auto w-2/5 mt-10">
                                 <div className="flex flex-col relative p-4 space-y-3 items-center">
-                                <div className="px-3 flex flex-col w-full mt-4 space-y-3">
-                                        
+                                    <div className="px-3 flex flex-col w-full mt-4 space-y-3">
+
                                         <h3 className="text-lg font-medium leading-6 text-gray-900 px-3">
                                             Effectuer un retrait
                                         </h3>
@@ -101,66 +160,12 @@ const WithdrawMoney = () => {
                                         <h3 className="text-sm font-medium leading-2 text-gray-900 px-3 pt-4">
                                             Agence de dépot
                                         </h3>
-                                        
+
                                         <span className="text-sm items-start text-left px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
 
                                         <div className="w-full px-3 py-4">
-                                            <RadioGroup value={selected} onChange={setSelected}>
-                                                <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
-                                                <div className="space-y-2">
-                                                    {plans.map((plan) => (
-                                                        <RadioGroup.Option
-                                                            key={plan.name}
-                                                            value={plan}
-                                                            className={({ active, checked }) =>
-                                                                `${active
-                                                                    ? 'ring-2 ring-offset-2 ring-offset-green-300 ring-white ring-opacity-60'
-                                                                    : ''
-                                                                }
-                                                        ${checked ? 'bg-green-700 bg-opacity-75 text-white' : 'bg-blue-100'
-                                                                }
-                                                        relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
-                                                            }
-                                                        >
-                                                            {({ active, checked }) => (
-                                                                <>
 
-                                                                    <div className="flex items-center justify-between w-full">
-                                                                        <div className="flex items-center">
-                                                                            <div className="text-sm">
-                                                                                <RadioGroup.Label
-                                                                                    as="p"
-                                                                                    className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'
-                                                                                        }`}
-                                                                                >
-                                                                                    {plan.name}
-                                                                                </RadioGroup.Label>
-                                                                                <RadioGroup.Description
-                                                                                    as="span"
-                                                                                    className={`inline ${checked ? 'text-blue-100' : 'text-gray-500'
-                                                                                        }`}
-                                                                                >
-                                                                                    <span>
-                                                                                        {plan.adress}
-                                                                                    </span>
-                                                                                </RadioGroup.Description>
-                                                                            </div>
-                                                                        </div>
-                                                                        {checked && (
-                                                                            <div className="flex-shrink-0 text-white">
-                                                                                <CheckIcon height={24} width={24}></CheckIcon>
-                                                                            </div>
-                                                                        )}
-                                                                    </div>
-                                                                </>
-                                                            )}
-                                                        </RadioGroup.Option>
-                                                    ))}
-                                                </div>
-                                            </RadioGroup>
-
-
-
+                                            <AgencySelect selected={selected} setSelected={setSelected}></AgencySelect>
 
                                             <span className="text-xs items-start flex  text-left px-3 pt-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt utklabore et dolore magna aliqua</span>
 
@@ -181,8 +186,8 @@ const WithdrawMoney = () => {
                                                 <span>Ask a withdraw</span>
                                             </button>
                                         </div>
-                                    
-                                </div>
+
+                                    </div>
                                 </div>
                             </div>
 

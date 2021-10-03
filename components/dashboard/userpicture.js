@@ -12,7 +12,8 @@ import AddTokenButton from "../token/buttons/addTokenButton";
 import CreateTokenButton from "../token/buttons/createTokenButton";
 import { ModeContext } from "../../context/ModeContext";
 import Skeleton from 'react-loading-skeleton';
-
+import Link from "next/dist/client/link";
+import AddAgencyButton from "../token/buttons/addAgencyButton";
 
 export function PhotoView({photoUrl, height, width }) {
     return (
@@ -105,8 +106,12 @@ const UserPicture = props => {
                             <CreateTokenButton></CreateTokenButton>
                             </div>
                             <div  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                            <AddTokenButton dismiss={toggleDropdown}></AddTokenButton>
+                                <AddTokenButton dismiss={toggleDropdown}></AddTokenButton>
                             </div>
+                            <div  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                                <AddAgencyButton></AddAgencyButton>
+                            </div>
+                            
                             
                             
                             <button className="flex flex-row items-center px-4 py-2 text-sm justify-between  text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
@@ -122,16 +127,9 @@ const UserPicture = props => {
                             <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                                 <LanguageButton />
                             </a>
-                            {/* <a href="#" className="flex flex-row justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                                <div className="flex flex-row items-center space-x-2 ml-0">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                                    <div>Thème sombre</div>
-                                </div>
-                                <Toogle id="toogleDarkTheme"/>
-                            </a> */}
-                            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                            <div  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                                 <CookiesButton></CookiesButton>
-                            </a>
+                            </div>
 
                             <div onClick={goToSettings} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                                 <div className="flex flex-row items-center space-x-2 ml-0">

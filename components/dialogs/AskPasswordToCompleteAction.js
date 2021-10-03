@@ -48,7 +48,7 @@ return(
 )
 }
 
-const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
+const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal, phrase, explanationText}) => {
     FirebaseClient()
     const [password, setPassword] = useState("")
     const dispatch = useNotification()
@@ -125,14 +125,13 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal }) => {
                                     as="h3"
                                     className="text-lg font-medium leading-6 text-gray-900"
                                 >
-                                    S'authentifier pour continuer
+                                    S'authentifier pour {phrase}
                                 </Dialog.Title>
 
 
                                 <div className="mt-2 mb-6">
                                     <p className="text-sm text-gray-500">
-                                        Your payment has been successfully submitted. We’ve sent
-                                        your an email with all of the details of your order.
+                                        {explanationText}
                                     </p>
                                 </div>
 

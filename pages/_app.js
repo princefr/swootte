@@ -23,6 +23,7 @@ import FirebaseClient from '../utils/firebase';
 
 
 
+
 const TopProgressBar = dynamic(
   () => {
     return import("../components/TopProgressBar");
@@ -34,12 +35,19 @@ const TopProgressBar = dynamic(
 initAuth()
 function MyApp({ Component, pageProps }) {
   FirebaseClient()
+
+
+
   const router = useRouter()
   const [user, setUser] = useState(null);
   const [firebaseUID, setFirebaseUID] = useState(null)
   const [LiveMode, setLiveMode] = useState(false)
   const modeValue = useMemo(() => ({ LiveMode, setLiveMode }), [LiveMode, setLiveMode])
+  const [tokenId, setTokenId] = useState("")
+  const [initialiseClient, setInitialiseClient] = useState(false)
   const [client, setClient] = useState(useClient(""))
+
+  
 
 
   const [Devise, setDevice] = useState(null)
@@ -49,15 +57,17 @@ function MyApp({ Component, pageProps }) {
   const firebaseUIDValue = useMemo(() => ({ firebaseUID, setFirebaseUID }), [firebaseUID, setFirebaseUID])
 
   useEffect(() => {
-    
     firebase.auth().onIdTokenChanged(async (_user) => {
       if (_user) {
         const token = await _user.getIdToken(true)
+        setTokenId(token)
         setClient(useClient(token))
-        
       }
     })
   }, [])
+
+
+
 
 
 

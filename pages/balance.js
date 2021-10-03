@@ -3,7 +3,6 @@ import SendMoneyButton from '../components/buttons/SendMoneyButton'
 import ReceiveMoneyButton from '../components/buttons/ReceiveMoneyButton'
 import Dashboard from '../components/dashboard/dashboard'
 import { useContext, useEffect } from 'react'
-import { FirebaseUIDContext } from '../context/FirebaseUIDContext'
 import { DeviseContext } from '../context/DeviseContext'
 import { useQuery } from '@apollo/client'
 import { GET_BALANCE } from '../queries/getBalance'
@@ -14,7 +13,6 @@ import { getDefaultToken } from '../queries/getUser'
 
 
 export function Balance({ token }) {
-    const { firebaseUID, } = useContext(FirebaseUIDContext)
     const { Devise, } = useContext(DeviseContext)
     const { loading, error, data, refetch } = useQuery(GET_BALANCE, {
         variables: {

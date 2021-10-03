@@ -1,30 +1,17 @@
 
 import Dashboard from "../../components/dashboard/dashboard"
 import { useMutation } from "@apollo/client"
-import { RadioGroup, Transition } from "@headlessui/react"
-
+import { Transition } from "@headlessui/react"
 import { useState } from "react"
 import { CREATE_DEPOSIT } from "../../mutation/CreateDeposit"
 import { useNotification } from "../../notifications/NotificationContext"
-
-const plans = [
-    {
-        name: 'Mazala',
-        adress: '12GB',
-    },
-    {
-        name: 'Business',
-        adress: '16GB',
-    },
-    {
-        name: 'Enterprise',
-        adress: '32GB',
-    },
-]
+import { AgencySelect } from "./withdraw_money"
 
 
-const DepositMoney = (props) => {
-    const [selected, setSelected] = useState(plans[0])
+
+
+const DepositMoney = () => {
+    const [selected, setSelected] = useState(null)
     const [amount, setAmount] = useState("")
     const [CreateWithDraw, { loading }] = useMutation(CREATE_DEPOSIT)
 
@@ -34,7 +21,10 @@ const DepositMoney = (props) => {
         event.preventDefault()
         CreateWithDraw({
             variables: {
-
+                topup: {
+                    amount: parseFloat(amount),
+                    agency:  selected._id
+                }
             }
         }).then((result) => {
             dispatch({
@@ -99,63 +89,7 @@ const DepositMoney = (props) => {
                                             <span className="text-sm items-start text-left px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
 
                                             <div className="w-full px-3 py-4">
-                                                <RadioGroup value={selected} onChange={setSelected}>
-                                                    <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
-                                                    <div className="space-y-2">
-                                                        {plans.map((plan) => (
-                                                            <RadioGroup.Option
-                                                                key={plan.name}
-                                                                value={plan}
-                                                                className={({ active, checked }) =>
-                                                                    `${active
-                                                                        ? 'ring-2 ring-offset-2 ring-offset-green-300 ring-white ring-opacity-60'
-                                                                        : ''
-                                                                    }
-                                                            ${checked ? 'bg-green-700 bg-opacity-75 text-white' : 'bg-blue-100'
-                                                                    }
-                                                            relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
-                                                                }
-                                                            >
-                                                                {({ active, checked }) => (
-                                                                    <>
-
-                                                                        <div className="flex items-center justify-between w-full">
-                                                                            <div className="flex items-center">
-                                                                                <div className="text-sm">
-                                                                                    <RadioGroup.Label
-                                                                                        as="p"
-                                                                                        className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'
-                                                                                            }`}
-                                                                                    >
-                                                                                        {plan.name}
-                                                                                    </RadioGroup.Label>
-                                                                                    <RadioGroup.Description
-                                                                                        as="span"
-                                                                                        className={`inline ${checked ? 'text-blue-100' : 'text-gray-500'
-                                                                                            }`}
-                                                                                    >
-                                                                                        <span>
-                                                                                            {plan.adress}
-                                                                                        </span>
-                                                                                    </RadioGroup.Description>
-                                                                                </div>
-                                                                            </div>
-                                                                            {checked && (
-                                                                                <div className="flex-shrink-0 text-white">
-                                                                                    <CheckIcon height={24} width={24}></CheckIcon>
-                                                                                </div>
-                                                                            )}
-                                                                        </div>
-                                                                    </>
-                                                                )}
-                                                            </RadioGroup.Option>
-                                                        ))}
-                                                    </div>
-                                                </RadioGroup>
-
-
-
-
+                                                <AgencySelect selected={selected} setSelected={setSelected}/>
                                                 <span className="text-xs items-start flex  text-left px-3 pt-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt utklabore et dolore magna aliqua</span>
 
 

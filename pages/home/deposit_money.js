@@ -2,10 +2,11 @@
 import Dashboard from "../../components/dashboard/dashboard"
 import { useMutation } from "@apollo/client"
 import { Transition } from "@headlessui/react"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { CREATE_DEPOSIT } from "../../mutation/CreateDeposit"
 import { useNotification } from "../../notifications/NotificationContext"
 import { AgencySelect } from "./withdraw_money"
+import { DeviseContext } from "../../context/DeviseContext"
 
 
 
@@ -14,6 +15,7 @@ const DepositMoney = () => {
     const [selected, setSelected] = useState(null)
     const [amount, setAmount] = useState("")
     const [CreateWithDraw, { loading }] = useMutation(CREATE_DEPOSIT)
+    const {Devise, } = useContext(DeviseContext)
 
     const dispatch = useNotification()
 
@@ -23,7 +25,8 @@ const DepositMoney = () => {
             variables: {
                 topup: {
                     amount: parseFloat(amount),
-                    agency:  selected._id
+                    agency:  selected._id,
+                    token: Devise.publicKey
                 }
             }
         }).then((result) => {

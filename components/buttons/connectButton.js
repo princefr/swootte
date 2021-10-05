@@ -1,23 +1,41 @@
 
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import CountryPicker from '../CountryPicker'
 import { useNotification } from "../../notifications/NotificationContext";
 import {loadUser } from "../../queries/getUser";
 import { useRouter } from "next/router";
+import FirebaseClient from '../../utils/firebase'
 
 
 
 
+FirebaseClient()
 function ConnnectButton() {
     const [showModal, setshowModal] = useState(false);
-    const toggleModal = () => setshowModal(!showModal);
+    const router = useRouter()
 
     const [usePhone, setPhone] = useState("")
     const [useCode, setCode] = useState("")
-    const router = useRouter()
+    const [isConnected, setIsConnnected]= useState(false)
+    const toggleModal = () => isConnected ? checkThis():  setshowModal(!showModal);
+
+
+
+    const checkThis = async () => {
+        const token = await firebase.auth().currentUser.getIdToken()
+        const { data } = await loadUser(token)
+        data.usersExist == null ? navigateToSignup() : navigateToDashboard()
+    }
+    
+
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged((user) => {
+            user != null ? setIsConnnected(true) : setIsConnnected(false)
+        })
+    }, [])
 
 
     const navigateToSignup = () => {
@@ -28,11 +46,6 @@ function ConnnectButton() {
     const navigateToDashboard = () => {
         router.push("/home")
     }
-
-
-
-
-
 
 
     const [timer, setTimer] = useState(60);
@@ -152,7 +165,12 @@ function ConnnectButton() {
     return (
         <div className="relative inline-block text-left">
             <button onClick={toggleModal} className="flex bg-black p-2.5 rounded-full text-white justify-center items-center space-x-3 font-medium tracking-wide  transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">
-                <span>Connexion</span>
+                <Transition show={!isConnected}>
+                    <span>Connexion</span>
+                </Transition>
+                <Transition show={isConnected}>
+                    <span>Dashboard</span>
+                </Transition>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>

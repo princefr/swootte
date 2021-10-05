@@ -107,7 +107,6 @@ const TokensTotalAccountView = () => {
 
 
 function AccessModifyToken({ token }) {
-    console.log(token)
     const {Devise} = useContext(DeviseContext)
     const { loading, error, data} = useQuery(GET_IS_TOKEN_OWNER, {
         variables: {

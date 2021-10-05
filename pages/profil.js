@@ -23,7 +23,7 @@ export function PhotoViewWithUpload({ photoUrl, height, width, refetch }) {
 
 
     const handlePicture = (binary) => {
-        console.log(binary)
+        
         const storage = firebase.app().storage("gs://" + process.env.NEXT_PUBLIC_firebase_storageBucket);
         const ref = "user/" + firebase.auth().currentUser.uid + "/photoUrl" + ".jpg"
 

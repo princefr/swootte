@@ -12,7 +12,6 @@ const Mint = () => {
     const { id } = router.query
     const [amount, setAmount] = useState()
     const [address, setAddress] = useState("")
-    console.log(router.query)
 
     const [MintTokens, { loading }] = useMutation(MINT_TOKENS)
     const dispatch = useNotification()

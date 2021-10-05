@@ -32,7 +32,9 @@ const PictureOnDashboard = (props) => {
 
     return (
         <div className=" flex flex-row space-x-4 mt-5">
-            <PhotoView photoUrl={data.usersExist.photoUrl} height={20} width={20}></PhotoView>
+            <div className="h-20 w-20">
+                <PhotoView photoUrl={data.usersExist.photoUrl} height={20} width={20}></PhotoView>
+            </div>
             <div className="flex flex-col justify-center items-start mb-5">
                 <div className="text-xl font-semibold">Good morning, {data.usersExist.first_name}</div>
                 <div className="flex flex-row space-x-8">
@@ -176,7 +178,6 @@ const MainView = (props) => {
             <div className="h-28 w-full bg-white border-t-1 border-black flex flex-row justify-between px-12">
 
                 <PictureOnDashboard {...props}></PictureOnDashboard>
-
                 <div className="flex flew-row justify-center space-x-6 items-center">
 
                     <div className="flex flex-row space-x-4">

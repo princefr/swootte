@@ -3,14 +3,14 @@ import Dashboard from "../../components/dashboard/dashboard"
 import { useMutation, useQuery } from "@apollo/client"
 import { RadioGroup, Transition } from "@headlessui/react"
 
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CREATE_WITHDRAW } from "../../mutation/CreateWithDraw"
 import { useNotification } from "../../notifications/NotificationContext"
 import { GET_AGENCIES } from "../../queries/getAgencies"
+import { DeviseContext } from "../../context/DeviseContext"
 
 
 export const AgencySelect = ({ selected, setSelected }) => {
-
     const { loading, error, data, refetch } = useQuery(GET_AGENCIES)
 
 
@@ -88,6 +88,7 @@ const WithdrawMoney = () => {
 
     const [CreateWithDraw, { loading }] = useMutation(CREATE_WITHDRAW)
     const dispatch = useNotification()
+    const {Devise, } = useContext(DeviseContext)
 
     const handleWithDraw = (event) => {
         event.preventDefault()
@@ -95,7 +96,8 @@ const WithdrawMoney = () => {
             variables: {
                 withdraw: {
                     amount: parseFloat(amount),
-                    agency:  selected._id
+                    agency:  selected._id,
+                    token: Devise.publicKey
                 }
             }
         }).then((result) => {

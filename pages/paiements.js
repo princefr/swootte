@@ -58,7 +58,6 @@ return (
 }
 
 export function PaiementsView({token}){
-
     return (
         <Dashboard pageName={"Paiements"} token={token}>{
             <div>

@@ -1,10 +1,10 @@
 
 import gql from "graphql-tag";
-import { useClient } from "../components/auth/auth";
+import Helper, { useClient } from "../components/auth/auth";
 
 
 export const loadUser = async (token) => {
-    const client = useClient(token)
+    const client = Helper.useClient(token)
     return client.query({
         query: gql`
         query GetIfUSerExist {
@@ -33,7 +33,7 @@ export const loadUser = async (token) => {
 
 
 export const getDefaultToken = async (token) => {
-    const client = useClient(token)
+    const client = Helper.useClient(token)
     return client.query({
         query: gql`
         query GetIfUSerExist {
@@ -60,6 +60,7 @@ query GetIfUSerExist {
         is_online
         createdAt
         photoUrl
+        permissions
         updatedAt
         adresses {title, location {latitude, longitude}, is_chosed}
         fcmToken

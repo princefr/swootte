@@ -36,7 +36,7 @@ const Dashboard = props => {
                     </Transition>
                     <DashBoardNav useUser={[loading, error, data, refetch]} token={props}></DashBoardNav>
                     <div className="flex flex-row h-screen w-full">
-                    <SideBar navButtons={navButtons}/>
+                    <SideBar navButtons={navButtons}  userData={data} loading={loading}/>
                     <div className="Content w-full px-12" >{React.cloneElement(props.children, {...{loading, error, data, refetch}})}</div>
                 </div>
                 </div>

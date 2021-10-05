@@ -12,12 +12,11 @@ const ResultItems = ({ loading, error, data }) => {
     if (loading) return <p className="p-2">Loading ...</p>;
     if (error) return <p>{error.message}</p>;
 
-    console.log(data.searchUser)
     return (
         <div>
             {
                 data.searchUser.map((result) => {
-                    console.log(result)
+                    
                     switch (result.__typename) {
                         case "UserSmall":
                             return <ContactItemSearch key={result._id} contact={result}></ContactItemSearch>

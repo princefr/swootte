@@ -14,7 +14,7 @@ import { ApolloProvider } from '@apollo/client';
 import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
 import { DeviseContext } from '../context/DeviseContext';
 import { ModeContext } from '../context/ModeContext';
-import { useClient } from '../components/auth/auth';
+import Helper, { useClient } from '../components/auth/auth';
 import FirebaseClient from '../utils/firebase';
 
 
@@ -44,8 +44,7 @@ function MyApp({ Component, pageProps }) {
   const [LiveMode, setLiveMode] = useState(false)
   const modeValue = useMemo(() => ({ LiveMode, setLiveMode }), [LiveMode, setLiveMode])
   const [tokenId, setTokenId] = useState("")
-  const [initialiseClient, setInitialiseClient] = useState(false)
-  const [client, setClient] = useState(useClient(""))
+  const [client, setClient] = useState(Helper.useClient(""))
 
   
 
@@ -61,7 +60,7 @@ function MyApp({ Component, pageProps }) {
       if (_user) {
         const token = await _user.getIdToken(true)
         setTokenId(token)
-        setClient(useClient(token))
+        setClient(Helper.useClient(token))
       }
     })
   }, [])

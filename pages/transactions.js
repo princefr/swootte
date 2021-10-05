@@ -18,7 +18,7 @@ import { DeviseContext } from "../context/DeviseContext";
 
 
 
-const ValidateTransactionButton = ({ transaction }) => {
+const ValidateTransactionButton = ({ transaction, refetch }) => {
     const [ValidateTransaction, { loading }] = useMutation(CONFIRM_TRANSACTION_AGENT)
     const [confirmBool, setConfirm] = useState(false)
     const dispatch = useNotification()
@@ -32,6 +32,7 @@ const ValidateTransactionButton = ({ transaction }) => {
                 token: Devise.publicKey
             }
         }).then(() => {
+
             dispatch({
                 payload: {
                     type: "SUCCESS",
@@ -39,6 +40,7 @@ const ValidateTransactionButton = ({ transaction }) => {
                     message: "Votre demande de retrait a été bien enregistré"
                 }
             })
+            refetch()
         }).catch((err) => {
             dispatch({
                 payload: {
@@ -74,7 +76,7 @@ const ValidateTransactionButton = ({ transaction }) => {
 }
 
 
-const CancelTransactionButton = ({ transaction }) => {
+const CancelTransactionButton = ({ transaction, refetch }) => {
     const [CancelTransaction, { loading }] = useMutation(CANCEL_TRANSACTION_AGENT)
     const [confirmBool, setConfirm] = useState(false)
     const dispatch = useNotification()
@@ -94,6 +96,7 @@ const CancelTransactionButton = ({ transaction }) => {
                     message: "Votre demande de retrait a été bien enregistré"
                 }
             })
+            refetch()
         }).catch((err) => {
             dispatch({
                 payload: {
@@ -129,7 +132,7 @@ const CancelTransactionButton = ({ transaction }) => {
 }
 
 
-const TransfertAgencyItem = ({ transaction }) => {
+const TransfertAgencyItem = ({ transaction, refetch }) => {
     return (
         <tbody className="bg-white divide-y divide-gray-200">
             <tr>
@@ -158,16 +161,21 @@ const TransfertAgencyItem = ({ transaction }) => {
                     </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Admin
+                    {transaction.type}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     Admin
                 </td>
                 <td className="py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <ValidateTransactionButton transaction={transaction}></ValidateTransactionButton>
+                    <Transition show={transaction.status == "IN_PROGRESS"}>
+                        <ValidateTransactionButton transaction={transaction} refetch={refetch}></ValidateTransactionButton>
+                    </Transition>
+                    
                 </td>
                 <td className="py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <CancelTransactionButton transaction={transaction}></CancelTransactionButton>
+                    <Transition show={transaction.status == "IN_PROGRESS"}>
+                        <CancelTransactionButton transaction={transaction} refetch={refetch}></CancelTransactionButton>
+                    </Transition>
                 </td>
             </tr>
         </tbody>
@@ -213,7 +221,7 @@ const TransfertAgencyItems = () => {
                             </tr>
                         </thead>
                         {data.retrieveAllAgenciesTransactions.map((transaction) => {
-                            return <TransfertAgencyItem transaction={transaction}></TransfertAgencyItem>
+                            return <TransfertAgencyItem transaction={transaction} refetch={refetch}></TransfertAgencyItem>
 
                         })}
                     </table>

@@ -32,7 +32,7 @@ export default function Home() {
           <div className="container px-5 mx-auto lg:px-24 ">
             <div className="flex flex-col w-full mb-4 text-left lg:text-center">
             </div>
-            <div className="grid grid-cols-2 gap-16 mb-16 text-center justify-center items-center lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-16 mb-16 text-center justify-center items-center lg:grid-cols-6">
               <div className="flex items-center justify-center">
                 <img
                   src="/images/ethereum-logo.png"
@@ -64,6 +64,13 @@ export default function Home() {
               <div className="flex items-center justify-center">
                 <img
                   src="/images/Solana_Logo_2021_Color.png"
+                  alt="Solana logo"
+                  className="block object-contain h-16 greyC"
+                ></img>
+              </div>
+              <div className="flex items-center justify-center">
+                <img
+                  src="/images/cfa_numerique.svg"
                   alt="Solana logo"
                   className="block object-contain h-16 greyC"
                 ></img>

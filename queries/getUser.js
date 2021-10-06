@@ -1,10 +1,13 @@
 
 import gql from "graphql-tag";
 import Helper, { useClient } from "../components/auth/auth";
+import { ApolloClient, InMemoryCache, split, HttpLink} from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { WebSocketLink } from '@apollo/client/link/ws';
 
 
 export const loadUser = async (token) => {
-    const client = Helper.useClient(token)
+    const client = useClient(token)
     return client.query({
         query: gql`
         query GetIfUSerExist {
@@ -33,7 +36,7 @@ export const loadUser = async (token) => {
 
 
 export const getDefaultToken = async (token) => {
-    const client = Helper.useClient(token)
+    const client = useClient(token)
     return client.query({
         query: gql`
         query GetIfUSerExist {

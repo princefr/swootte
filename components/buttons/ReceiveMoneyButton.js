@@ -106,14 +106,15 @@ export function ReceiveMoneyButton({token}) {
 
                             <div className="flex flex-col w-full h-96 px-10">
                                 <div className="flex items-start justify-start text-left text-sm">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Ce QR code represente l'addresse de votre portefeuille FRANC CFA numérique. il peut etre scanné lors d'un achat ou d'une vente pour vous effectué un paiement.
                                 </div>
 
                                 <ReceiveQRCode setQrCode={setQrCode} token={token}></ReceiveQRCode>
                                 
 
-                                <div className="flex items-start justify-start text-left text-sm">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <div className="flex flex-col items-start justify-start text-left text-sm">
+                                <span>&bull; Envoyez uniquement des Franc CFA numérique  à cette adresse de dépôt.</span>
+                                <span className="text-red-600">&bull; Vérifiez que le réseau est Solana*.</span>
                                 </div>
                                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                                     <div className="mt-1 flex rounded-lg bg-gray-200">

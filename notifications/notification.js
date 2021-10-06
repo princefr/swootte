@@ -60,6 +60,7 @@ const Notification = (props) => {
     return (
         
         <Transition as={Fragment} show={!exit} enter="transform transition ease-in-out duration-500 sm:duration-700" leave="transform transition ease-in-out duration-500 sm:duration-700" enterFrom="translate-x-full" enterTo="translate-x-0" leaveFrom="translate-x-0" leaveTo="translate-x-full">
+
             <div onMouseEnter={handlePauseTimer} onMouseLeave={HandleStartTimer}  className="flex-col flex shadow-lg  rounded-xl  w-full mt-3 justify-between py-1 bg-white z-100">
             <div className="flex flex-row w-full items-start justify-between px-4 pt-5 pb-4">
             {(() => {
@@ -81,12 +82,12 @@ const Notification = (props) => {
                             </div>
                     }
                 })()}
-                <div className="flex flex-col mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <div className="flex flex-col mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                     <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                         {props.payload.title}
                     </h3>
                     <div className="mt-2">
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 overflow-hidden w-full">
                             {props.payload.message}
               </p>
                     </div>

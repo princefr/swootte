@@ -1,22 +1,18 @@
 
-import {useContext, useState } from "react"
+import {useState } from "react"
 import firebase from 'firebase/app'
 import FirebaseClient from "../../utils/firebase"
-import { FirebaseUIDContext } from "../../context/FirebaseUIDContext"
 import { Transition } from "@headlessui/react"
 
 
-
+FirebaseClient()
 function DisconnectConfirm({handleCloseConfirmation}){
     const [loading, ] = useState(false)
-    FirebaseClient()
-    const {firebaseUID, setFirebaseUID} = useContext(FirebaseUIDContext)
-
-    const handleConfirmSignout = (event) => {
+  
+    const handleConfirmSignout = async (event) => {
         event.preventDefault()
         handleCloseConfirmation()
-        firebase.auth().signOut()
-        setFirebaseUID(null)
+        await firebase.auth().signOut()
         
     }
 

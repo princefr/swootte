@@ -64,6 +64,10 @@ const CustomersGained30Days = (props) => {
         }
     })
 
+    useEffect(() => {
+        if(Devise != null) refetch()
+    }, [Devise])
+
 
     if (loading) return <RevenueOn30DAYSShimmer />;
     if (error) return null;
@@ -95,6 +99,10 @@ const Sale30DAYS = (props) => {
             token: props.token
         }
     })
+
+    useEffect(() => {
+        if(Devise != null) refetch()
+    }, [Devise])
 
 
     if (loading) return <RevenueOn30DAYSShimmer></RevenueOn30DAYSShimmer>;
@@ -144,7 +152,7 @@ const RevenueOn30DAYS = (props) => {
 
 
     useEffect(() => {
-        refetch()
+        if(Devise != null) refetch()
     }, [Devise])
 
     if (loading) return <RevenueOn30DAYSShimmer />;
@@ -179,7 +187,6 @@ const MainView = (props) => {
 
                 <PictureOnDashboard {...props}></PictureOnDashboard>
                 <div className="flex flew-row justify-center space-x-6 items-center">
-
                     <div className="flex flex-row space-x-4">
                         <ReceiveMoneyButton token={props.token}></ReceiveMoneyButton>
                         <SendMoneyButton></SendMoneyButton>

@@ -26,8 +26,8 @@ function ConnnectButton() {
 
     const checkThis = async () => {
         const token = await firebase.auth().currentUser.getIdToken()
-        const { data } = await loadUser(token)
-        data.usersExist == null ? navigateToSignup() : navigateToDashboard()
+        const { data: {usersExist} } = await loadUser(token)
+        usersExist == null ? navigateToSignup() : navigateToDashboard()
     }
     
 
@@ -135,7 +135,8 @@ function ConnnectButton() {
     const onVerifyCodeSubmit = event => {
         event.preventDefault();
         setConnectLoading(true)
-        verificationCode.confirm(useCode).then(async () => {
+        var credential = firebase.auth.PhoneAuthProvider.credential(verificationCode.verificationId, useCode);
+        firebase.auth().signInWithCredential(credential).then(async () => {
             const token = await firebase.auth().currentUser.getIdToken()
             const { data } = await loadUser(token)
             if (data.usersExist == null) {
@@ -156,7 +157,7 @@ function ConnnectButton() {
                     message: err.message
                 }
             })
-        })
+        });
     }
 
 

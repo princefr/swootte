@@ -11,15 +11,16 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Swootte - Accept digital dollar for your physical commerce</title>
+        <title>Swootte - Envoyez, Recevez, Payez avec des CFA numérique.</title>
         <link rel="icon" href="/favicon.ico" />
 
-        <meta property="og:title" content="Swootte - Accept digital dollar for your physical commerce" />
+        <meta property="og:title" content="Swootte - Envoyez, Recevez, Payez avec des CFA numérique." />
         <meta property="og:url" content="https://www.swootte.com/" />
-        <meta property="og:description" content="Swootte Terminal allows you to create your point of sales solution to accept digital dollar payments on the spot. Designed for modern merchants and platforms, our terminals helps you enter the new internet financial world." />
+        <meta property="og:site_name" content="Swootte" />
+        <meta property="og:description" content="Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA numérique sur place ou sur le web. Commercer sans frontière meme à l'internationale." />
         <meta property="og:image" content="https://images.unsplash.com/photo-1508938255445-041651dfe0c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" />
-        <meta name="twitter:card" content="summary"></meta>
 
+        <meta name="twitter:card" content="summary"></meta>
         <meta name="twitter:site" content="@swootte" />
         <meta name="twitter:creator" content="@ondpr" />
       </Head>
@@ -86,18 +87,31 @@ export default function Home() {
         <div className="bg-white">
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              <span className="block">Ridiculous 0.5% fees</span>
-              <span className="block text-red-800">75% cheaper than most traditional companies.</span>
+              <span className="block">Frais ridicules de 0,5 %.</span>
+              <span className="block text-red-800">75% moins cher que la plupart des concurrents.</span>
             </h2>
             <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
               <div className="inline-flex rounded-md shadow">
                 <a href="#" className="inline-flex items-center justify-center px-3 py-2 border border-transparent text-base font-medium  text-white bg-black hover:bg-gray-700">
-                  Get started
+                  Commencez
                 </a>
               </div>
             </div>
           </div>
         </div>
+
+        <section className="text-gray-600 body-font">
+          <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+            <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+              <img className="object-cover object-center rounded" alt="hero" src="images/cfa_numerique.svg" />
+            </div>
+            <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+              <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Le franc CFA nnumérique</h1>
+              <p className="mb-4 leading-relaxed">Le franc CFA numérique (FCFA) est une crypto-monnaie, de type monnaie numérique stable, émise par la société Swootte LTD. </p>
+              <p>Garantie à 100%, transparent et reposant essentiellement sur la technologie Bloackchain, Le Franc CFA numérique est une invention qui veut aider à favoriser les paiements électronique En Afrique.</p>
+            </div>
+          </div>
+        </section>
 
 
         <EmailView></EmailView>
@@ -108,3 +122,4 @@ export default function Home() {
     </div>
   )
 }
+

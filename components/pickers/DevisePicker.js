@@ -114,7 +114,6 @@ function DevisePicker(){
     const { firebaseUID, } = useContext(FirebaseUIDContext)
     const {Devise, setDevice} = useContext(DeviseContext)
     const {loading, error, data, refetch} = useQuery(GET_CURRENCIES)
-
     const [selected, setSelected] = useState(null)
 
 

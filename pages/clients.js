@@ -28,7 +28,9 @@ export  function UsersView({token}) {
 
             <nav className="py-4 px-6">
                 <div className="flex flex-col px-10">
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div>Retrouvez dans ce menu les données de tous les clients vous ayant achetés quelque chose.
+                        vous pouvez en ajouter ou pour votre marketing en exporter.
+                    </div>
                     <div className="flex flex-col py-8">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -184,4 +186,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
   }) 
 
 
-export default withAuthUser()(UsersView)
+export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(UsersView)

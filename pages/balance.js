@@ -149,7 +149,7 @@ export function WalletsView({ token }) {
                             </div>
                             <div className="flex flex-col w-3/5 px-16 justify-center h-full text-justify">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                    Retrouvrez  dans ce menu toutes les transactions ayant participés à votre portefeuille, dépot, retrait mais aussi achat physique ou web ou paiement recu lors d'une vente en physique ou sur le web, tout y est.
                                 </p>
                             </div>
                         </div>
@@ -191,4 +191,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
 })
 
 
-export default withAuthUser()(WalletsView)
+export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(WalletsView)

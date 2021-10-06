@@ -12,6 +12,7 @@ import { UPDATE_PROFIL_PICTURE } from "../mutation/updateProfilePicture";
 import { CameraIcon } from "@heroicons/react/solid";
 import { SpinLogo } from "../components/items/productItem";
 import { Transition } from "@headlessui/react";
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
 
 
 
@@ -267,7 +268,16 @@ const Profil = () => {
 }
 
 
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    return {
+      props: {
+        token: token
+      }
+    }
+  }) 
 
-
-export default Profil
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Profil)
 

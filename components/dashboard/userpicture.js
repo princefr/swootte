@@ -118,11 +118,6 @@ const UserPicture = props => {
                                 <AddAgencyButton></AddAgencyButton>
                             </div>
                         </Transition>
-
-
-
-
-
                         <button className="flex flex-row items-center px-4 py-2 text-sm justify-between  text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                             <div className="flex flex-row items-center space-x-2 ml-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

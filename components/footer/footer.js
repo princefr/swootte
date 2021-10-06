@@ -36,8 +36,8 @@ const SuscribeToNewsletter = () => {
   }
   return (
     <div className="sm:col-span-6 md:col-span-3 lg:col-span-3">
-      <h6 className="text-white font-medium mb-2">Subscribe to our newsletter</h6>
-      <p className="text-sm text-white mb-4">Get the latest news and articles in your inbox every month.</p>
+      <h6 className="text-white font-medium mb-2">S'abonner à notre newsletter</h6>
+      <p className="text-sm text-white mb-4">Recevez chaque mois les dernières nouvelles et les derniers articles dans votre boîte aux lettres électronique.</p>
 
       <div className="flex flex-wrap mb-4">
         <div className="w-full">
@@ -85,7 +85,7 @@ export const Footer = () => {
           <div className="md:max-w-md lg:col-span-2">
             <img src="images/Swootte_logo_white.svg" className="w-36" alt="swootte logo"></img>
             <div className="mt-4 lg:max-w-sm">
-              Swootte Terminal allows you to create your point of sales solution to accept digital dollar payments on the spot. Designed for modern merchants and platforms, our terminals helps you enter the new internet financial world.
+            Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA numérique sur place ou sur le web. Commercer sans frontière meme à l'internationale.
             </div>
           </div>
           <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-3">
@@ -99,7 +99,7 @@ export const Footer = () => {
                     href="/tutorials"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    Tutorials et guides
+                    Tutoriels et guides
                   </Link>
                 </li>
                 <li>
@@ -115,7 +115,7 @@ export const Footer = () => {
                     href="/support"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    Support center
+                    Centre d'assistance
                   </Link>
                 </li>
                 <li>
@@ -123,14 +123,14 @@ export const Footer = () => {
                     href="/"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    Our parteners
+                    Nos partenaires
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
               <p className="font-semibold tracking-wide text-teal-accent-400">
-                Practical information
+              Informations pratiques
               </p>
               <ul className="mt-2 space-y-2">
                 <li>
@@ -138,7 +138,7 @@ export const Footer = () => {
                     href="/terms"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    Terms and conditions
+                    Modalités et conditions
                   </Link>
                 </li>
                 <li>
@@ -146,7 +146,7 @@ export const Footer = () => {
                     href="/cookies"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    Cookie management
+                    Gestion des cookies
                   </Link>
                 </li>
                 <li>
@@ -154,7 +154,7 @@ export const Footer = () => {
                     href="/privacy"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    Privacy Policy
+                    Politique de confidentialité
                   </Link>
                 </li>
                 <li>
@@ -162,7 +162,7 @@ export const Footer = () => {
                     href="/about"
                     className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"
                   >
-                    About us
+                    À propos de nous
                   </Link>
                 </li>
               </ul>

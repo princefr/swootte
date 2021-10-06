@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react"
 import {useState } from "react"
 import DisconnectConfirm from "../ConfirmationPanels/disconnectConfirm"
 
@@ -5,11 +6,8 @@ import DisconnectConfirm from "../ConfirmationPanels/disconnectConfirm"
 
 
 function DisconnectButton(){
-
     const [showConfirmation, setShowConfirmation] =  useState(false)
     
-
-
     const handleCloseConfirmation = () => {
         setShowConfirmation(false)
         
@@ -27,9 +25,9 @@ function DisconnectButton(){
                                     <div>Se déconnecter</div>
                                 </div>
                     </button>
-            {
-                showConfirmation ? <DisconnectConfirm handleCloseConfirmation={handleCloseConfirmation}></DisconnectConfirm> : null
-            }
+            <Transition show={showConfirmation}>
+                <DisconnectConfirm handleCloseConfirmation={handleCloseConfirmation}></DisconnectConfirm>
+            </Transition>
         </div>
     )
 }

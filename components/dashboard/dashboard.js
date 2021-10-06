@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import SideBar from './sidebar'
 import DashBoardNav from './nav'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import navButtons from '../../configs/buttons'
 import { GET_USER} from '../../queries/getUser'
 import { useQuery } from '@apollo/client'

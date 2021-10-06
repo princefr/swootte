@@ -168,7 +168,7 @@ export function ContactView({ token }) {
 
                 <nav className="py-4 px-6">
                     <div className="flex flex-col px-10">
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                        <div>Retrouvez dans ce menu tout vos contacts ayant été ajouter par vous , via la barre de recherche. il vous est possible d'en exporter</div>
                         <ContactItems></ContactItems>
 
                         
@@ -198,4 +198,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
 })
 
 
-export default withAuthUser()(ContactView)
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(ContactView)

@@ -28,7 +28,9 @@ export  function Products({token}) {
 
                 <div className="flex flex-col px-12">
                     <div className="flex flex-col">
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div>Retrouvez dans ce menu absolument tout ce qui est en lien avec les elements de que vous vendez.
+                        il vous est possible d'ajouter , de supprimer de nouveau produit.
+                        LA comptabilité est facilité avec les exports de vos donnnées</div>
                         <ProductItems></ProductItems>
                     </div>
 
@@ -53,4 +55,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
   }) 
 
 
-export default withAuthUser()(Products)
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Products)

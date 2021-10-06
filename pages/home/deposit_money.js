@@ -33,16 +33,16 @@ const DepositMoney = () => {
             dispatch({
                 payload: {
                     type: "SUCCESS",
-                    title: "Withdraw",
-                    message: "Votre argent à bien été envoyé"
+                    title: "Dépot",
+                    message: `Votre demande de dépot a été effectué, rendez vous sur place  à ${selected.title}, pour valider ce dépot`
                 }
             })
         }).catch((err) => {
             dispatch({
                 payload: {
                     type: "ERROR",
-                    title: "Withdraw",
-                    message: "Votre argent à bien été envoyé"
+                    title: "Dépot",
+                    message: err.message
                 }
             })
         })
@@ -62,7 +62,7 @@ const DepositMoney = () => {
 
                     <nav className="px-6">
                         <div className="flex flex-col px-10">
-                            <div className="font-light font-montserrat">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            <div className="font-light font-montserrat">Déposer de l'argent sur votre compte swootte en effectuant d'abord une demande de dépot et en allant ensuite deposer ensuite les fonds dans l'une de nos agences partenaire pour que le dépot soit crédité.</div>
 
                             <div className="mx-auto w-2/5 mt-10">
                                 <div className="flex flex-col relative p-4 space-y-3 items-center">
@@ -79,7 +79,7 @@ const DepositMoney = () => {
                                                     type="number"
                                                     name="amount"
                                                     id="amount"
-                                                    placeholder="Amount to deposit"
+                                                    placeholder="montant à déposer"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
                                                 />
 
@@ -89,7 +89,8 @@ const DepositMoney = () => {
                                                 Agence de dépot
                                             </h3>
 
-                                            <span className="text-sm items-start text-left px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                                            <span className="text-sm items-start text-left px-3">Vous pouvez effectuer un dépot dans l'une de nos agences partenaires ci dessous. </span>
+                                            <span className="text-xs items-start text-left px-3">*des frais supplumentaires peuvent etre applicable</span>
 
                                             <div className="w-full px-3 py-4">
                                                 <AgencySelect selected={selected} setSelected={setSelected}/>
@@ -98,7 +99,7 @@ const DepositMoney = () => {
 
                                                 <button disabled={amount == null || amount <= 0}
                                                     type="button"
-                                                    className="inline-flex w-full justify-center px-4 py-2 mt-4 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                                    className="inline-flex w-full justify-center px-4 py-2 mt-4 text-sm font-medium text-white disabled:opacity-50 bg-black border border-transparent rounded-md hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                                     onClick={handleDeposit}
                                                 >
 
@@ -109,7 +110,7 @@ const DepositMoney = () => {
                                                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                         </svg>
                                                     </Transition>
-                                                    <span>Ask a deposit</span>
+                                                    <span>Demander un dépot</span>
                                                 </button>
                                             </div>
                                         

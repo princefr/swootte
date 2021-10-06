@@ -34,7 +34,7 @@ export const AgencySelect = ({ selected, setSelected }) => {
                                 ? 'ring-2 ring-offset-2 ring-offset-green-300 ring-white ring-opacity-60'
                                 : ''
                             }
-                                                        ${checked ? 'bg-green-700 bg-opacity-75 text-white' : 'bg-blue-100'
+                                                        ${checked ? 'bg-green-500 bg-opacity-75 text-white' : 'bg-gray-100'
                             }
                                                         relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
                         }
@@ -136,7 +136,7 @@ const WithdrawMoney = () => {
 
                     <nav className="px-6">
                         <div className="flex flex-col px-10">
-                            <div className="font-light font-montserrat">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            <div className="font-light font-montserrat">Retirer de l'argent de votre compte swootte, en effectuant d'abord une demande de retrait et en allant deposer ensuite chercher les fonds dans l'une de nos agences partenaire.</div>
 
                             <div className="mx-auto w-2/5 mt-10">
                                 <div className="flex flex-col relative p-4 space-y-3 items-center">
@@ -153,17 +153,18 @@ const WithdrawMoney = () => {
                                                 type="number"
                                                 name="amount"
                                                 id="amount"
-                                                placeholder="Amount to deposit"
+                                                placeholder="montant à retirer"
                                                 className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
                                             />
 
                                         </div>
 
                                         <h3 className="text-sm font-medium leading-2 text-gray-900 px-3 pt-4">
-                                            Agence de dépot
+                                            Agence de retrait
                                         </h3>
 
-                                        <span className="text-sm items-start text-left px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                                        <span className="text-sm items-start text-left px-3">Vous pouvez effectuer un retrait dans l'une de nos agences partenaires ci dessous. </span>
+                                        <span className="text-xs items-start text-left px-3">* des frais supplumentaires peuvent etre applicable</span>
 
                                         <div className="w-full px-3 py-4">
 
@@ -174,7 +175,7 @@ const WithdrawMoney = () => {
 
                                             <button disabled={amount == null || amount <= 0}
                                                 type="button"
-                                                className="inline-flex w-full justify-center px-4 py-2 mt-4 text-sm font-medium text-blue-900 disabled:opacity-50 bg-blue-300 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                                className="inline-flex w-full justify-center px-4 py-2 mt-4 text-sm font-medium text-white disabled:bg-opacity-80 bg-black border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                                 onClick={handleWithDraw}
                                             >
 
@@ -185,7 +186,7 @@ const WithdrawMoney = () => {
                                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                     </svg>
                                                 </Transition>
-                                                <span>Ask a withdraw</span>
+                                                <span>Demander un retrait</span>
                                             </button>
                                         </div>
 

@@ -5,11 +5,10 @@ export const Content = () => {
           <div className="flex flex-col justify-center">
             <div className="max-w-xl mb-6">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-                Organize your products and track your sales
+                Organisez vos produits et suivez vos ventes
               </h2>
               <p className="text-base text-gray-700 md:text-lg">
-              Our cashier app turns your smartphone or tablet into a full-featured cash register, allowing you to collect stablecoin payments. Organize your products, track inventory levels, and stay on top of sales with the secure storage of all your data in the app.
-              </p>
+              Notre application de caisse transforme votre smartphone ou votre tablette en une caisse enregistreuse complète, vous permettant d'encaisser des paiements en Franc CFA numérique. Organisez vos produits, suivez les niveaux d'inventaire et restez au courant des ventes grâce au stockage sécurisé de toutes vos données dans l'application.              </p>
             </div>
             <div className="grid gap-8 row-gap-8 sm:grid-cols-2">
               <div>
@@ -19,10 +18,10 @@ export const Content = () => {
 </svg>
                 </div>
                 <h6 className="mb-2 font-semibold leading-5">
-                  Off ramp.
+                  Off ramp / On ramp.
                 </h6>
                 <p className="text-sm text-gray-900">
-                  The money you earn can be deposited into your traditional bank account within one to two business days.
+                  L'argent que vous gagnez peut être déposé sur votre compte bancaire traditionnel en un ou deux jours ouvrables.
                 </p>
               </div>
               <div>
@@ -32,10 +31,10 @@ export const Content = () => {
                   </svg>
                 </div>
                 <h6 className="mb-2 font-semibold leading-5">
-                  Activity reports
+                Rapports d'activité
                 </h6>
                 <p className="text-sm text-gray-900">
-                  Benefit from clear and accessible real-time activity reports on your sales and staff activity.
+                  Bénéficiez de rapports d'activité clairs et accessibles en temps réel sur vos ventes et l'activité de votre personnel.
                 </p>
               </div>
             </div>

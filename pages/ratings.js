@@ -25,7 +25,7 @@ export  function Ratings({token}) {
 
                 <div className="flex flex-col px-12">
                     <div className="flex flex-col">
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                        <div>Retrouvez toutes les notations que les clients ayant achetés vos produits ont attribué à votre marchandise ou à votre service. il vous est possible d'exporter les données.</div>
                     </div>
                 </div>
             </div>
@@ -46,4 +46,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
   }) 
 
 
-export default withAuthUser()(Ratings)
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Ratings)

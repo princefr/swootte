@@ -15,6 +15,11 @@ export function Settings({token}){
                 </div>
 
             </header>
+            <div className="flex flex-col px-12">
+                    <div className="flex flex-col">
+                        <div>Retrouvez tous les paramètres associés à votre compte dans ce menu</div>
+                    </div>
+                </div>
             </div>
             }</Dashboard>
     )
@@ -33,4 +38,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
   }) 
 
 
-export default withAuthUser()(Settings)
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Settings)

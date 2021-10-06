@@ -1,10 +1,11 @@
 import MainView from "../components/dashboard/mainview";
 import Dashboard from "../components/dashboard/dashboard";
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { AuthAction, useAuthUser, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
 import { getDefaultToken } from "../queries/getUser";
 
 
 export  function  Home({token}){
+  const AuthUser = useAuthUser()
     return (
         <div>
             <Dashboard pageName={"home - dashboard"} token={token}>{
@@ -18,7 +19,7 @@ export  function  Home({token}){
 
 
 export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
   })(async ({ AuthUser }) => {
     const token = await AuthUser.getIdToken()
     const { data } = await getDefaultToken(token)
@@ -30,7 +31,8 @@ export const getServerSideProps = withAuthUserTokenSSR({
   }) 
 
 
-export default withAuthUser()(Home)
+
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(Home)
 
 
 

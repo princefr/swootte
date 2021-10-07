@@ -116,7 +116,7 @@ const UserPicture = props => {
                                 <PhotoView height={16} width={16} photoUrl={data.usersExist.photoUrl}></PhotoView>
 
                                 <div className="flex flex-col ml-5 items-start py-2">
-                                    <div className="font-medium">{data.usersExist.first_name + " " + data.usersExist.first_name}</div>
+                                    <div className="font-medium">{data.usersExist.first_name + " " + data.usersExist.last_name}</div>
                                     <div className="flex flex-row items-center space-x-2 ml-0">
                                         <div className={`h-3 w-3 rounded-full ${data.usersExist.is_online ? "bg-green-500" : "bg-gray-500"}`} />
                                         <div className="text-sm font-montserrat">{data.usersExist.is_online ? "En ligne" : "Déconnecté"}</div>

@@ -42,7 +42,7 @@ export const Content = () => {
           <div>
             <img
               className="object-cover w-full h-56 shadow-lg sm:h-96"
-              src="images/screen_dashboard.png"
+              src="images/capture_pour_home.png"
               alt=""
             />
           </div>

@@ -167,8 +167,8 @@ registerLocale('fr', fr)
                     <div className="md:grid md:grid-cols-3 md:gap-6">
                         <div className="md:col-span-1">
                             <div className="px-4 sm:px-0">
-                                <h3 className="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
-                                <p className="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+                                <h3 className="text-lg font-medium leading-6 text-gray-900">Informations personnelles</h3>
+                                <p className="mt-1 text-sm text-gray-600">Utilisez une adresse permanente où vous pouvez recevoir du courrier.</p>
                             </div>
                         </div>
                         <div className="mt-5 md:mt-0 md:col-span-2">
@@ -178,7 +178,7 @@ registerLocale('fr', fr)
                                         <div className="grid grid-cols-3 gap-6 mt-10">
                                             <div className="col-span-3 p-4 sm:col-span-2">
                                                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                                                    Website   {/* Website {!userWebsite.length || !linkvalid ? <span className="text-red-600 font-montserrat text-lg">*</span> : null} */}
+                                                    Site web   {/* Website {!userWebsite.length || !linkvalid ? <span className="text-red-600 font-montserrat text-lg">*</span> : null} */}
                                                 </label>
                                                 <div className="mt-1 flex rounded-lg bg-gray-200 h-10 p-2 shadow-sm">
                                                     <span className="inline-flex items-center px-3  text-gray-500 text-sm border-r-0 border-gray-400">
@@ -197,13 +197,13 @@ registerLocale('fr', fr)
                                         <div className="grid grid-cols-6 gap-3 mt-6">
                                             <div className="col-span-6 p-4 sm:col-span-3">
                                                 <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                                    First name {!userFirstName.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Prénom {!userFirstName.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userFirstName} onChange={((e) => setFirstName(e.target.value))}
                                                     type="text"
                                                     name="first-name"
                                                     id="first-name"
-                                                    placeholder="first name"
+                                                    placeholder="Prénom"
                                                     autoComplete="given-name"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
@@ -211,13 +211,13 @@ registerLocale('fr', fr)
 
                                             <div className="col-span-6 p-4 sm:col-span-3">
                                                 <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                                                    Last name {!userLastName.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Nom {!userLastName.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userLastName} onChange={((e) => setLastName(e.target.value))}
                                                     type="text"
                                                     name="last-name"
                                                     id="last-name"
-                                                    placeholder="last name"
+                                                    placeholder="Nom de famille"
                                                     autoComplete="family-name"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
@@ -225,28 +225,28 @@ registerLocale('fr', fr)
 
                                             <div className="col-span-6 p-4 sm:col-span-4">
                                                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                                                    Email address {!userEmail.length || !emailValid ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Email {!userEmail.length || !emailValid ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userEmail} onChange={((e) => handleEmail(e.target.value))}
                                                     type="text"
                                                     name="email-address"
                                                     id="email-address"
                                                     placeholder="email"
-                                                    autoComplete="email"
+                                                    autoComplete="Email"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
                                             </div>
 
                                             <div className="col-span-6 p-4 sm:col-span-4">
                                                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                                                    Password {!userPassword.length || !userPasswordConfirm.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Mot de passe {!userPassword.length || !userPasswordConfirm.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 
                                                 <input required value={userPassword} onChange={((e) => setuserPassword(e.target.value))}
                                                     type="password"
                                                     name="password"
                                                     id="new-password"
-                                                    placeholder="set your password"
+                                                    placeholder="Mot de passe"
                                                     autoComplete="new-password"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
@@ -255,7 +255,7 @@ registerLocale('fr', fr)
                                                     type="password"
                                                     name="password"
                                                     id="new-password"
-                                                    placeholder="Confirm password"
+                                                    placeholder="Confirmer le mot de passe"
                                                     autoComplete="new-password"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none mt-4"
                                                 />
@@ -267,67 +267,67 @@ registerLocale('fr', fr)
 
                                             <div className="col-span-6 p-4 sm:col-span-4">
                                                 <label htmlFor="birthday" className="block text-sm font-medium text-gray-700">
-                                                    Birthday {!userEmail.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Date de naissance {!userEmail.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <DatePicker  showMonthDropdown showYearDropdown dropdownMode="select" monthsShown={2} required selected={userBirthDay} dateFormat="dd/MM/yyyy" onChange={date => setuserBirthDay(date)} className="bg-gray-200 rounded-lg h-10 px-5 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-black focus:ring-black w-96 font-montserrat" />
                                             </div>
 
                                             <div className="col-span-6 p-4 sm:col-span-3">
                                                 <label htmlFor="birthday" className="block text-sm font-medium text-gray-700">
-                                                    Country {!userCountry.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Pays {!userCountry.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <CountryWithoutPhonePicker countryDisplayed={countryDisplayed} setCountryDisplayed={setCountryDisplayed}></CountryWithoutPhonePicker>
                                             </div>
 
                                             <div className="col-span-6 p-4">
                                                 <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
-                                                    Street address {!userAdress.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Adresse {!userAdress.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userAdress} onChange={((e) => setAdress(e.target.value))}
                                                     type="text"
                                                     name="street-address"
                                                     id="street-address"
                                                     autoComplete="street-address"
-                                                    placeholder="Address"
+                                                    placeholder="Adresse"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-6 p-4 lg:col-span-2">
                                                 <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                                                    City {!userCity.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Ville {!userCity.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userCity} onChange={((e) => setCity(e.target.value))}
                                                     type="text"
                                                     name="city"
                                                     id="city"
-                                                    placeholder="City"
+                                                    placeholder="Ville"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-3 p-4 lg:col-span-2">
                                                 <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                                                    State / Province {!userStates.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Province {!userStates.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userStates} onChange={((e) => setStates(e.target.value))}
                                                     type="text"
                                                     name="state"
                                                     id="state"
-                                                    placeholder="State / Province"
+                                                    placeholder="Province"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-3 p-4 lg:col-span-2">
                                                 <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
-                                                    ZIP / Postal {!userWebsite.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
+                                                    Code Postal {!userWebsite.length ? <span className="text-red-600 font-montserrat text-lg">*</span> : null}
                                                 </label>
                                                 <input required value={userZip} onChange={((e) => setZip(e.target.value))}
                                                     type="text"
                                                     name="postal-code"
                                                     id="postal-code"
-                                                    placeholder="ZIP / Postal code"
+                                                    placeholder="Code postal"
                                                     autoComplete="postal-code"
                                                     className="flex w-full  sm:text-sm bg-gray-200 h-10 rounded-lg px-2 focus:outline-none"
                                                 />

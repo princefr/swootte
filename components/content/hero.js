@@ -8,7 +8,7 @@ export const Header = () => {
           <div className="max-w-xl mb-6">
 
             <h2 className="font-sans text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none max-w-lg mb-6">
-              Envoyez, Recevez, 
+              Envoyez, Recevez,  
               <br className="hidden md:block" />
               Payez avec des CFA numérique,{' '}
               <span className="inline-block relative">
@@ -17,7 +17,7 @@ export const Header = () => {
                 </span>
             </h2>
             <p className="text-gray-700 text-base font-montserrat md:text-lg">Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA numérique en physique ou sur le web.
-Commercer sans frontière meme à l'internationale.</p>
+Commercez sans frontière.</p>
           </div>
           <div className="">
             <a href="#">

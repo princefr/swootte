@@ -225,7 +225,7 @@ function ConnnectButton() {
                                 </Dialog.Title>
 
                                 <Dialog.Description className="text-sm px-14">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA numérique en physique ou sur le web. Commercer sans frontière meme à l'internationale.
                                 </Dialog.Description>
 
 
@@ -243,9 +243,9 @@ function ConnnectButton() {
                                     </div>
 
                                     <div className="py-2 w-full text-justify">
-                                        <p className="text-xs">
+                                        {/* <p className="text-xs">
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-                                        </p>
+                                        </p> */}
                                     </div>
 
                                     <div id="sign-in-button" />
@@ -271,7 +271,7 @@ function ConnnectButton() {
                                     <div className="items-start justify-start flex text-2xl font-montserrat font-semibold mt-5">S'inscrire</div>
                                     <div className="py-2 w-full text-justify">
                                         <p className="text-xs">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                            Nous developpons activement les applications mobiles pour IOS et Android qui vout permettrons d'envoyer, de recevoir et de payer partout, que ce soit en physique ou sur le web.
                                         </p>
                                     </div>
                                     <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-center">

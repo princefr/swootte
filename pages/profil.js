@@ -13,6 +13,7 @@ import { CameraIcon } from "@heroicons/react/solid";
 import { SpinLogo } from "../components/items/productItem";
 import { Transition } from "@headlessui/react";
 import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { format } from 'date-fns'
 
 
 
@@ -143,14 +144,14 @@ const FormProfil = (props) => {
                                     {data.usersExist.first_name}  {data.usersExist.last_name}
                                 </dd>
                             </div>
-                            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">
                                     Website
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    https://www.google.fr
+                                    {}
                                 </dd>
-                            </div>
+                            </div> */}
                             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">
                                     Email address
@@ -165,7 +166,8 @@ const FormProfil = (props) => {
                                     Birthday
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    16/06/1991
+                                    {data.usersExist.birth_date.day + "/" + data.usersExist.birth_date.month + "/" + data.usersExist.birth_date.year}
+                                    
                                 </dd>
                             </div>
 
@@ -177,14 +179,14 @@ const FormProfil = (props) => {
                                     {data.usersExist.country}
                                 </dd>
                             </div>
-                            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">
                                     Adress
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     13 avenue de savigny, 93600, Aulnay-sous-bois.
                                 </dd>
-                            </div>
+                            </div> */}
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">
                                     Phone number
@@ -198,18 +200,18 @@ const FormProfil = (props) => {
                                     Conditions d'utilisation du service
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    Agréé le 17 avr. à 11:03
+                                    Agréé le {format(new Date(data.usersExist.createdAt), "dd/MM/yyyy HH:mm:ss")}
                                 </dd>
                             </div>
-                            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            {/* <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">
                                     About
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
                                 </dd>
-                            </div>
-                            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            </div> */}
+                            {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500">
                                     Attachments
                                 </dt>
@@ -249,7 +251,7 @@ const FormProfil = (props) => {
                                         </li>
                                     </ul>
                                 </dd>
-                            </div>
+                            </div> */}
                         </dl>
                     </div>
                 </div>

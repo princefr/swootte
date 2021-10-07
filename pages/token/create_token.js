@@ -7,6 +7,18 @@ import { CREATE_NEW_TOKEN } from "../../mutation/CreateNewToken"
 import { useNotification } from "../../notifications/NotificationContext"
 import { InformationCircleIcon } from "@heroicons/react/solid"
 
+
+
+export const RemindsAcceptedTerms = () => {
+    return (
+        <div className="text-sm pt-8 flex flex-row space-x-3">
+        <InformationCircleIcon className="h-8 w-8 text-yellow-600"></InformationCircleIcon>
+        <span className="text-xs">Cette acti</span>
+    </div>
+    )
+}
+
+
 const CreateToken = () => {
     const [name, setName] = useState("")
     const [tick, setTick] = useState("")
@@ -138,10 +150,7 @@ const CreateToken = () => {
                                         className="flex w-full  sm:text-sm bg-gray-200 h-10 px-3 rounded-lg focus:outline-none"
                                     />
 
-                                    <div className="text-sm pt-8 flex flex-row space-x-3">
-                                        <InformationCircleIcon className="h-8 w-8 text-yellow-600"></InformationCircleIcon>
-                                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-                                    </div>
+                                    
 
 
                                     <button disabled={!name.length || !tick.length || !decimals.length}

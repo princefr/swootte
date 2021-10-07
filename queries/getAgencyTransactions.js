@@ -18,6 +18,7 @@ query GetAgenciesTransactions {
                 agency
                 status
                 type
+                shortId
                 validator {
                     _id
                     first_name
@@ -37,6 +38,7 @@ query GetAgenciesTransactions {
                 }
                 amount
                 agency
+                shortId
                 type
                 status
                 validator {

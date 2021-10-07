@@ -6,6 +6,7 @@ const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000
 
 const initAuth = () => {
   init({
+    debug: false,
     authPageURL: '/',
     appPageURL: '/home',
     loginAPIEndpoint: '/api/login', // required
@@ -38,8 +39,8 @@ const initAuth = () => {
       maxAge: TWELVE_DAYS_IN_MS,
       overwrite: true,
       path: '/',
-      sameSite: 'strict',
-      secure: true,
+      sameSite: 'Strict',
+      secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === 'true',
       signed: true,
     },
   })

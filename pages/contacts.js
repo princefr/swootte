@@ -12,7 +12,7 @@ import { useNotification } from "../notifications/NotificationContext";
 import { GET_ALL_CONTACTS } from "../queries/getContacts";
 
 
-const RemoveContactButton = ({contact}) => {
+const RemoveContactButton = ({contact, refetch}) => {
     const [RemoveContact, { loading }] = useMutation(REMOVE_CONTACT)
     const dispatch = useNotification()
 
@@ -32,6 +32,7 @@ const RemoveContactButton = ({contact}) => {
                     message: "success removing product"
                 }
             })
+            refetch()
         }).catch((err) => {
             dispatch({
                 payload: {
@@ -56,7 +57,7 @@ const RemoveContactButton = ({contact}) => {
     )
 }
 
-export const ContactItem = ({contact}) =>{
+export const ContactItem = ({contact, refetch}) =>{
 return (
 <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
@@ -91,7 +92,7 @@ return (
                                 Admin
                             </td>
                             <td className="py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <RemoveContactButton contact={contact}></RemoveContactButton>
+                                <RemoveContactButton contact={contact} refetch={refetch}></RemoveContactButton>
                             </td>
                         </tr>
                     </tbody>
@@ -100,25 +101,25 @@ return (
 
 export function ContactItems() {
     const { loading, error, data, refetch } = useQuery(GET_ALL_CONTACTS)
-
     if (loading) return <p>Loading ...</p>;
     if (error) return <p>{error.message}</p>;
 
     return (
-        <div className="-my-2 overflow-x-auto sm:-mx-6 mt-5 lg:-mx-8">
+        <Transition show={data.getAllUserContact.length > 0}>
+            <div className="-my-2 overflow-x-auto sm:-mx-6 mt-5 lg:-mx-8">
                             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gray-50">
                                             <tr>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Name
+                                                    Image
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Title
+                                                    Nom
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Status
+                                                    Description
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Role
@@ -133,13 +134,14 @@ export function ContactItems() {
                                             </tr>
                                         </thead>
                                         {data.getAllUserContact.map((contact) => {
-                                                return <ContactItem contact={contact}></ContactItem>
+                                                return <ContactItem contact={contact} refetch={refetch}></ContactItem>
 
                                             })}
                                     </table>
                                 </div>
                             </div>
                         </div>
+        </Transition>
 
 
 

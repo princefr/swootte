@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import onClickOutside from "react-onclickoutside";
 
 import LanguageButton from "../buttons/languageButton";
@@ -14,6 +14,8 @@ import { ModeContext } from "../../context/ModeContext";
 import Skeleton from 'react-loading-skeleton';
 import Link from "next/dist/client/link";
 import AddAgencyButton from "../token/buttons/addAgencyButton";
+import { useMutation } from "@apollo/client";
+import { SET_IS_ONLINE } from "../../mutation/setIsOnline";
 
 export function PhotoView({ photoUrl, height, width }) {
     return (
@@ -39,15 +41,38 @@ export function PhotoView({ photoUrl, height, width }) {
 
 
 
+const ToggleOnline =  ({isOneline, setIsOnline, refetch, fromdb}) => {
+    const [SetisOnlineMutation, {loading}] = useMutation(SET_IS_ONLINE)
+
+    const handleSetIsOnline = (toggle) => {
+        setIsOnline(toggle)
+        // SetisOnlineMutation({
+        //     variables: {
+        //         toggle: !toggle
+        //     }
+        // })
+        //refetch()
+    }
+
+    setIsOnline(fromdb)
+
+    return (
+        <Toogle id="tooglesetOnline" enabled={isOneline} setEnabled={setIsOnline}/>
+    )
+}
+
 
 const UserPicture = props => {
     const router = useRouter()
-    const [loading, error, data,] = props.useUser
+    const [loading, error, data, refetch] = props.useUser
 
     const [showDropDown, setshowDropDown] = useState(false);
     const toggleDropdown = () => setshowDropDown(!showDropDown);
     UserPicture.handleClickOutside = () => setshowDropDown(false)
     const { LiveMode, setLiveMode } = useContext(ModeContext)
+    const  [isOneline, setIsOnline] = useState(false)
+    
+
 
 
 
@@ -62,8 +87,13 @@ const UserPicture = props => {
 
 
 
+
+
+
     if (loading) return <Skeleton circle={true} height={30} width={30} duration={2} />;
     if (error) return null;
+
+
 
     return (
 
@@ -95,10 +125,10 @@ const UserPicture = props => {
                             </div>
 
                             {/* https://tailwindcomponents.com/component/toggle-switch toogle swtich inspiration */}
-                            <div className="flex flex-row justify-between mt-5 items-center">
+                            {/* <div className="flex flex-row justify-between mt-5 items-center">
                                 <div className="text-sm font-montserrat">{data.usersExist.is_online ? "En ligne" : "Déconnecté"}</div>
-                                <Toogle id="tooglesetOnline" uid={"dsdsds"} />
-                            </div>
+                                <ToggleOnline isOneline={isOneline} setIsOnline={setIsOnline} refetch={refetch} fromdb={data.usersExist.is_online}></ToggleOnline>
+                            </div> */}
                         </div>
                     </div>
                     <div className="py-1" role="none">
@@ -118,7 +148,7 @@ const UserPicture = props => {
                                 <AddAgencyButton></AddAgencyButton>
                             </div>
                         </Transition>
-                        <button className="flex flex-row items-center px-4 py-2 text-sm justify-between  text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                        {/* <button className="flex flex-row items-center px-4 py-2 text-sm justify-between  text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                             <div className="flex flex-row items-center space-x-2 ml-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -127,7 +157,7 @@ const UserPicture = props => {
 
                             </div>
                             <Toogle enabled={LiveMode} setEnabled={setLiveMode} />
-                        </button>
+                        </button> */}
                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                             <LanguageButton />
                         </a>
@@ -135,14 +165,14 @@ const UserPicture = props => {
                             <CookiesButton></CookiesButton>
                         </div>
 
-                        <div onClick={goToSettings} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                        {/* <div onClick={goToSettings} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
                             <div className="flex flex-row items-center space-x-2 ml-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
                                 <div>Support</div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="py-1" role="none">
                         <DisconnectButton></DisconnectButton>

@@ -140,7 +140,7 @@ registerLocale('fr', fr)
             <header className="bg-white shadow-b flex flex-row justify-between items-start p-4 top-0 sticky">
                 <div className="flex flex-col px-12">
                     <h1 className="text-3xl font-bold text-gray-900">Signup</h1>
-                    <span className="text-sm text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                    <span className="text-sm text-gray-400">En donnant vos informations et en continuant, vous acceptez les Conditions d'utilisation et la politique de confidentialité de Swootte.</span>
                 </div>
                 <div className="flex flex-row space-x-4">
                     <button onClick={handleSignup} className="transition ease-out duration-700 rounded-lg w-full mr-5 flex  justify-center space-x-4 px-5 py-2 overflow-hidden focus:outline-none focus:shadow-outline bg-teal-400 hover:bg-gray-800 bg-black text-white text-xs items-center font-medium disabled:opacity-50"

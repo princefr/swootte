@@ -90,7 +90,9 @@ const SendMoney = (props) => {
                                         />
                                     </div>
 
-                                    <span className="text-xs items-start text-left px-3 py-1 font-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                                    <span className="text-xs items-start text-left px-3 py-1 font-light">
+                                        
+                                    </span>
 
                                     <div className="w-full px-3">
                                         <button disabled={!adress.length || amount == null || amount <= 0}

@@ -23,6 +23,14 @@ export const getServerSideProps = withAuthUserTokenSSR({
   })(async ({ AuthUser }) => {
     const token = await AuthUser.getIdToken()
     const { data } = await getDefaultToken(token)
+    if(data.usersExist == null) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/signup"
+        }
+      }
+    }
     return {
       props: {
         token: data.usersExist.defaultWallet

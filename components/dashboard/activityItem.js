@@ -74,7 +74,7 @@ const ActivityItemShimmer = () => {
 const ActivityItem = ({ activity, refetch }) => {
     return (
         <tr>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
                 {activity.shortId}
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
@@ -107,7 +107,12 @@ const ActivityItem = ({ activity, refetch }) => {
 
 const ActiviyItems = ({ activities, refetch }) => {
     return (
-        <table className="min-w-full divide-y divide-gray-200">
+    <div>
+         <Transition show={!activities.length}>
+            <div>Aucune activitée</div>
+        </Transition>
+        <Transition show={activities.length > 0}>
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
                 <tr>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -138,6 +143,8 @@ const ActiviyItems = ({ activities, refetch }) => {
 
             </tbody>
         </table>
+        </Transition>
+    </div>
     )
 }
 

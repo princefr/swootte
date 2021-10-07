@@ -18,7 +18,7 @@ export const SpinLogo = ({height, width}) => {
     )
 }
 
-const RemoveProductButton = ({product}) => {
+const RemoveProductButton = ({product, refetch}) => {
     const [RemoveProduct, { loading }] = useMutation(REMOVE_PRODUCT)
     const dispatch = useNotification()
 
@@ -38,6 +38,7 @@ const RemoveProductButton = ({product}) => {
                     message: "success removing product"
                 }
             })
+            refetch()
         }).catch((err) => {
             dispatch({
                 payload: {
@@ -62,7 +63,7 @@ const RemoveProductButton = ({product}) => {
     )
 }
 
-const ProductItem = ({product}) => {
+const ProductItem = ({product, refetch}) => {
     return (
         <tbody className="bg-white divide-y divide-gray-200">
                                             <tr>
@@ -94,7 +95,7 @@ const ProductItem = ({product}) => {
                                                     Admin
                                                 </td>
                                                 <td className="py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <RemoveProductButton product={product}></RemoveProductButton>
+                                                    <RemoveProductButton product={product} refetch={refetch}></RemoveProductButton>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <Link href={`/products/${product._id}`}>
@@ -149,7 +150,7 @@ function ProductItems({activity}) {
                                         </thead>
                                         {
                                             data.getProducts.map((product) => {
-                                                return <ProductItem product={product}></ProductItem> 
+                                                return <ProductItem product={product} key={product._id} refetch={refetch}></ProductItem> 
                                             })
                                         }
                                     </table>

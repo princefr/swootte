@@ -71,7 +71,9 @@ const DepositMoney = () => {
                                             <h3 className="text-lg font-medium leading-6 text-gray-900 px-3">
                                                 Effectuer un dépot
                                             </h3>
-                                            <span className="text-sm items-start text-left px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                                            <span className="text-sm items-start text-left px-3">
+                                                
+                                            </span>
 
                                             <div className="px-3 flex flex-col w-full mt-4 space-y-3">
 
@@ -94,7 +96,9 @@ const DepositMoney = () => {
 
                                             <div className="w-full px-3 py-4">
                                                 <AgencySelect selected={selected} setSelected={setSelected}/>
-                                                <span className="text-xs items-start flex  text-left px-3 pt-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt utklabore et dolore magna aliqua</span>
+                                                <span className="text-xs items-start flex  text-left px-3 pt-10">
+
+                                                </span>
 
 
                                                 <button disabled={amount == null || amount <= 0}

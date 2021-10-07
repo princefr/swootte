@@ -65,6 +65,7 @@ query GetIfUSerExist {
         photoUrl
         permissions
         updatedAt
+        birth_date {day, month, year}
         adresses {title, location {latitude, longitude}, is_chosed}
         fcmToken
             }

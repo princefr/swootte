@@ -8,7 +8,12 @@ query GetAllParticipatingTransactions($token: String!) {
             __typename
             ...on Paiement {
                 _id
+                amount
+                status
+                type
+                shortId
                 createdAt
+                updatedAt
             }    
             ...on TopUp {
                 _id
@@ -18,6 +23,7 @@ query GetAllParticipatingTransactions($token: String!) {
                     last_name
                     photoUrl
                 }
+                shortId
                 amount
                 agency
                 status
@@ -39,6 +45,7 @@ query GetAllParticipatingTransactions($token: String!) {
                     last_name
                     photoUrl
                 }
+                shortId
                 amount
                 agency
                 type

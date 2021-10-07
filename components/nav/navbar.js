@@ -18,7 +18,6 @@ export const Nav = () => {
                     <a className="mr-5 hover:text-gray-900 font-montserrat">Services</a>
                     <a className="mr-5 hover:text-gray-900 font-montserrat">Cas d'usages</a>
                     <a className="mr-5 hover:text-gray-900 font-montserrat">Developpeurs</a>
-                    <a className="mr-5 hover:text-gray-900 font-montserrat">Prix</a>
                 </nav>
                 <div className="mt-4 md:mt-0">
                     <ConnectButton></ConnectButton>

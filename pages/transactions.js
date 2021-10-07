@@ -147,7 +147,7 @@ const TransfertAgencyItem = ({ transaction, refetch }) => {
                         </div>
                         <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
-                                {transaction.creator.first_name}  {transaction.creator.first_name}
+                                {transaction.creator.first_name}  {transaction.creator.last_name}
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@ const TransfertAgencyItem = ({ transaction, refetch }) => {
                                 </div>
                                 <div className="ml-4">
                                     <div className="text-sm font-medium text-gray-900">
-                                        {transaction.validator.first_name}  {transaction.validator.first_name}
+                                        {transaction.validator.first_name}  {transaction.validator.last_name}
                                     </div>
                                 </div>
                             </div>

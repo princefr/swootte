@@ -1,14 +1,9 @@
 
 import gql from "graphql-tag";
-import Helper, { useClient } from "../components/auth/auth";
-import { ApolloClient, InMemoryCache, split, HttpLink} from '@apollo/client';
-import { getMainDefinition } from '@apollo/client/utilities';
-import { WebSocketLink } from '@apollo/client/link/ws';
+import client from '../utils/graphql'; 
 
-
-export const loadUser = async (token) => {
-    const client = useClient(token)
-    return client.query({
+export const loadUser = async (_client) => {
+    return _client.query({
         query: gql`
         query GetIfUSerExist {
             usersExist{
@@ -19,6 +14,7 @@ export const loadUser = async (token) => {
                 phonenumber
                 country
                 currency
+                defaultCurrency
                 notificationPermission
                 fee
                 is_online
@@ -35,13 +31,28 @@ export const loadUser = async (token) => {
 }
 
 
+export const userInDatabase = async (uid) => {
+    return client.query({
+        query: gql`
+        query IsExist($uid: String!) {
+            userExist(uid: $uid)
+        }
+        `,
+        variables: {
+            'uid': uid
+        }
+        
+        
+    })
+}
+
+
 export const getDefaultToken = async (token) => {
-    const client = useClient(token)
     return client.query({
         query: gql`
         query GetIfUSerExist {
             usersExist{
-                defaultWallet
+                defaultCurrency
             }
         }
         `
@@ -58,6 +69,7 @@ query GetIfUSerExist {
         last_name
         phonenumber
         country
+        defaultCurrency
         currency
         notificationPermission
         is_online

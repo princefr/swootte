@@ -1,15 +1,16 @@
 import MainView from "../components/dashboard/mainview";
 import Dashboard from "../components/dashboard/dashboard";
-import { AuthAction, useAuthUser, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
-import { getDefaultToken } from "../queries/getUser";
+import {AuthAction, withAuthUser, withAuthUserTokenSSR} from "next-firebase-auth";
+import { userInDatabase } from "../queries/getUser";
+import initAuth from "../utils/initAuth";
 
 
-export  function  Home({token}){
-  const AuthUser = useAuthUser()
+initAuth()
+export  function Home(){
     return (
         <div>
-            <Dashboard pageName={"home - dashboard"} token={token}>{
-                <MainView  displayName={"blabla"} token={token}></MainView>
+            <Dashboard pageName={"home - dashboard"}>{
+                <MainView  displayName={"blabla"}></MainView>
             }</Dashboard>
         </div>
 
@@ -18,29 +19,8 @@ export  function  Home({token}){
 
 
 
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
-  })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    const { data } = await getDefaultToken(token)
-    if(data.usersExist == null) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: "/signup"
-        }
-      }
-    }
-    return {
-      props: {
-        token: data.usersExist.defaultWallet
-      }
-    }
-  }) 
 
-
-
-export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(Home)
+export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Home)
 
 
 

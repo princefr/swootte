@@ -8,6 +8,7 @@ import { useNotification } from "../../notifications/NotificationContext";
 import {loadUser } from "../../queries/getUser";
 import { useRouter } from "next/router";
 import FirebaseClient from '../../utils/firebase'
+import { useApolloClient } from '@apollo/client'
 
 
 
@@ -21,12 +22,12 @@ function ConnnectButton() {
     const [useCode, setCode] = useState("")
     const [isConnected, setIsConnnected]= useState(false)
     const toggleModal = () => isConnected ? checkThis():  setshowModal(!showModal);
+    const client = useApolloClient()
 
 
 
     const checkThis = async () => {
-        const token = await firebase.auth().currentUser.getIdToken()
-        const { data: {usersExist} } = await loadUser(token)
+        const { data: {usersExist} } = await loadUser(client)
         usersExist == null ? navigateToSignup() : navigateToDashboard()
     }
     
@@ -34,6 +35,7 @@ function ConnnectButton() {
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             user != null ? setIsConnnected(true) : setIsConnnected(false)
+            
         })
     }, [])
 
@@ -137,8 +139,7 @@ function ConnnectButton() {
         setConnectLoading(true)
         var credential = firebase.auth.PhoneAuthProvider.credential(verificationCode.verificationId, useCode);
         firebase.auth().signInWithCredential(credential).then(async () => {
-            const token = await firebase.auth().currentUser.getIdToken()
-            const { data } = await loadUser(token)
+            const { data } = await loadUser(client)
             if (data.usersExist == null) {
                 setshowModal(false)
                 setConnectLoading(false)
@@ -159,8 +160,6 @@ function ConnnectButton() {
             })
         });
     }
-
-
 
 
     return (

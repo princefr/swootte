@@ -8,6 +8,8 @@ import { CREATE_WITHDRAW } from "../../mutation/CreateWithDraw"
 import { useNotification } from "../../notifications/NotificationContext"
 import { GET_AGENCIES } from "../../queries/getAgencies"
 import { DeviseContext } from "../../context/DeviseContext"
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
+import { userInDatabase } from "../../queries/getUser"
 
 
 export const AgencySelect = ({ selected, setSelected }) => {
@@ -97,7 +99,8 @@ const WithdrawMoney = () => {
                 withdraw: {
                     amount: parseFloat(amount),
                     agency:  selected._id,
-                    token: Devise.publicKey
+                    token: Devise.publicKey,
+                    destination: ""
                 }
             }
         }).then((result) => {
@@ -227,4 +230,23 @@ function CheckIcon(props) {
 }
 
 
-export default WithdrawMoney
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser }) => {
+    const uid = await AuthUser.id
+    const { data } = await userInDatabase(uid)
+    if(!data.userExist) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: "/"
+          }
+        }
+      }
+    return {
+        props: {}
+    }
+})
+
+
+export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(WithdrawMoney)

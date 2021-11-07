@@ -2,19 +2,28 @@
 import Head from 'next/head'
 import SideBar from './sidebar'
 import DashBoardNav from './nav'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect} from 'react'
 import navButtons from '../../configs/buttons'
 import { GET_USER} from '../../queries/getUser'
-import { useQuery } from '@apollo/client'
+import {useQuery, useApolloClient } from '@apollo/client'
 import { ModeContext } from '../../context/ModeContext'
 import { Transition } from '@headlessui/react'
+import { UserContext } from '../../context/UserContext'
 
 
 
 
 const Dashboard = props => {
     const {LiveMode, } = useContext(ModeContext)
+    const {_, setUser} = useContext(UserContext)
     const { loading, error, data, refetch } = useQuery(GET_USER)
+
+    useEffect(() => {
+        if(!data) return;
+        if(!data.usersExist) return;
+        setUser(data.usersExist)
+    }, [data])
+    
 
 
     return (

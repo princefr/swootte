@@ -17,7 +17,6 @@ const Login = () => {
         event.preventDefault()
         var prevUser = firebase.auth().currentUser
         const credential = firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-            console.log("noeccted")
             router.push("/home")
         }).catch((err) => {
             console.log(err)

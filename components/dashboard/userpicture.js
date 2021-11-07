@@ -1,10 +1,8 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import onClickOutside from "react-onclickoutside";
-
 import LanguageButton from "../buttons/languageButton";
 import CookiesButton from "../buttons/cookieButton";
 import { useRouter } from 'next/router'
-
 import Toogle from "../toogle/toggle";
 import DisconnectButton from "../buttons/DisconnectButton"
 import { Transition } from "@headlessui/react";
@@ -12,7 +10,6 @@ import AddTokenButton from "../token/buttons/addTokenButton";
 import CreateTokenButton from "../token/buttons/createTokenButton";
 import { ModeContext } from "../../context/ModeContext";
 import Skeleton from 'react-loading-skeleton';
-import Link from "next/dist/client/link";
 import AddAgencyButton from "../token/buttons/addAgencyButton";
 import { useMutation } from "@apollo/client";
 import { SET_IS_ONLINE } from "../../mutation/setIsOnline";
@@ -89,7 +86,7 @@ const UserPicture = props => {
 
 
 
-
+    if (!data) return <Skeleton circle={true} height={30} width={30} duration={2} />;
     if (loading) return <Skeleton circle={true} height={30} width={30} duration={2} />;
     if (error) return null;
 

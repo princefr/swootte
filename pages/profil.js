@@ -14,6 +14,7 @@ import { SpinLogo } from "../components/items/productItem";
 import { Transition } from "@headlessui/react";
 import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
 import { format } from 'date-fns'
+import { userInDatabase } from "../queries/getUser";
 
 
 
@@ -272,14 +273,21 @@ const Profil = () => {
 
 export const getServerSideProps = withAuthUserTokenSSR({
     whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-  })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    return {
-      props: {
-        token: token
+})(async ({ AuthUser }) => {
+    const uid = await AuthUser.id
+    const { data } = await userInDatabase(uid)
+    if(!data.userExist) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: "/"
+          }
+        }
       }
+    return {
+        props: {}
     }
-  }) 
+})
 
-export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Profil)
+export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(Profil)
 

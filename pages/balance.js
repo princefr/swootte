@@ -4,23 +4,19 @@ import ReceiveMoneyButton from '../components/buttons/ReceiveMoneyButton'
 import Dashboard from '../components/dashboard/dashboard'
 import { useContext, useEffect } from 'react'
 import { DeviseContext } from '../context/DeviseContext'
-import { useLazyQuery, useQuery } from '@apollo/client'
+import {useLazyQuery, useQuery } from '@apollo/client'
 import { GET_BALANCE } from '../queries/getBalance'
 import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
 import Skeleton from 'react-loading-skeleton';
-import { getDefaultToken } from '../queries/getUser'
+import {userInDatabase } from '../queries/getUser'
 import { GET_ALL_PARTICIPATING_TRANSACTION } from '../queries/getParticipatingTransaction'
 import { format } from 'date-fns'
 
 
 
-export function Balance({ token }) {
+export function Balance({}) {
     const { Devise, } = useContext(DeviseContext)
-    const { loading, error, data, refetch } = useQuery(GET_BALANCE, {
-        variables: {
-            token: token
-        }
-    })
+    const { loading, error, data, refetch } = useQuery(GET_BALANCE)
 
     useEffect(() => {
         if (Devise != null) {
@@ -63,18 +59,13 @@ const ParticationTransactionsItem = ({activity}) => {
 }
 
 const ParticationTransactionsItems = () => {
-    const { Devise, } = useContext(DeviseContext)
-    const [GetTransactionsparticiped, { loading, error, data, refetch }] = useLazyQuery(GET_ALL_PARTICIPATING_TRANSACTION)
+    const {loading, error, data} = useQuery(GET_ALL_PARTICIPATING_TRANSACTION)
 
-
-    useEffect(() => {
-        Devise != null ? GetTransactionsparticiped({ variables: { token: Devise.publicKey } }) : null
-    }, [Devise])
     if (loading) return <p>Loading ...</p>;
     if (error) return <p>{error.message}</p>;
-    if (data == null) return null;
+    if (data) return null;
     if (!data.getAllParticipatingTransactions.length) return null;
-    if(data.getAllParticipatingTransactions)
+
     return (
         <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -170,20 +161,18 @@ export function WalletsView({ token }) {
 export const getServerSideProps = withAuthUserTokenSSR({
     whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
 })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    const { data } = await getDefaultToken(token)
-    if(data.usersExist == null) {
+    const uid = await AuthUser.id
+    const { data } = await userInDatabase(uid)
+    if(!data.userExist) {
         return {
           redirect: {
             permanent: false,
-            destination: "/signup"
+            destination: "/"
           }
         }
       }
     return {
-        props: {
-            token: data.usersExist.defaultWallet
-        }
+        props: {}
     }
 })
 

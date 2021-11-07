@@ -1,13 +1,10 @@
 import Dashboard from "../components/dashboard/dashboard"
 import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
-import Skeleton from 'react-loading-skeleton';
-import { getDefaultToken } from '../queries/getUser'
-import CreateAgencyButton from "../components/agencies/buttons/createAgencyButton";
-import { MyRadioGroup } from "../components/agencies/buttons/TabSelectSeverity";
+import { getDefaultToken, userInDatabase } from '../queries/getUser'
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_AGENCY_TRANSACTIONS } from "../queries/getAgencyTransactions";
 import AskPasswordToCompleteAction from "../components/dialogs/AskPasswordToCompleteAction";
-import { Fragment, useContext, useState } from "react";
+import {  useContext, useState } from "react";
 import { CONFIRM_TRANSACTION_AGENT } from "../mutation/ConfirmWithdraw";
 import { CANCEL_TRANSACTION_AGENT } from "../mutation/CancelWithdraw";
 import { useNotification } from "../notifications/NotificationContext";
@@ -133,7 +130,13 @@ const CancelTransactionButton = ({ transaction, refetch }) => {
 }
 
 
+
+
 const TransfertAgencyItem = ({ transaction, refetch }) => {
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
     return (
         <tbody className="bg-white divide-y divide-gray-200">
             <tr>
@@ -147,7 +150,7 @@ const TransfertAgencyItem = ({ transaction, refetch }) => {
                         </div>
                         <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
-                                {transaction.creator.first_name}  {transaction.creator.last_name}
+                                {transaction.creator.last_name.toUpperCase()} { capitalizeFirstLetter(transaction.creator.first_name)}
                             </div>
                         </div>
                     </div>
@@ -203,7 +206,7 @@ const TransfertAgencyItem = ({ transaction, refetch }) => {
 
 const TransfertAgencyItems = () => {
     const { loading, error, data, refetch } = useQuery(GET_AGENCY_TRANSACTIONS)
-
+    
     if (loading) return <div>chargement....</div>;
     if (error) return null;
 
@@ -292,15 +295,21 @@ const AgencyView = ({ token }) => {
 export const getServerSideProps = withAuthUserTokenSSR({
     whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
 })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    const { data } = await getDefaultToken(token)
-    return {
-        props: {
-            token: data.usersExist.defaultWallet
+    const uid = await AuthUser.id
+    const { data } = await userInDatabase(uid)
+    if(!data.userExist) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: "/"
+          }
         }
+      }
+    return {
+        props: {}
     }
 })
 
 
-export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(AgencyView)
+export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(AgencyView)
 

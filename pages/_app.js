@@ -2,19 +2,18 @@ import 'tailwindcss/tailwind.css'
 import { UserContext } from '../context/UserContext'
 import { useState, useMemo, useEffect } from 'react';
 import initAuth from '../utils/initAuth';
-import firebase from 'firebase/app';
 import 'firebase/auth'
 import NProgress from 'nprogress'
 import "nprogress/nprogress.css";
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
 import NotificationProvider from '../notifications/NotificationContext';
-import { ApolloProvider } from '@apollo/client';
 import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
 import { DeviseContext } from '../context/DeviseContext';
 import { ModeContext } from '../context/ModeContext';
-import { useClient } from '../components/auth/auth';
-import FirebaseClient from '../utils/firebase';
+import { AuthProvider } from '../lib/Auth';
+import firebase from 'firebase/app';
+import { WalletContext } from '../context/WalletConntext';
 
 
 
@@ -27,49 +26,45 @@ const TopProgressBar = dynamic(
 
 
 initAuth()
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
   const [user, setUser] = useState(null);
   const [firebaseUID, setFirebaseUID] = useState(null)
   const [LiveMode, setLiveMode] = useState(false)
   const modeValue = useMemo(() => ({ LiveMode, setLiveMode }), [LiveMode, setLiveMode])
-  const [client, setClient] = useState(useClient(""))
-
+  const [Devise, setDevice] = useState(null)
   
 
-
-  const [Devise, setDevice] = useState(null)
   const deviseValue = useMemo(() => ({ Devise, setDevice }), [Devise, setDevice])
+
+  const [Wallet, setWallet] = useState(null)
+  const walletProviderValue = useMemo(() => ({ Wallet, setWallet }), [Wallet, setWallet])
 
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
   const firebaseUIDValue = useMemo(() => ({ firebaseUID, setFirebaseUID }), [firebaseUID, setFirebaseUID])
+  const [init, setInit] = useState(false)
 
   useEffect(() => {
-    firebase.auth().onIdTokenChanged(async (_user) => {
-      if (_user) {
-        const token = await _user.getIdToken(true)
-        setClient(useClient(token))
+    firebase.auth().onAuthStateChanged((_user) => {
+      setInit(true)
+      if(_user){
+        setFirebaseUID(_user.uid)
       }
     })
-  }, [])
-
-
-
-
-
-
+  });
 
   useEffect(() => {
     const handleRouteChange = (url) => {
       NProgress.done()
     }
 
-    // https://stackoverflow.com/questions/55624695/loading-screen-on-next-js-page-transition
+  
     router.events.on('routeChangeStart', (url) => {
+      // https://stackoverflow.com/questions/55624695/loading-screen-on-next-js-page-transition
       NProgress.start()
     })
 
-  
+
     router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
@@ -77,32 +72,30 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router.events])
 
-  
 
 
+  if(init == false || init == null) return <div></div>;
 
   return (
     <>
       <TopProgressBar />
-      <ApolloProvider client={client}>
+      <AuthProvider>
         <FirebaseUIDContext.Provider value={firebaseUIDValue}>
           <UserContext.Provider value={providerValue}>
             <ModeContext.Provider value={modeValue}>
               <DeviseContext.Provider value={deviseValue}>
-                <NotificationProvider>
-
+                <WalletContext.Provider value={walletProviderValue}>
+                  <NotificationProvider>
                     <Component {...pageProps} />
-
-                </NotificationProvider>
+                  </NotificationProvider>
+                </WalletContext.Provider>
               </DeviseContext.Provider>
             </ModeContext.Provider>
           </UserContext.Provider>
         </FirebaseUIDContext.Provider>
-      </ApolloProvider>
+      </AuthProvider>
     </>
   )
-
-
 }
 
 export default MyApp

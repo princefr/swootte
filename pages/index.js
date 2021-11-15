@@ -29,7 +29,7 @@ export default function Home() {
       <main>
 
         <Header></Header>
-        <section className="mx-auto">
+        {/* <section className="mx-auto">
           <div className="container px-5 mx-auto lg:px-24 ">
             <div className="flex flex-col w-full mb-4 text-left lg:text-center">
             </div>
@@ -78,7 +78,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <Feature></Feature>
         <Content></Content>
 
@@ -106,7 +106,7 @@ export default function Home() {
               <img className="object-cover object-center rounded" alt="hero" src="images/cfa_numerique.svg" />
             </div>
             <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-              <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Le franc CFA nnumérique</h1>
+              <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Le franc CFA numérique</h1>
               <p className="mb-4 leading-relaxed">Le franc CFA numérique (FCFA) est une crypto-monnaie de type monnaie numérique stable émise par la société Swootte LTD. </p>
               <p>Le Franc CFA numérique est garantie à 100%, est transparent et repose essentiellement sur les technologies Bloackchains.
                  À l'aide du Franc CFA numérique, Swotte convertit l'argent liquide en monnaie numérique, et permet donc à cette dernière de voyager au-delà des frontières du Congo et de l'Afrique.</p>

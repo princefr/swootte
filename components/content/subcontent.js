@@ -8,7 +8,7 @@ export const Content = () => {
                 Organisez vos produits et suivez vos ventes
               </h2>
               <p className="text-base text-gray-700 md:text-lg">
-              Notre application de caisse transforme votre smartphone ou votre tablette en une caisse enregistreuse complète, vous permettant d'encaisser des paiements en Franc CFA numérique. Organisez vos produits, suivez les niveaux d'inventaire et restez au courant des ventes grâce au stockage sécurisé de toutes vos données dans l'application.              </p>
+              Notre application de caisse transforme votre smartphone ou votre tablette en une caisse enregistreuse complète, vous permettant d'encaisser des paiements en Franc CFA. Organisez vos produits, suivez les niveaux d'inventaire et restez au courant des ventes grâce au stockage sécurisé de toutes vos données dans l'application.              </p>
             </div>
             <div className="grid gap-8 row-gap-8 sm:grid-cols-2">
               <div>

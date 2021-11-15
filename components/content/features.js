@@ -4,7 +4,7 @@ export const Feature = () => {
         <div className="flex flex-col mb-6 lg:flex-row md:mb-10">
           <div className="lg:w-1/2">
             <h2 className="max-w-md mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none xl:max-w-lg">
-              Acceptez les paiements en Franc CFA numérique où que vous soyez dans le monde
+              Acceptez les paiements en Franc CFA  où que vous soyez dans le monde
             </h2>
           </div>
           <div className="lg:w-1/2">
@@ -22,7 +22,7 @@ export const Feature = () => {
             </div>
             <h6 className="mb-2 font-semibold leading-5">Paiements rapides</h6>
             <p className="mb-3 text-sm text-gray-900">
-              Grâce aux réseaux Solana, nous pouvons traiter jusqu'à 60 000 transactions par seconde. Cela fait de nous la solution la plus rapide du marché.
+              Nous pouvons traiter jusqu'à 60 000 transactions par seconde. Cela fait de nous la solution la plus rapide du marché.
             </p>
           </div>
           <div>

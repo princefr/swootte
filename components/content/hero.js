@@ -10,7 +10,7 @@ export const Header = () => {
             <h2 className="font-sans text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none max-w-lg mb-6">
               Nous construisons  
               <br className="hidden md:block" />
-              Les solutions de paiement de demain,{' '}
+              les solutions de paiement de demain,{' '}
               <span className="inline-block relative">
                 <span className="relative block text-roud">pour l'Afrique</span>
                 </span>

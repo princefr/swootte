@@ -85,7 +85,7 @@ export const Footer = () => {
           <div className="md:max-w-md lg:col-span-2">
             <img src="images/Swootte_logo_white.svg" className="w-36" alt="swootte logo"></img>
             <div className="mt-4 lg:max-w-sm">
-            Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA numérique sur place ou sur le web. Commercer sans frontière meme à l'internationale.
+            Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA sur place ou sur le web. Commercer sans frontière meme à l'internationale.
             </div>
           </div>
           <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-3">

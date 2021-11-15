@@ -11,13 +11,13 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Swootte - Envoyez, Recevez, Payez avec des CFA numérique.</title>
+        <title>Swootte - Envoyez, Recevez, Payez avec des CFA en ligne</title>
         <link rel="icon" href="/favicon.ico" />
 
-        <meta property="og:title" content="Swootte - Envoyez, Recevez, Payez avec des CFA numérique." />
+        <meta property="og:title" content="Swootte - Envoyez, Recevez, Payez avec des CFA en ligne" />
         <meta property="og:url" content="https://www.swootte.com/" />
         <meta property="og:site_name" content="Swootte" />
-        <meta property="og:description" content="Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA numérique sur place ou sur le web. Commercer sans frontière meme à l'internationale." />
+        <meta property="og:description" content="Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA sur place ou sur le web. Commercer sans frontière meme à l'internationale." />
         <meta property="og:image" content="https://images.unsplash.com/photo-1508938255445-041651dfe0c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" />
 
         <meta name="twitter:card" content="summary"></meta>

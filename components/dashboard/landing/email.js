@@ -55,7 +55,9 @@ const EmailView = () => {
         <section className="text-gray-600 body-font relative">
             <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
                 <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.90772232709!2d-0.12573508424525792!3d51.51490891797508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604ccaaa0b0b7%3A0xbe144a0754857ae1!2s71-75%20Shelton%20St%2C%20London%20WC2H%209JQ%2C%20Royaume-Uni!5e0!3m2!1sfr!2sfr!4v1636947925697!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>                    <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
+                <iframe width="100%" height="100%" className="absolute inset-0" frameBorder="0" title="map" marginHeight="0" marginWidth="0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.90772232709!2d-0.12573508424525792!3d51.51490891797508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604ccaaa0b0b7%3A0xbe144a0754857ae1!2s71-75%20Shelton%20St%2C%20London%20WC2H%209JQ%2C%20Royaume-Uni!5e0!3m2!1sfr!2sfr!4v1636947925697!5m2!1sfr!2sfr"></iframe>
+
+                        <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
                         <div className="lg:w-1/2 px-6">
                             <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">ADRESSE</h2>
                             <p className="mt-1">71-75 Shelton Street, Londond</p>

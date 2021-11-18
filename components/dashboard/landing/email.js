@@ -60,7 +60,7 @@ const EmailView = () => {
                         <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
                         <div className="lg:w-1/2 px-6">
                             <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">ADRESSE</h2>
-                            <p className="mt-1">71-75 Shelton Street, Londond</p>
+                            <p className="mt-1">71-75 Shelton Street, London</p>
                         </div>
                         <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
                             <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>

@@ -100,7 +100,7 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="text-gray-600 body-font">
+        {/* <section className="text-gray-600 body-font">
           <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
             <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
               <img className="object-cover object-center rounded" alt="hero" src="images/cfa_numerique.svg" />
@@ -112,7 +112,7 @@ export default function Home() {
                  À l'aide du Franc CFA numérique, Swotte convertit l'argent liquide en monnaie numérique, et permet donc à cette dernière de voyager au-delà des frontières du Congo et de l'Afrique.</p>
             </div>
           </div>
-        </section>
+        </section> */}
 
 
         <EmailView></EmailView>

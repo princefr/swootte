@@ -1,6 +1,5 @@
 import Dashboard from "../components/dashboard/dashboard"
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
-import { getDefaultToken, userInDatabase } from '../queries/getUser'
+import { AuthAction, withAuthUser} from 'next-firebase-auth'
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_AGENCY_TRANSACTIONS } from "../queries/getAgencyTransactions";
 import AskPasswordToCompleteAction from "../components/dialogs/AskPasswordToCompleteAction";
@@ -292,23 +291,6 @@ const AgencyView = ({ token }) => {
 }
 
 
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
-    const uid = await AuthUser.id
-    const { data } = await userInDatabase(uid)
-    if(!data.userExist) {
-        return {
-          redirect: {
-            permanent: false,
-            destination: "/"
-          }
-        }
-      }
-    return {
-        props: {}
-    }
-})
 
 
 export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(AgencyView)

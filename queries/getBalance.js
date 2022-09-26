@@ -3,13 +3,9 @@ import gql from "graphql-tag";
 
 
 export const GET_BALANCE = gql`
-query LoadBalance{
-    loadBalance{
-            amount
-            isFrozen
-            address
-            }
-        }
+query LoadBalance($enterpriseId: String!){
+        getEnterpriseBalance(enterpriseId: $enterpriseId)
+    }
 
 `
 

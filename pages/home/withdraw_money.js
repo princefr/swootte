@@ -8,8 +8,8 @@ import { CREATE_WITHDRAW } from "../../mutation/CreateWithDraw"
 import { useNotification } from "../../notifications/NotificationContext"
 import { GET_AGENCIES } from "../../queries/getAgencies"
 import { DeviseContext } from "../../context/DeviseContext"
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
-import { userInDatabase } from "../../queries/getUser"
+import { AuthAction, withAuthUser} from "next-firebase-auth"
+import LoadingIcon from "../../components/icons/LoadingIcon"
 
 
 export const AgencySelect = ({ selected, setSelected }) => {
@@ -188,10 +188,7 @@ const WithdrawMoney = () => {
 
 
                                                 <Transition show={loading}>
-                                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg>
+                                                    <LoadingIcon/>
                                                 </Transition>
                                                 <span>Demander un retrait</span>
                                             </button>
@@ -229,24 +226,6 @@ function CheckIcon(props) {
     )
 }
 
-
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
-    const uid = await AuthUser.id
-    const { data } = await userInDatabase(uid)
-    if(!data.userExist) {
-        return {
-          redirect: {
-            permanent: false,
-            destination: "/"
-          }
-        }
-      }
-    return {
-        props: {}
-    }
-})
 
 
 export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(WithdrawMoney)

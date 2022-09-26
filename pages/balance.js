@@ -2,115 +2,61 @@
 import SendMoneyButton from '../components/buttons/SendMoneyButton'
 import ReceiveMoneyButton from '../components/buttons/ReceiveMoneyButton'
 import Dashboard from '../components/dashboard/dashboard'
-import { useContext, useEffect } from 'react'
-import { DeviseContext } from '../context/DeviseContext'
-import {useLazyQuery, useQuery } from '@apollo/client'
+import { useContext, useEffect, useMemo, useState } from 'react'
+import {useLazyQuery} from '@apollo/client'
 import { GET_BALANCE } from '../queries/getBalance'
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
+import {  AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
 import Skeleton from 'react-loading-skeleton';
-import {userInDatabase } from '../queries/getUser'
-import { GET_ALL_PARTICIPATING_TRANSACTION } from '../queries/getParticipatingTransaction'
-import { format } from 'date-fns'
+import { addDays, format } from 'date-fns'
+import FilterDaysListBox from '../components/listbox/filtersDayListBox'
+import EnterpriseDateRangeSelection from '../components/enterprise/buttons/selectDate'
+import SuccessPaymentsList from '../components/paiements/List/paymentsSuccessList'
+import { DateContext } from '../context/DateContext'
+import { EnterpriseContext } from '../context/EnterpriseContext'
+import { useSSrClientApollo } from '../lib/Auth'
+import { userInDatabase } from '../queries/getUser'
 
 
 
 export function Balance({}) {
-    const { Devise, } = useContext(DeviseContext)
-    const { loading, error, data, refetch } = useQuery(GET_BALANCE)
+    const [GetBalance, { loading, error, data, refetch }] = useLazyQuery(GET_BALANCE)
+    const {enterpriseId, setEnterpriseId} = useContext(EnterpriseContext)
 
     useEffect(() => {
-        if (Devise != null) {
-            refetch({ token: Devise.publicKey })
-        }
-    }, [Devise])
+        if(!enterpriseId) return;
+        if(!enterpriseId.length) return;
+        GetBalance({
+            variables: {
+                enterpriseId: enterpriseId.filter((enterprise) => enterprise.default_enterprise)[0]._id
+            }
+        })
+    }, [enterpriseId])
 
     if (loading) return <Skeleton count={1} height={25} width={60}></Skeleton>;
     if (error) return null;
+    if(!data) return null;
+    
 
     return (
         <div className="text-4xl font-montserrat font-medium">
-            {data.loadBalance.amount}
+            {data.getEnterpriseBalance}
         </div>
     )
 }
 
-const ParticationTransactionsItem = ({activity}) => {
-    return (
-        <tr>
-            <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
-                {activity.shortId}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-                {activity.amount}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    {activity.status}
-                </span>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {activity.type}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {format(new Date(activity.createdAt), "dd/MM/yyyy HH:mm:ss")}
-            </td>
-        </tr>
-    )
-}
-
-const ParticationTransactionsItems = () => {
-    const {loading, error, data} = useQuery(GET_ALL_PARTICIPATING_TRANSACTION)
-
-    if (loading) return <p>Loading ...</p>;
-    if (error) return <p>{error.message}</p>;
-    if (data) return null;
-    if (!data.getAllParticipatingTransactions.length) return null;
-
-    return (
-        <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-                <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Réference
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Montant
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Type
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Date
-                    </th>
-                </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-
-                {
-                    data.getAllParticipatingTransactions.map((activity) => {
-                       return <ParticationTransactionsItem activity={activity} key={activity._id}></ParticationTransactionsItem>
-                    })
-                }
-
-            </tbody>
-        </table>
-    )
-}
-
-
-
 
 
 export function WalletsView({ token }) {
-    return (
-        <Dashboard pageName={"home - portefeuille"} token={token}>{
-            <div>
+    const pastMonth = new Date();
+    const [range, setRange] = useState({ from: pastMonth, to: addDays(pastMonth, 1) });
+    const useDateRange = useMemo(() => ({range, setRange}), [range, setRange])  
 
+    return (
+        <DateContext.Provider value={useDateRange}>
+            <Dashboard pageName={"home - portefeuille"} token={token}>{
+            <div>
                 <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
-                    <div className="px-12">
+                    <div className="">
                         <h1 className="text-3xl font-bold text-gray-900">Portefeuille</h1>
                     </div>
                     <div className="flex flex-row space-x-4">
@@ -119,7 +65,7 @@ export function WalletsView({ token }) {
                     </div>
                 </header>
                 <main>
-                    <div className="flex flex-col p-10 px-12  mx-auto">
+                    <div className="flex flex-col p-10   mx-auto">
                         <div className="flex flew-row h-36 w-full">
                             <div className="flex flex-col w-1/5 h-full space-x-3 items-center justify-center border-r border-gray-300">
                                 <div className="text-lg font-montserrat font-medium">
@@ -133,25 +79,24 @@ export function WalletsView({ token }) {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex flex-row h-10 mt-5">
-                            <h2 className="text-lg font-montserrat font-medium">Transactions</h2>
+                        <div className="flex flex-row justify-between border-b border-gray-400 items-center py-2">
+                            <div className="flex text-lg font-montserrat font-medium items-center"></div>
+                            <div className="flex flex-row space-x-4">
+                                <FilterDaysListBox></FilterDaysListBox>
+                                <EnterpriseDateRangeSelection></EnterpriseDateRangeSelection>
+                            </div>
                         </div>
 
 
 
-                        <div className="flex flex-col">
-                            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div className="shadow overflow-hidden  sm:rounded-lg">
-                                        <ParticationTransactionsItems></ParticationTransactionsItems>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="flex flex-col py-4">
+                            <SuccessPaymentsList></SuccessPaymentsList>
                         </div>
                     </div>
                 </main>
             </div>
         }</Dashboard>
+        </DateContext.Provider>
 
 
     )
@@ -160,21 +105,22 @@ export function WalletsView({ token }) {
 
 export const getServerSideProps = withAuthUserTokenSSR({
     whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
-    const uid = await AuthUser.id
-    const { data } = await userInDatabase(uid)
-    if(!data.userExist) {
-        return {
-          redirect: {
-            permanent: false,
-            destination: "/"
-          }
-        }
-      }
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    const client = useSSrClientApollo(token)
+   const {data, error} = await userInDatabase(AuthUser.id, client)
+   if(!error && data.userExist) {
+    return {
+        props: {},
+        redirect: '/',
+    }
+   }else{
     return {
         props: {}
     }
-})
+   }
+  })
 
 
-export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(WalletsView)
+
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(WalletsView)

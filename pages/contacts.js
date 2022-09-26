@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Transition } from "@headlessui/react";
 import { UserRemoveIcon } from "@heroicons/react/solid";
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { AuthAction, withAuthUser} from "next-firebase-auth";
 import ClientExportButton from "../components/clients/buttons/ClientExportButton";
 import FilterClientsButton from "../components/clients/buttons/FilterClientsButtons";
 import Dashboard from "../components/dashboard/dashboard";
@@ -29,7 +29,7 @@ const RemoveContactButton = ({contact, refetch}) => {
                 payload: {
                     type: "SUCCESS",
                     title: "Product",
-                    message: "success removing product"
+                    message: "Le contact a été effacé"
                 }
             })
             refetch()
@@ -186,18 +186,6 @@ export function ContactView({ token }) {
 
     )
 }
-
-
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    return {
-        props: {
-            token: token
-        }
-    }
-})
 
 
 export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(ContactView)

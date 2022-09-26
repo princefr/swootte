@@ -1,25 +1,25 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import firebase from 'firebase/app'
 import { useNotification } from '../../notifications/NotificationContext'
-import FirebaseClient from '../../utils/firebase'
 import { InformationCircleIcon } from '@heroicons/react/solid'
 import { SpinLogo } from '../items/productItem'
+import { useAuthUser } from 'next-firebase-auth'
+import { getAuth } from 'firebase/auth'
 
 
 const PasswordReset = () => {
-    FirebaseClient()
+    const auth = useAuthUser()
     const dispatch  = useNotification()
     const [loading, setLoading] = useState(false)
     const handleResetPassword = (event) => {
         event.preventDefault()
         setLoading(true)
-        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email).then((res) => {
+        getAuth().sendPasswordResetEmail(auth.email).then((_res) => {
             dispatch({
                 payload: {
                     type: "SUCCESS",
                     title: "Password reset",
-                    message: "Votre argent à bien été envoyé"
+                    message: "Unn email de renitialisation vous a été transmis"
                 }
             })
             setLoading(false)
@@ -49,7 +49,6 @@ return(
 }
 
 const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal, phrase, explanationText}) => {
-    FirebaseClient()
     const [password, setPassword] = useState("")
     const dispatch = useNotification()
     const  [loading, setLoading] = useState(false)
@@ -57,8 +56,8 @@ const AskPasswordToCompleteAction = ({ isOpen, runProcess, setOpenModal, phrase,
     const handleReAuth = (event) => {
         event.preventDefault()
         setLoading(true)
-        const user = firebase.auth().currentUser;
-        var credentials = firebase.auth.EmailAuthProvider.credential(
+        const user = getAuth().currentUser;
+        const credentials = getAuth().EmailAuthProvider.credential(
             user.email,
             password
         );

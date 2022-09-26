@@ -1,14 +1,19 @@
+import useLocalization from "../../hooks/useLocalization";
+
 export const Content = () => {
+
+  const localization = useLocalization()
     return (
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
         <div className="grid gap-12 row-gap-8 lg:grid-cols-2">
           <div className="flex flex-col justify-center">
             <div className="max-w-xl mb-6">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-                Organisez vos produits et suivez vos ventes
+                {localization.ContentPartTitle}
               </h2>
               <p className="text-base text-gray-700 md:text-lg">
-              Notre application de caisse transforme votre smartphone ou votre tablette en une caisse enregistreuse complète, vous permettant d'encaisser des paiements en Franc CFA. Organisez vos produits, suivez les niveaux d'inventaire et restez au courant des ventes grâce au stockage sécurisé de toutes vos données dans l'application.              </p>
+                {localization.ContentPartDescription}
+              </p>
             </div>
             <div className="grid gap-8 row-gap-8 sm:grid-cols-2">
               <div>
@@ -18,10 +23,10 @@ export const Content = () => {
 </svg>
                 </div>
                 <h6 className="mb-2 font-semibold leading-5">
-                  Off ramp / On ramp.
+                  {localization.ContentPartOption1Title}
                 </h6>
                 <p className="text-sm text-gray-900">
-                  L'argent que vous gagnez peut être déposé sur votre compte bancaire traditionnel en un ou deux jours ouvrables.
+                  {localization.ContentPartOption1Description}
                 </p>
               </div>
               <div>
@@ -31,10 +36,10 @@ export const Content = () => {
                   </svg>
                 </div>
                 <h6 className="mb-2 font-semibold leading-5">
-                Rapports d'activité
+                  {localization.ContentPartOption2Title}
                 </h6>
                 <p className="text-sm text-gray-900">
-                  Bénéficiez de rapports d'activité clairs et accessibles en temps réel sur vos ventes et l'activité de votre personnel.
+                  {localization.ContentPartOption2Description}
                 </p>
               </div>
             </div>

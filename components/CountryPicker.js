@@ -53,7 +53,7 @@ function CountryPicker({ onChange, countryDisplayed, setCountryDisplayed }) {
                             />
                         </span>
                     </Listbox.Button>
-                    <input type="text" onChange={(e)=> onChange(e.target.value)} name="price" id="price" className="h-10 w-full px-2 text-black bg-gray-100 rounded-lg  font-montserrat text-sm  focus:outline-none" placeholder="Tapez votre numéro de téléphone" />
+                    <input id={"loginPhoneInput"} type="text" onChange={(e)=> onChange(e.target.value)} name="phone"  className="h-10 w-full px-2 text-black bg-gray-100 rounded-lg  font-montserrat text-sm  focus:outline-none" placeholder="Tapez votre numéro de téléphone" />
                     </div>
 
                     <Transition

@@ -1,13 +1,13 @@
 // ./initAuth.js
 import { init } from 'next-firebase-auth'
-const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000
+
 
 // 0x269c5aB2E955d24f5A8F3dA9fD44696EbA15548A contrat
 
 const initAuth = () => {
   init({
     debug: false,
-    authPageURL: '/',
+    authPageURL: '/fr',
     appPageURL: '/home',
     loginAPIEndpoint: '/api/login', // required
     logoutAPIEndpoint: '/api/logout', // required
@@ -23,6 +23,7 @@ const initAuth = () => {
       },
       databaseURL: process.env.NEXT_PUBLIC_firebase_databaseURL,
     },
+
     firebaseClientInitConfig: {
       apiKey: process.env.NEXT_PUBLIC_firebase_apiKey, // required
       authDomain: process.env.NEXT_PUBLIC_firebase_authDomain,
@@ -30,19 +31,19 @@ const initAuth = () => {
       projectId: process.env.NEXT_PUBLIC_firebase_projectId,
     },
     cookies: {
-      name: 'Swootte',
+      name: 'swootte',
       keys: [
         process.env.COOKIE_SECRET_CURRENT,
         process.env.COOKIE_SECRET_PREVIOUS,
       ],
       httpOnly: true,
-      maxAge: TWELVE_DAYS_IN_MS,
+      maxAge: 12 * 60 * 60 * 24 * 1000,
       overwrite: true,
       path: '/',
-      sameSite: 'Strict',
-      secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === 'true',
+      sameSite: 'strict',
+      secure: false,
       signed: true,
-    },
+    }
   })
 }
 

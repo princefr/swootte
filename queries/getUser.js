@@ -1,6 +1,5 @@
 
 import gql from "graphql-tag";
-import client from '../utils/graphql'; 
 
 export const loadUser = async (_client) => {
     return _client.query({
@@ -31,7 +30,7 @@ export const loadUser = async (_client) => {
 }
 
 
-export const userInDatabase = async (uid) => {
+export const userInDatabase = async (uid, client) => {
     return client.query({
         query: gql`
         query IsExist($uid: String!) {
@@ -47,7 +46,7 @@ export const userInDatabase = async (uid) => {
 }
 
 
-export const getDefaultToken = async (token) => {
+export const getDefaultToken = async (client) => {
     return client.query({
         query: gql`
         query GetIfUSerExist {
@@ -63,23 +62,23 @@ export const getDefaultToken = async (token) => {
 export const GET_USER = gql`
 query GetIfUSerExist {
     usersExist{
-        _id
-        email
-        first_name
-        last_name
-        phonenumber
-        country
-        defaultCurrency
-        currency
-        notificationPermission
-        is_online
-        createdAt
-        photoUrl
-        permissions
-        updatedAt
-        birth_date {day, month, year}
-        adresses {title, location {latitude, longitude}, is_chosed}
-        fcmToken
+            _id
+            email
+            first_name
+            last_name
+            phonenumber
+            country
+            defaultCurrency
+            currency
+            notificationPermission
+            is_online
+            createdAt
+            photoUrl
+            permissions
+            updatedAt
+            birth_date {day, month, year}
+            adresses {title, location {latitude, longitude}, is_chosed}
+            fcmToken
             }
         }
 `

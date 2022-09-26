@@ -10,7 +10,6 @@ function DisconnectButton(){
     
     const handleCloseConfirmation = () => {
         setShowConfirmation(false)
-        
     }
 
 
@@ -25,9 +24,7 @@ function DisconnectButton(){
                                     <div>Se déconnecter</div>
                                 </div>
                     </button>
-            <Transition show={showConfirmation}>
-                <DisconnectConfirm handleCloseConfirmation={handleCloseConfirmation}></DisconnectConfirm>
-            </Transition>
+                    <DisconnectConfirm handleCloseConfirmation={handleCloseConfirmation} isOpen={showConfirmation}></DisconnectConfirm>
         </div>
     )
 }

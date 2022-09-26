@@ -1,33 +1,40 @@
 import Dashboard from "../../components/dashboard/dashboard"
 import { useMutation } from "@apollo/client";
 import { Transition } from "@headlessui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNotification } from "../../notifications/NotificationContext";
 import { CREATE_TRANSFER } from "../../mutation/CreateTransfer";
-import { DeviseContext } from "../../context/DeviseContext";
 import AskPasswordToCompleteAction from "../../components/dialogs/AskPasswordToCompleteAction";
+import { usePasscode } from "../../passcode/passCodeContext";
+import fr from "../../localization/fr";
+import LoadingIcon from "../../components/icons/LoadingIcon";
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { useSSrClientApollo } from "../../lib/Auth";
+import { userInDatabase } from "../../queries/getUser";
+import { EnterpriseContext } from "../../context/EnterpriseContext";
 
 
 const SendMoney = (props) => {
-    const {Devise, } = useContext(DeviseContext)
     const [adress, setAdress] = useState("")
     const [amount, setAmount] = useState()
     const dispatch = useNotification()
     const [CreateTransfer, { loading }] = useMutation(CREATE_TRANSFER)
+    const {enterpriseId, setEnterpriseId} = useContext(EnterpriseContext)
 
     const [confirmBool, setConfirm] = useState(false)
+    const passcode = usePasscode()
 
 
-    useEffect(() => {
-        console.log("devise")
-    }, [Devise])
 
-    const handleCreateTransfer = () => {
+
+
+    const handleCreateTransfer = (pinCode) => {
         CreateTransfer({
             variables: {
-                address: adress,
-                token: "GvWfymh6DW5cQ1n8KuvdN5yjPEbeFmwqBSz6MhyLX6qe",
-                amount: parseFloat(amount)
+                enterpriseId: enterpriseId.filter((company) => company.default_enterprise)[0]._id,
+                publicKey: adress,
+                amount: parseFloat(amount),
+                pinCode: pinCode
             }
         }).then(() => {
             setAdress("")
@@ -51,14 +58,25 @@ const SendMoney = (props) => {
         })
     }
 
+    const lanchPassCode = (event) => {
+        event.preventDefault()
+        passcode({
+            payload: {
+                type: "ENVOYER",
+                title: "Entrer votre pinCode pour confirmer le transfert",
+                confirm: handleCreateTransfer
+            }
+        })
+    }
+
     return (
         <Dashboard pageName={"Send Money"}>
             {
 
                 <div className="flex flex-col  w-full">
                     <header className="bg-white shadow-b flex flex-row justify-between items-start p-4">
-                        <div className="px-12">
-                            <h1 className="text-3xl  text-gray-900 font-light font-montserrat">Envoyer de l'argent</h1>
+                        <div className="">
+                            <h1 className="text-3xl font-bold text-gray-900 font-montserrat ">{fr.sendPageTitle}</h1>
                         </div>
                         <div className="flex flex-row space-x-3">
 
@@ -66,8 +84,8 @@ const SendMoney = (props) => {
                     </header>
 
 
-                    <nav className="px-6">
-                        <div className="flex flex-col px-10">
+                    <nav className="py-4 px-4">
+                        <div className="flex flex-col">
                             <div className="font-light font-montserrat">Envoyez de l'argent en instantanée et sans frais à une autre addresse Franc CFA numérique. nos transferts ne connaissent aucune frontière, ils sont gratuits pour dans transferts dans le pays ou à l'international .</div>
 
                             <div className="mx-auto w-2/5 mt-10">
@@ -97,17 +115,14 @@ const SendMoney = (props) => {
                                     <div className="w-full px-3">
                                         <button disabled={!adress.length || amount == null || amount <= 0}
                                             type="button"
-                                            className="inline-flex w-full justify-center px-4 py-2 text-sm font-medium text-white disabled:opacity-50 bg-black border border-transparent rounded-md hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                            onClick={(() => {setConfirm(true)})}
+                                            className="inline-flex w-full justify-center px-4 py-2 text-sm font-medium text-white  bg-black  hover:bg-opacity-80 focus:outline-none"
+                                            onClick={lanchPassCode}
                                         >
 
                                             <Transition show={loading}>
-                                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                </svg>
+                                                <LoadingIcon/>
                                             </Transition>
-                                            <span>Envoyer l'argent</span>
+                                            <span>Envoyer</span>
                                         </button>
                                     </div>
                                 </div>
@@ -116,9 +131,6 @@ const SendMoney = (props) => {
 
 
                     </nav>
-
-
-                    <AskPasswordToCompleteAction isOpen={confirmBool} runProcess={handleCreateTransfer}  setOpenModal={setConfirm} phrase={"envoyer de l'argent"} explanationText={`Une reconnexion est necessaire pour pouvoir valider l'envoie de ${amount} à l'adresse suivante: ${adress}`}></AskPasswordToCompleteAction>
                 </div>
 
         
@@ -128,6 +140,22 @@ const SendMoney = (props) => {
     )
 }
 
+export const getServerSideProps = withAuthUserTokenSSR({
+    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  })(async ({ AuthUser }) => {
+    const token = await AuthUser.getIdToken()
+    const client = useSSrClientApollo(token)
+   const {data, error} = await userInDatabase(AuthUser.id, client)
+   if(!error && data.userExist) {
+    return {
+        props: {},
+        redirect: '/',
+    }
+   }else{
+    return {
+        props: {}
+    }
+   }
+  })
 
-
-export default SendMoney
+export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(SendMoney)

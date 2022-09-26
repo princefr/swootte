@@ -6,7 +6,7 @@ import ExportProductsButton from "../components/products/buttons/exportProductsB
 import ExportTarrifButton from "../components/products/buttons/exportTarrifButton"
 import FilterProductsButton from "../components/products/buttons/FilterProductsButton"
 import ProductItems from "../components/items/productItem"
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
+import { AuthAction, withAuthUser} from "next-firebase-auth"
 
 
 export  function Products({token}) {
@@ -41,18 +41,6 @@ export  function Products({token}) {
         }</Dashboard>
     )
 }
-
-
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-  })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    return {
-      props: {
-        token: token
-      }
-    }
-  }) 
 
 
 export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Products)

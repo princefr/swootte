@@ -1,11 +1,9 @@
-import React, { Fragment, useContext, useState } from "react";
-import onClickOutside from "react-onclickoutside";
+import React, { Fragment, useContext, useState, useEffect, useRef } from "react";
 import LanguageButton from "../buttons/languageButton";
 import CookiesButton from "../buttons/cookieButton";
 import { useRouter } from 'next/router'
 import Toogle from "../toogle/toggle";
 import DisconnectButton from "../buttons/DisconnectButton"
-import { Transition } from "@headlessui/react";
 import AddTokenButton from "../token/buttons/addTokenButton";
 import CreateTokenButton from "../token/buttons/createTokenButton";
 import { ModeContext } from "../../context/ModeContext";
@@ -13,6 +11,9 @@ import Skeleton from 'react-loading-skeleton';
 import AddAgencyButton from "../token/buttons/addAgencyButton";
 import { useMutation } from "@apollo/client";
 import { SET_IS_ONLINE } from "../../mutation/setIsOnline";
+import onClickOutside from "react-onclickoutside";
+
+import { Menu, Transition, Popover } from '@headlessui/react'
 
 export function PhotoView({ photoUrl, height, width }) {
     return (
@@ -38,8 +39,8 @@ export function PhotoView({ photoUrl, height, width }) {
 
 
 
-const ToggleOnline =  ({isOneline, setIsOnline, refetch, fromdb}) => {
-    const [SetisOnlineMutation, {loading}] = useMutation(SET_IS_ONLINE)
+const ToggleOnline = ({ isOneline, setIsOnline, refetch, fromdb }) => {
+    const [SetisOnlineMutation, { loading }] = useMutation(SET_IS_ONLINE)
 
     const handleSetIsOnline = (toggle) => {
         setIsOnline(toggle)
@@ -54,7 +55,7 @@ const ToggleOnline =  ({isOneline, setIsOnline, refetch, fromdb}) => {
     setIsOnline(fromdb)
 
     return (
-        <Toogle id="tooglesetOnline" enabled={isOneline} setEnabled={setIsOnline}/>
+        <Toogle id="tooglesetOnline" enabled={isOneline} setEnabled={setIsOnline} />
     )
 }
 
@@ -62,13 +63,14 @@ const ToggleOnline =  ({isOneline, setIsOnline, refetch, fromdb}) => {
 const UserPicture = props => {
     const router = useRouter()
     const [loading, error, data, refetch] = props.useUser
-
     const [showDropDown, setshowDropDown] = useState(false);
-    const toggleDropdown = () => setshowDropDown(!showDropDown);
+    const setVisible = () => setshowDropDown(!showDropDown);
     UserPicture.handleClickOutside = () => setshowDropDown(false)
     const { LiveMode, setLiveMode } = useContext(ModeContext)
-    const  [isOneline, setIsOnline] = useState(false)
-    
+    const [isOneline, setIsOnline] = useState(false)
+    const [referenceElement, setReferenceElement] = useState();
+    const [popperElement, setPopperElement] = useState();
+
 
 
 
@@ -94,98 +96,106 @@ const UserPicture = props => {
 
     return (
 
-        <div id="yes" className="relative inline-block text-left font-montserrat">
-            <button onClick={toggleDropdown} className="group rounded-full overflow-hidden bg-transparent hover:bg-blue-600 hover:bg-opacity-25 h-10 w-10 p-1 transition-all ease-out duration-200 focus:outline-none focus:shadow-outline focus:bg-teal-300 focus:bg-opacity-25">
-                <PhotoView height={8} width={8} photoUrl={data.usersExist.photoUrl}></PhotoView>
-            </button>
+        <Popover.Group>
+            <Popover className={"inline-block   font-montserrat"} as="nav">
+                <Popover.Button onClick={setVisible} ref={setReferenceElement} className={"group rounded-full items-center justify-center overflow-hidden bg-transparent hover:bg-blue-600 hover:bg-opacity-25 h-10 w-10 p-1 transition-all ease-out duration-200 focus:outline-none focus:shadow-outline focus:bg-teal-300 focus:bg-opacity-25"}>
+                    <PhotoView height={8} width={8} photoUrl={data.usersExist.photoUrl}></PhotoView>
+                </Popover.Button>
 
-            <Transition show={showDropDown} as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95">
-                <div className="origin-top-right absolute right-0 mt-2 w-96 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <div className="py-1" role="none">
-                        <div className="flex flex-col p-4">
-                            <div onClick={goToProfil} className="flex flex-row">
-                                <PhotoView height={16} width={16} photoUrl={data.usersExist.photoUrl}></PhotoView>
 
-                                <div className="flex flex-col ml-5 items-start py-2">
-                                    <div className="font-medium">{data.usersExist.first_name + " " + data.usersExist.last_name}</div>
-                                    <div className="flex flex-row items-center space-x-2 ml-0">
-                                        <div className={`h-3 w-3 rounded-full ${data.usersExist.is_online ? "bg-green-500" : "bg-gray-500"}`} />
-                                        <div className="text-sm font-montserrat">{data.usersExist.is_online ? "En ligne" : "Déconnecté"}</div>
+                <Transition
+                    as={Fragment}
+                    show={showDropDown}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                >
+
+                   
+
+                    <Popover.Panel ref={setPopperElement} className="absolute right-0 mt-2 -translate-x-2 w-96 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="px-1 py-1 ">
+
+                            <div className="flex flex-col p-4 border-b border-gray-200">
+                                <div onClick={goToProfil} className="flex flex-row">
+                                    <PhotoView height={16} width={16} photoUrl={data.usersExist.photoUrl}></PhotoView>
+
+                                    <div className="flex flex-col ml-5 items-start py-2">
+                                        <div className="font-medium">{data.usersExist.first_name + " " + data.usersExist.last_name}</div>
+                                        <div className="flex flex-row items-center space-x-2 ml-0">
+                                            <div className={`h-3 w-3 rounded-full ${data.usersExist.is_online ? "bg-green-500" : "bg-gray-500"}`} />
+                                            <div className="text-sm font-montserrat">{data.usersExist.is_online ? "En ligne" : "Déconnecté"}</div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
 
-                            {/* https://tailwindcomponents.com/component/toggle-switch toogle swtich inspiration */}
-                            {/* <div className="flex flex-row justify-between mt-5 items-center">
-                                <div className="text-sm font-montserrat">{data.usersExist.is_online ? "En ligne" : "Déconnecté"}</div>
-                                <ToggleOnline isOneline={isOneline} setIsOnline={setIsOnline} refetch={refetch} fromdb={data.usersExist.is_online}></ToggleOnline>
-                            </div> */}
+
+                            <Transition show={data != null && !loading && data.usersExist.permissions.includes("ADMIN")}>
+
+                                <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                                    <CreateTokenButton></CreateTokenButton>
+                                </div>
+
+                            </Transition>
+
+
+                            <Transition show={data != null && !loading && data.usersExist.permissions.includes("ADMIN")}>
+
+                                <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                                    <AddTokenButton></AddTokenButton>
+                                </div>
+
+
+                            </Transition>
+
+                            <Transition show={data != null && !loading && data.usersExist.permissions.includes("AGENT")}>
+
+                                <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                                    <AddAgencyButton></AddAgencyButton>
+                                </div>
+
+
+                            </Transition>
+
+
+
+                            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                                <LanguageButton />
+                            </div>
+
+
+
+                            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
+                                <CookiesButton></CookiesButton>
+                            </div>
+
+
+
+
+
+                            <div className="py-1" role="none">
+                                <DisconnectButton></DisconnectButton>
+                            </div>
+
                         </div>
-                    </div>
-                    <div className="py-1" role="none">
-                        <Transition show={data != null && !loading && data.usersExist.permissions.includes("ADMIN")}>
-                            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                                <CreateTokenButton></CreateTokenButton>
-                            </div>
-                        </Transition>
-                        <Transition show={data != null && !loading && data.usersExist.permissions.includes("ADMIN")}>
-                            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                                <AddTokenButton dismiss={toggleDropdown}></AddTokenButton>
-                            </div>
-                        </Transition>
+                    </Popover.Panel>
 
-                        <Transition show={data != null && !loading && data.usersExist.permissions.includes("AGENT")}>
-                            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                                <AddAgencyButton></AddAgencyButton>
-                            </div>
-                        </Transition>
-                        {/* <button className="flex flex-row items-center px-4 py-2 text-sm justify-between  text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                            <div className="flex flex-row items-center space-x-2 ml-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                                </svg>
-                                <div>Test mode</div>
 
-                            </div>
-                            <Toogle enabled={LiveMode} setEnabled={setLiveMode} />
-                        </button> */}
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                            <LanguageButton />
-                        </a>
-                        <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                            <CookiesButton></CookiesButton>
-                        </div>
-
-                        {/* <div onClick={goToSettings} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full" role="menuitem">
-                            <div className="flex flex-row items-center space-x-2 ml-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
-                                <div>Support</div>
-                            </div>
-                        </div> */}
-                    </div>
-                    <div className="py-1" role="none">
-                        <DisconnectButton></DisconnectButton>
-                    </div>
-                </div>
-            </Transition>
+                </Transition>
 
 
 
-        </div>
+            </Popover>
+
+        </Popover.Group>
+
     )
 }
 
+export default UserPicture
 
-const clickOutsideConfig = {
-    handleClickOutside: () => UserPicture.handleClickOutside
-};
-
-export default onClickOutside(UserPicture, clickOutsideConfig);

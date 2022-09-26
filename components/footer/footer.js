@@ -3,11 +3,13 @@ import { useState } from "react";
 import { SUSCRIBE_TO_NEWS_LETTER } from "../../mutation/SuscribeToNewsLetter";
 import { useNotification } from "../../notifications/NotificationContext";
 import Link from 'next/link'
+import useLocalization from "../../hooks/useLocalization";
 
 const SuscribeToNewsletter = () => {
   const [email, setEmail] = useState("")
   const [Suscribe, { loading }] = useMutation(SUSCRIBE_TO_NEWS_LETTER)
   const dispatch = useNotification()
+  const localization = useLocalization()
 
 
   const handleSuscribe = (event) => {
@@ -36,14 +38,14 @@ const SuscribeToNewsletter = () => {
   }
   return (
     <div className="sm:col-span-6 md:col-span-3 lg:col-span-3">
-      <h6 className="text-white font-medium mb-2">S'abonner à notre newsletter</h6>
-      <p className="text-sm text-white mb-4">Recevez chaque mois les dernières nouvelles et les derniers articles dans votre boîte aux lettres électronique.</p>
+      <h6 className="text-white font-medium mb-2">{localization.FooterNewsLetterTitle}</h6>
+      <p className="text-sm text-white mb-4">{localization.FooterNewsLetterDescription}</p>
 
       <div className="flex flex-wrap mb-4">
         <div className="w-full">
-          <label className="block text-sm sr-only" htmlFor="newsletter">Email</label>
+          <label className="block text-sm sr-only" htmlFor="newsletter">{localization.EmailViewContactUsEmailTitle}</label>
           <div className="relative flex items-center max-w-xs">
-            <input id="newsletter" required value={email} onChange={((e) => setEmail(e.target.value))} type="email" className="form-input w-full text-gray-800 px-3 py-2 pr-12 text-sm" placeholder="Email" required />
+            <input id="newsletter" required value={email} onChange={((e) => setEmail(e.target.value))} type="email" className="form-input w-full text-gray-800 px-3 py-2 pr-12 text-sm" placeholder={localization.EmailViewContactUsEmailTitle} />
             <button onClick={handleSuscribe} className="absolute inset-0 left-auto" aria-label="Subscribe" disabled={!email.length}>
               <span className="absolute inset-0 right-auto w-px -ml-px my-2 bg-gray-300" aria-hidden="true"></span>
               {
@@ -68,6 +70,7 @@ const SuscribeToNewsletter = () => {
 
 
 export const Footer = () => {
+  const localization = useLocalization()
   return (
     <div className="relative mt-16 bg-black text-white">
       <svg
@@ -85,7 +88,7 @@ export const Footer = () => {
           <div className="md:max-w-md lg:col-span-2">
             <img src="images/Swootte_logo_white.svg" className="w-36" alt="swootte logo"></img>
             <div className="mt-4 lg:max-w-sm">
-            Swootte vous permet de créer votre solution de point de vente pour accepter les paiements en Franc CFA sur place ou sur le web. Commercer sans frontière meme à l'internationale.
+            {localization.FotterSwootteDescription}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-3">
@@ -175,7 +178,7 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col justify-between pt-5 pb-10 border-t border-deep-purple-accent-200 sm:flex-row">
           <p className="text-sm text-gray-100">
-            © Copyright 2021 Swootte ltd. All rights reserved.
+            © Copyright {new Date().getFullYear()} Swootte ltd. All rights reserved.
           </p>
           <div className="flex items-center mt-4 space-x-4 sm:mt-0">
             <a

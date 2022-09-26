@@ -51,7 +51,7 @@ const SearchNavBar = () => {
     return (
         <div className="relative inline-block text-gray-600 mx-7">
             <div className="flex h-full w-full">
-                <input type="text" value={text} onChange={((e) => setText(e.target.value))} name="text" placeholder="Rechercher: transaction, contact, retrait ..." className="bg-gray-200 h-10 px-5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-offset-black focus:ring-black w-96  font-montserrat rounded-full outline-none" />
+                <input type="text" value={text} onChange={((e) => setText(e.target.value))} name="text" placeholder="Rechercher: transaction, contact, retrait ..." className="h-10 px-5 pr-10 text-sm focus:outline-none  w-96  font-montserrat bg-gray-100 rounded-lg  outline-none" />
                 <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </button>

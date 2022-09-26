@@ -6,8 +6,14 @@ import { Footer } from '../components/footer/footer'
 import { Content } from '../components/content/subcontent'
 import CookieBanner from '../components/banner/cookieBanner'
 import EmailView from '../components/dashboard/landing/email'
+import MobileAppPart from '../components/content/mobileAppPart'
+import useLocalization from '../hooks/useLocalization'
+import LandingNav from '../comp/landing/LandingNav'
+import { withAuthUser} from 'next-firebase-auth'
 
-export default function Home() {
+
+const Index = () => {
+  const localization = useLocalization()
   return (
     <div>
       <Head>
@@ -25,94 +31,59 @@ export default function Home() {
         <meta name="twitter:creator" content="@ondpr" />
       </Head>
 
-      <Nav></Nav>
+      <LandingNav />
       <main>
 
-        <Header></Header>
-        {/* <section className="mx-auto">
-          <div className="container px-5 mx-auto lg:px-24 ">
-            <div className="flex flex-col w-full mb-4 text-left lg:text-center">
-            </div>
-            <div className="grid grid-cols-2 gap-16 mb-16 text-center justify-center items-center lg:grid-cols-6">
-              <div className="flex items-center justify-center">
-                <img
-                  src="/images/ethereum-logo.png"
-                  alt="Ethereum logo"
-                  className="block object-contain h-16 greyC"
-                ></img>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="/images/usdc_logo.png"
-                  alt="USDC logo"
-                  className="block object-contain h-16 greyC"
-                ></img>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="/images/tron-logo.png"
-                  alt="Tron logo"
-                  className="block object-contain h-16 greyC"
-                ></img>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="/images/Binance.png"
-                  alt="Binance logo"
-                  className="block object-contain h-16 greyC"
-                ></img>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="/images/Solana_Logo_2021_Color.png"
-                  alt="Solana logo"
-                  className="block object-contain h-16 greyC"
-                ></img>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="/images/cfa_numerique.svg"
-                  alt="Solana logo"
-                  className="block object-contain h-16 greyC"
-                ></img>
-              </div>
-            </div>
+
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center lg:pt-32'>
+          <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">{localization.landingPageTitle}    <span className="relative whitespace-nowrap text-blue-600">
+            <span className="relative">{localization.landingPageTitle_2}</span></span></h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">{localization.HeroDescriptionText}</p>
+          {/* <div className="mt-10 flex justify-center gap-x-6">
+            <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-900 text-white hover:bg-blue-700 hover:text-blue-100 active:bg-blue-800 active:text-blue-300 focus-visible:outline-blue-900" href="/register">Get 6 months free</a><a className="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none ring-blue-200 text-blue-700 hover:text-blue-900 hover:ring-blue-300 active:bg-blue-100 active:text-blue-600 focus-visible:outline-blue-600 focus-visible:ring-blue-300" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><svg aria-hidden="true" className="h-3 w-3 flex-none fill-blue-600 group-active:fill-current"><path d="m9.997 6.91-7.583 3.447A1 1 0 0 1 1 9.447V2.553a1 1 0 0 1 1.414-.91L9.997 5.09c.782.355.782 1.465 0 1.82Z"></path></svg><span className="ml-3">Watch video</span></a>
+          </div> */}
+          <div className="mt-36 lg:mt-44">
+            <p className="font-display text-base text-blue-900">Nos partenaires</p>
+            <ul role="list" className="mt-8 flex items-center justify-center gap-x-8 sm:flex-col sm:gap-x-0 sm:gap-y-10 xl:flex-row xl:gap-x-12 xl:gap-y-0">
+              <li>
+                <ul role="list" className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0">
+                  <li className="flex">
+                    <img alt="Transistor" src="/images/155971.svg" width="158" height="48" decoding="async" data-nimg="future" loading="lazy" />
+                  </li>
+                  <li className="flex">
+                    <img alt="Tuple" src="/images/google-cloud-logo.svg" width="105" height="48" decoding="async" data-nimg="future" loading="lazy" />
+                  </li>
+                  <li className="flex">
+                    <img alt="StaticKit" src="/images/ethereum-logo.png" width="127" height="48" decoding="async" data-nimg="future" loading="lazy" />
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul role="list" className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0">
+                  <li className="flex">
+                    <img alt="Mirage" src="/images/mtn-logo-40644FC8B0-seeklogo.com.png" className='block object-contain h-10 greyC' decoding="async" data-nimg="future" loading="lazy" />
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
-        </section> */}
+        </div>
         <Feature></Feature>
         <Content></Content>
 
 
-
-        <div className="bg-white">
-          <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              <span className="block">Frais ridicules de 0,5 %.</span>
-              <span className="block text-red-800">75% moins cher que la plupart des concurrents.</span>
-            </h2>
-            <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-              <div className="inline-flex rounded-md shadow">
-                <a href="#" className="inline-flex items-center justify-center px-3 py-2 border border-transparent text-base font-medium  text-white bg-black hover:bg-gray-700">
-                  Commencez
-                </a>
-              </div>
+        <section id="get-started-today" className="relative overflow-hidden bg-blue-600 py-32">
+          <img alt="" src="/images/background-call-to-action.6a5a5672.jpg" width="2347" height="1244" decoding="async" data-nimg="future" className="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" loading="lazy" />
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+            <div className="mx-auto max-w-lg text-center">
+              <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">{localization.FeeLandingTitle}</h2>
+              <p className="mt-4 text-lg tracking-tight text-white">{localization.FeeLandingDescription}</p>
+              <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 focus-visible:outline-white mt-10" href="/register">{localization.FeeLanndingButtonText}</a>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* <section className="text-gray-600 body-font">
-          <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-            <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-              <img className="object-cover object-center rounded" alt="hero" src="images/cfa_numerique.svg" />
-            </div>
-            <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-              <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Le franc CFA numérique</h1>
-              <p className="mb-4 leading-relaxed">Le franc CFA numérique (FCFA) est une crypto-monnaie de type monnaie numérique stable émise par la société Swootte LTD. </p>
-              <p>Le Franc CFA numérique est garantie à 100%, est transparent et repose essentiellement sur les technologies Bloackchains.
-                 À l'aide du Franc CFA numérique, Swotte convertit l'argent liquide en monnaie numérique, et permet donc à cette dernière de voyager au-delà des frontières du Congo et de l'Afrique.</p>
-            </div>
-          </div>
-        </section> */}
+        <MobileAppPart></MobileAppPart>
 
 
         <EmailView></EmailView>
@@ -123,4 +94,9 @@ export default function Home() {
     </div>
   )
 }
+
+
+
+export default withAuthUser()(Index)
+
 

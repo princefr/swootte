@@ -19,6 +19,7 @@ const CancelTopupWithdrawUserButton = ({activity, refetch}) => {
     const dispatch = useNotification()
 
     const handleCancelTransaction = (event) => {
+        event.preventDefault()
         CancelTransaction({
             variables:{
                 transaction_id: activity._id,

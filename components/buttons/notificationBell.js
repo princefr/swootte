@@ -1,4 +1,4 @@
-import { useQuery, useSubscription } from "@apollo/client";
+import { useLazyQuery, useQuery, useSubscription } from "@apollo/client";
 import { Transition } from "@headlessui/react";
 import React, {useState } from "react";
 import onClickOutside from "react-onclickoutside";
@@ -6,6 +6,8 @@ import { GET_NOTIFICATION } from "../../queries/getNotifications";
 import { NOTIFICATION_SUBSCRIPTION } from "../../subscription/subscriptoNotification";
 import NotificationItem from "../items/notification";
 import Skeleton from 'react-loading-skeleton';
+import { useEffect } from "react";
+import { getAuth } from "firebase/auth";
 
 
 function NewNotificationWarningonBell({ firebaseUID }) {
@@ -27,11 +29,18 @@ function BellComponent({token}) {
     const [showDropDown, setshowDropDown] = useState(false);
     const toggleDropdown = () => setshowDropDown(!showDropDown);
     BellComponent.handleClickOutside = () => setshowDropDown(false)
-    const { loading, error, data, refetch } = useQuery(GET_NOTIFICATION)
+    const [getNotification, { loading, error, data, refetch }] = useLazyQuery(GET_NOTIFICATION)
+    useEffect(() => {
+        getAuth().onAuthStateChanged((user) => {
+            if(user) return getNotification()
+        })
+    }, [])
 
 
+    
     if (loading) return <Skeleton circle={true} height={30} width={30}></Skeleton>;
     if (error) return null;
+    if(!data) return <Skeleton circle={true} height={30} width={30}></Skeleton>;
 
 
     return (

@@ -1,43 +1,56 @@
-
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment, useEffect, useState } from 'react'
-import firebase from 'firebase/app'
-import 'firebase/auth'
 import CountryPicker from '../CountryPicker'
 import { useNotification } from "../../notifications/NotificationContext";
-import {loadUser } from "../../queries/getUser";
+import {GET_USER} from "../../queries/getUser";
 import { useRouter } from "next/router";
-import FirebaseClient from '../../utils/firebase'
-import { useApolloClient } from '@apollo/client'
+import { useLazyQuery} from '@apollo/client'
+import { ChevronRightIcon } from '@heroicons/react/outline'
+import LoadingIcon from '../icons/LoadingIcon'
+import { getAuth, PhoneAuthProvider, RecaptchaVerifier, signInWithCredential, signInWithPhoneNumber } from 'firebase/auth';
+import initAuth from '../../utils/initAuth';
+import { useAuthUser } from 'next-firebase-auth';
 
 
-
-
-FirebaseClient()
+initAuth()
 function ConnnectButton() {
     const [showModal, setshowModal] = useState(false);
     const router = useRouter()
+    const useauth = useAuthUser()
 
     const [usePhone, setPhone] = useState("")
     const [useCode, setCode] = useState("")
     const [isConnected, setIsConnnected]= useState(false)
     const toggleModal = () => isConnected ? checkThis():  setshowModal(!showModal);
-    const client = useApolloClient()
+    const [checkExist, {called, loading, data}] = useLazyQuery(GET_USER)
 
 
 
     const checkThis = async () => {
-        const { data: {usersExist} } = await loadUser(client)
-        usersExist == null ? navigateToSignup() : navigateToDashboard()
+        console.log("check this")
+        return checkExist().then((res) => {
+            if(res.error == null && res.data != null){
+                navigateToDashboard
+            }else{
+                navigateToSignup()
+            }
+        })
     }
     
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
+        getAuth().onAuthStateChanged((user) => {
             user != null ? setIsConnnected(true) : setIsConnnected(false)
-            
         })
     }, [])
+
+
+    useEffect(() => {
+        if(!called) return;
+        if(!data) return;
+        if(data.usersExist == null) return navigateToSignup();
+        if(data.usersExist != null) return navigateToDashboard();
+    }, [data])
 
 
     const navigateToSignup = () => {
@@ -49,10 +62,13 @@ function ConnnectButton() {
         router.push("/home")
     }
 
+    useEffect(() => {
+
+    }, [])
+
 
     const [timer, setTimer] = useState(60);
     const [codeIsLoading, setCodeIsLoading] = useState(false);
-
 
     const [isConnectLoading, setConnectLoading] = useState(false);
 
@@ -64,7 +80,7 @@ function ConnnectButton() {
 
 
     const countdown = () => {
-        var interval = setInterval(() => {
+        let interval = setInterval(() => {
             const time = _timer => {
                 if (_timer > 0) {
                     return _timer - 1
@@ -89,30 +105,63 @@ function ConnnectButton() {
         setCode(e)
     }
 
-    const handleSignUpWithPhone = event => {
+    const runAuthsignin = async() => {
+        const auth = getAuth()
+        countdown()
+        signInWithPhoneNumber(auth, countryDisplayed.dial_code + usePhone, window.reCaptchaVerifier)
+        .then((confirmationResult) => {
+        setVerificationCode(confirmationResult);
+        dispatch({
+            payload: {
+                type: "SUCCESS",
+                title: "Votre SMS",
+                message: "Un sms vous a été ennvoyé au numéro spécifié"
+            }
+        })
+
+    }).catch((err) => {
+        console.log(err)
+        dispatch({
+            payload: {
+                type: "ERROR",
+                title: "Votre SMS",
+                message: err.message
+            }
+        })
+    })
+    }
+
+    const handleSignUpWithPhone = async (event) => {
         event.preventDefault();
         setCodeIsLoading(true)
-        countdown()
-        const appVerifier = new firebase.auth.RecaptchaVerifier(
-            "sign-in-button",
-            {
-                size: "invisible"
-            }
-        );
-        appVerifier.render().then((wigetID) => {
-            firebase.auth().signInWithPhoneNumber(countryDisplayed.dial_code + usePhone, appVerifier).then((confirmationResult) => {
-                window.grecaptcha.reset(wigetID)
-                setVerificationCode(confirmationResult);
-                dispatch({
-                    payload: {
-                        type: "SUCCESS",
-                        title: "Votre SMS",
-                        message: "Un sms vous a été ennvoyé au numéro spécifié"
-                    }
-                })
+        const auth = getAuth();
+       if(!window.reCaptchaVerifier || window.reCaptchaVerifier == null) window.reCaptchaVerifier  = new RecaptchaVerifier("sign-in-button",{
+        'size': "invisible"}, auth)
 
-            }).catch((err) => {
-                window.grecaptcha.reset(wigetID)
+        await runAuthsignin()
+            
+       
+
+    }
+
+
+    const onVerifyCodeSubmit = event => {
+        event.preventDefault();
+        setConnectLoading(true)
+        const auth = getAuth();
+        const credential = PhoneAuthProvider.credential(verificationCode.verificationId, useCode);
+        signInWithCredential(auth, credential).then(async() => {
+            setshowModal(false)
+            setConnectLoading(false)
+           return checkExist(
+            {
+                variables: {}
+            }
+           ).catch((err) => {
+            console.log(err.message)
+            if(err.message == "mongo: no documents in result") {
+                navigateToSignup()
+            }
                 dispatch({
                     payload: {
                         type: "ERROR",
@@ -122,34 +171,7 @@ function ConnnectButton() {
                 })
             })
         }).catch((err) => {
-            dispatch({
-                payload: {
-                    type: "ERROR",
-                    title: "Votre SMS",
-                    message: err.message
-                }
-            })
-        })
-
-    }
-
-
-    const onVerifyCodeSubmit = event => {
-        event.preventDefault();
-        setConnectLoading(true)
-        var credential = firebase.auth.PhoneAuthProvider.credential(verificationCode.verificationId, useCode);
-        firebase.auth().signInWithCredential(credential).then(async () => {
-            const { data } = await loadUser(client)
-            if (data.usersExist == null) {
-                setshowModal(false)
-                setConnectLoading(false)
-                navigateToSignup()
-            } else {
-                setshowModal(false)
-                setConnectLoading(false)
-                navigateToDashboard()
-            }
-        }).catch((err) => {
+            console.log(err.message)
             setConnectLoading(false)
             dispatch({
                 payload: {
@@ -164,16 +186,17 @@ function ConnnectButton() {
 
     return (
         <div className="relative inline-block text-left">
-            <button onClick={toggleModal} className="flex bg-black p-2.5 rounded-full text-white justify-center items-center space-x-3 font-medium tracking-wide  transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">
+            <button id='connectButton' onClick={toggleModal} className="flex bg-black p-2.5 rounded-full text-white justify-center items-center space-x-3 font-medium tracking-wide  transition-colors duration-200 hover:text-teal-accent-400 font-montserrat">
                 <Transition show={!isConnected}>
                     <span>Connexion</span>
+                </Transition>
+                <Transition show={loading}>
+                    <LoadingIcon/>
                 </Transition>
                 <Transition show={isConnected}>
                     <span>Dashboard</span>
                 </Transition>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <ChevronRightIcon className='h-4 w-4'/>
             </button>
 
             <Transition appear show={showModal} as={Fragment}>
@@ -235,8 +258,8 @@ function ConnnectButton() {
                                         <CountryPicker onChange={handlePhoneChange} countryDisplayed={countryDisplayed} setCountryDisplayed={setCountryDisplayed}></CountryPicker>
                                     </div>
                                     <div className="flex flex-row  w-full space-x-3">
-                                        <input onChange={(e) => handleCodeChange(e.target.value)} type="text" placeholder="Saisis le code à 4 chiffres" className="w-3/5 h-10  px-2 text-black bg-gray-100 rounded-lg  font-montserrat text-sm  focus:outline-none"></input>
-                                        <button onClick={handleSignUpWithPhone} className="h-10 w-2/5 bg-black disabled:opacity-40 rounded-lg text-white text-sm font-montserrat" disabled={!usePhone.length}>
+                                        <input id='PhonecodeInput' onChange={(e) => handleCodeChange(e.target.value)} type="text" placeholder="Saisis le code à 4 chiffres" className="w-3/5 h-10  px-2 text-black bg-gray-100 rounded-lg  font-montserrat text-sm  focus:outline-none"></input>
+                                        <button id='loginSendCodeButton' onClick={handleSignUpWithPhone} className="h-10 w-2/5 bg-black disabled:opacity-40 rounded-lg text-white text-sm font-montserrat" disabled={!usePhone.length}>
                                             {codeIsLoading ? timer + " seconde(s)" : "Envoyer le code"}
                                         </button>
                                     </div>
@@ -251,13 +274,10 @@ function ConnnectButton() {
 
 
                                     <div className="py-2 w-full h-10">
-                                        <button onClick={onVerifyCodeSubmit} className="flex flex-row items-center justify-center h-10 w-full bg-black rounded-lg text-white text-sm  font-montserrat disabled:opacity-40" disabled={!useCode.length}>
-                                            {
-                                                isConnectLoading ? <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                </svg> : null
-                                            }
+                                        <button id="PhoneConnexionButton" onClick={onVerifyCodeSubmit} className="flex flex-row items-center justify-center h-10 w-full bg-black rounded-lg text-white text-sm  font-montserrat disabled:opacity-40" disabled={!useCode.length}>
+                                            <Transition show={isConnectLoading}>
+                                                <LoadingIcon/>
+                                            </Transition>
                                             Connexion
                                         </button>
                                     </div>
@@ -309,37 +329,6 @@ function ConnnectButton() {
 
                 </Dialog>
             </Transition>
-
-
-            {
-                showModal ?
-                    <div className="fixed z-10 inset-0 overflow-y-auto">
-                        <div className="flex items-end justify-center min-h-screen  px-4 pb-20 text-center sm:block sm:p-0">
-                            <div className="fixed inset-0 transition-opacity" onClick={toggleModal} aria-hidden="true">
-                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-                            </div>
-
-
-                            <span className="hidden sm:inline-block sm:align-top sm:h-24" aria-hidden="true">&#8203;</span>
-                            <div className="relative w-auto my-2 mx-auto max-w-xl bg-white rounded-lg py-6">
-                                <div className="flex flex-col relative p-4 space-y-3">
-                                    <div className="flex flex-row justify-between items-end">
-                                        <div></div>
-                                        <div onClick={toggleModal} className="h-8 w-8 bg-gray-200 rounded-full text-center p-1">
-                                            <a href="#">
-                                                <svg className="w-6 h-6 text-center" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                            </a>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    : null
-            }
         </div>
     )
 }

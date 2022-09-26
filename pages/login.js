@@ -1,12 +1,11 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
-import FirebaseClient from "../utils/firebase"
-import firebase from 'firebase/app'
+import { getAuth } from "firebase/auth"
 
 
 
 
-FirebaseClient()
+
 const Login = () => {
     const router = useRouter()
     const [email, setEmail] = useState("")
@@ -15,8 +14,8 @@ const Login = () => {
 
     const handleConnect = (event) => {
         event.preventDefault()
-        var prevUser = firebase.auth().currentUser
-        const credential = firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        let prevUser = getAuth().currentUser
+        const credential = getAuth().signInWithEmailAndPassword(email, password).then(() => {
             router.push("/home")
         }).catch((err) => {
             console.log(err)

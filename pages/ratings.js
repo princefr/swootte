@@ -1,6 +1,6 @@
 
 
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
+import { AuthAction, withAuthUser} from "next-firebase-auth"
 import Dashboard from "../components/dashboard/dashboard"
 import ExportRatingsButton from "../components/ratings/buttons/ExportRatingButton"
 import FilterRatingssButton from "../components/ratings/buttons/FilterRatingsButton"
@@ -32,18 +32,6 @@ export  function Ratings({token}) {
         }</Dashboard>
     )
 }
-
-
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-  })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    return {
-      props: {
-        token: token
-      }
-    }
-  }) 
 
 
 export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Ratings)

@@ -2,18 +2,21 @@ import 'tailwindcss/tailwind.css'
 import { UserContext } from '../context/UserContext'
 import { useState, useMemo, useEffect } from 'react';
 import initAuth from '../utils/initAuth';
-import 'firebase/auth'
 import NProgress from 'nprogress'
 import "nprogress/nprogress.css";
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
 import NotificationProvider from '../notifications/NotificationContext';
-import { FirebaseUIDContext } from '../context/FirebaseUIDContext';
-import { DeviseContext } from '../context/DeviseContext';
 import { ModeContext } from '../context/ModeContext';
 import { AuthProvider } from '../lib/Auth';
-import firebase from 'firebase/app';
 import { WalletContext } from '../context/WalletConntext';
+
+import { EnterpriseContext } from '../context/EnterpriseContext';
+import { QrCodeContext } from '../context/QrCodeContext';
+import PinCodeProvider from '../passcode/passCodeContext';
+import { LocaleContext } from '../context/LocaleContext';
+import { LocalizationContext } from '../context/LocalizationContext';
+import fr from '../localization/fr';
 
 
 
@@ -29,37 +32,54 @@ initAuth()
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
   const [user, setUser] = useState(null);
-  const [firebaseUID, setFirebaseUID] = useState(null)
+
+
   const [LiveMode, setLiveMode] = useState(false)
   const modeValue = useMemo(() => ({ LiveMode, setLiveMode }), [LiveMode, setLiveMode])
-  const [Devise, setDevice] = useState(null)
-  
-
-  const deviseValue = useMemo(() => ({ Devise, setDevice }), [Devise, setDevice])
 
   const [Wallet, setWallet] = useState(null)
   const walletProviderValue = useMemo(() => ({ Wallet, setWallet }), [Wallet, setWallet])
 
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
-  const firebaseUIDValue = useMemo(() => ({ firebaseUID, setFirebaseUID }), [firebaseUID, setFirebaseUID])
-  const [init, setInit] = useState(false)
+ 
+
+
+  const [enterpriseId, setEnterpriseId] = useState([])
+  const enterpriseValue = useMemo(() => ({ enterpriseId, setEnterpriseId }), [enterpriseId, setEnterpriseId])
+
+  const [qrCode, setQrCode] = useState(null)
+  const qrValue = useMemo(() => ({ qrCode, setQrCode }), [qrCode, setQrCode])
+
+
+  const [locale, setLocale] = useState('fr')
+
+  const LocaleValue = useMemo(() => ({locale, setLocale}), [locale, setLocale])
+
+  const [localization, setLocalization] = useState(fr)
+  const LocalizationValue = useMemo(() => ({localization, setLocalization}), [localization, setLocalization])
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((_user) => {
-      setInit(true)
-      if(_user){
-        setFirebaseUID(_user.uid)
-      }
-    })
-  });
+    const data = JSON.parse(localStorage.getItem("mode"))
+    if (data) return setLiveMode(data)
+  }, [])
+
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    setLocale(router.locale)
+  }, [])
+
+
+
+
+
+
+  useEffect(() => {
+    const handleRouteChange = (_url) => {
       NProgress.done()
     }
 
-  
-    router.events.on('routeChangeStart', (url) => {
+
+    router.events.on('routeChangeStart', (_url) => {
       // https://stackoverflow.com/questions/55624695/loading-screen-on-next-js-page-transition
       NProgress.start()
     })
@@ -73,26 +93,29 @@ const MyApp = ({ Component, pageProps }) => {
   }, [router.events])
 
 
-
-  if(init == false || init == null) return <div></div>;
-
   return (
     <>
       <TopProgressBar />
       <AuthProvider>
-        <FirebaseUIDContext.Provider value={firebaseUIDValue}>
+        <LocaleContext.Provider value={LocaleValue}>
+          <LocalizationContext.Provider value={LocalizationValue}>
           <UserContext.Provider value={providerValue}>
             <ModeContext.Provider value={modeValue}>
-              <DeviseContext.Provider value={deviseValue}>
-                <WalletContext.Provider value={walletProviderValue}>
-                  <NotificationProvider>
-                    <Component {...pageProps} />
-                  </NotificationProvider>
-                </WalletContext.Provider>
-              </DeviseContext.Provider>
+              <EnterpriseContext.Provider value={enterpriseValue}>
+                <QrCodeContext.Provider value={qrValue}>
+                  <WalletContext.Provider value={walletProviderValue}>
+                    <PinCodeProvider>
+                      <NotificationProvider>
+                        <Component {...pageProps} />
+                      </NotificationProvider>
+                    </PinCodeProvider>
+                  </WalletContext.Provider>
+                </QrCodeContext.Provider>
+              </EnterpriseContext.Provider>
             </ModeContext.Provider>
           </UserContext.Provider>
-        </FirebaseUIDContext.Provider>
+          </LocalizationContext.Provider>
+        </LocaleContext.Provider>
       </AuthProvider>
     </>
   )

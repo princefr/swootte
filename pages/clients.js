@@ -1,4 +1,4 @@
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { AuthAction, withAuthUser} from "next-firebase-auth";
 import AddClientButton from "../components/clients/buttons/AddClientButton";
 import ClientExportButton from "../components/clients/buttons/ClientExportButton";
 import FilterClientsButton from "../components/clients/buttons/FilterClientsButtons";
@@ -46,16 +46,7 @@ export  function UsersView({token}) {
 }
 
 
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-  })(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    return {
-      props: {
-        token: token
-      }
-    }
-  }) 
+
 
 
 export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(UsersView)

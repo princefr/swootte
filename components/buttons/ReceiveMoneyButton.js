@@ -1,49 +1,19 @@
 
-import { useContext, useEffect, useState } from "react";
+import {useContext, useState } from "react";
 import QRCode from "qrcode.react";
 import { Transition } from "@headlessui/react";
 import { useNotification } from "../../notifications/NotificationContext";
-import { useQuery } from "@apollo/client";
-import { GET_QR_CODE } from "../../queries/getQRCode";
-import { FirebaseUIDContext } from "../../context/FirebaseUIDContext";
-import { DeviseContext } from "../../context/DeviseContext";
+import { QrcodeIcon } from "@heroicons/react/outline";
+import { QrCodeContext } from "../../context/QrCodeContext";
 
 
-
-
-export function ReceiveQRCode({setQrCode, token}) {
-    const { firebaseUID, } = useContext(FirebaseUIDContext)
-    const {Devise, } = useContext(DeviseContext)
-    const {loading, error, data, refetch} = useQuery(GET_QR_CODE, {
-        variables : {
-            token: token
-        }
-    })
-
-
-    useEffect(() => {
-        if (Devise != null) refetch({token: Devise.publicKey})
-    }, [])
-
-    if (loading) return <p>Loading ...</p>;
-    if (error) return `Error! ${error}`;
-
-    setQrCode(data.loadQRCode)
-    
-    return (
-        <div className="flex items-center justify-center  h-3/5">
-            <QRCode value={data.loadQRCode} height="60%" width="60%" />
-        </div>
-    )
-}
 
 
 export function ReceiveMoneyButton({token}) {
-
     const [showModal, setshowModal] = useState(false);
     const toggleModal = () => setshowModal(!showModal);
     const dispatch = useNotification()
-    const [qrCode, setQrCode] = useState("");
+    const {qrCode, setQrCode} = useContext(QrCodeContext);
    
 
 
@@ -56,7 +26,7 @@ export function ReceiveMoneyButton({token}) {
                 payload: {
                     type: "SUCCESS",
                     title: "Copie",
-                    message: "Le texte a bien été copié dans le clipboard."
+                    message: "Le texte a bien été copié dans le presse papier."
                 }
             })
           } catch (err) {
@@ -74,9 +44,7 @@ export function ReceiveMoneyButton({token}) {
     return (
         <div className="relative inline-block text-left">
             <button onClick={toggleModal} className="transition ease-out duration-700 w-full  rounded-lg bg-gray-200  flex items-center space-x-2 px-2 py-2 focus:outline-none focus:shadow-outline text-xs font-medium">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
+                <QrcodeIcon className="h-6 w-6"></QrcodeIcon>
                 <span className="font-montserrat text-xs">Recevoir</span>
             </button>
 
@@ -109,12 +77,13 @@ export function ReceiveMoneyButton({token}) {
                                     Ce QR code represente l'addresse de votre portefeuille FRANC CFA numérique. il peut etre scanné lors d'un achat ou d'une vente pour vous effectué un paiement.
                                 </div>
 
-                                <ReceiveQRCode setQrCode={setQrCode} token={token}></ReceiveQRCode>
+                                <div className="flex justify-center items-center p-6">
+                                    <QRCode value={qrCode} height="60%" width="60%" />
+                                </div>
                                 
 
                                 <div className="flex flex-col items-start justify-start text-left text-sm">
                                 <span>&bull; Envoyez uniquement des Franc CFA numérique  à cette adresse de dépôt.</span>
-                                <span className="text-red-600">&bull; Vérifiez que le réseau est Solana*.</span>
                                 </div>
                                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                                     <div className="mt-1 flex rounded-lg bg-gray-200">
@@ -126,6 +95,8 @@ export function ReceiveMoneyButton({token}) {
                                         </span>
                                     </div>
                                 </div>
+
+                                
                             </div>
                         </div>
                     </div>

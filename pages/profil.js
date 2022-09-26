@@ -3,35 +3,36 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Dashboard from "../components/dashboard/dashboard";
-import FirebaseClient from "../utils/firebase";
-import firebase from 'firebase/app'
-import "firebase/storage"
 import { useNotification } from "../notifications/NotificationContext";
 import { useMutation } from "@apollo/client";
 import { UPDATE_PROFIL_PICTURE } from "../mutation/updateProfilePicture";
 import { CameraIcon } from "@heroicons/react/solid";
 import { SpinLogo } from "../components/items/productItem";
 import { Transition } from "@headlessui/react";
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth";
+import { AuthAction, withAuthUser} from "next-firebase-auth";
 import { format } from 'date-fns'
-import { userInDatabase } from "../queries/getUser";
+import { getAuth } from "firebase/auth";
+import { getStorage, uploadString, ref,  getDownloadURL } from "firebase/storage";
+import { getApp } from "firebase/app";
 
 
 
 export function PhotoViewWithUpload({ photoUrl, height, width, refetch }) {
-    FirebaseClient()
     const dispatch = useNotification()
 
     const [UpdateProfilPicture, { loading }] = useMutation(UPDATE_PROFIL_PICTURE)
 
 
-    const handlePicture = (binary) => {
+    const handlePicture = async (binary) => {
         
-        const storage = firebase.app().storage("gs://" + process.env.NEXT_PUBLIC_firebase_storageBucket);
-        const ref = "user/" + firebase.auth().currentUser.uid + "/photoUrl" + ".jpg"
+        const app = getApp();
+        const storage = getStorage(app, "gs://tinda-a9b1c.appspot.com" );
+        const reference = ref(storage, "users/" + getAuth().currentUser.uid + "/photoUrl" + ".jpg")
 
-        return storage.ref(ref).putString(binary, 'data_url').then(async () => {
-            const url = await storage.ref(ref).getDownloadURL()
+
+        return uploadString(reference, binary, 'data_url').then(async () => {
+            console.log("sended")
+            const url  = await getDownloadURL(reference).catch((err) => {throw err});
             return UpdateProfilPicture({
                 variables: {
                     link: url
@@ -270,24 +271,6 @@ const Profil = () => {
     )
 }
 
-
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
-    const uid = await AuthUser.id
-    const { data } = await userInDatabase(uid)
-    if(!data.userExist) {
-        return {
-          redirect: {
-            permanent: false,
-            destination: "/"
-          }
-        }
-      }
-    return {
-        props: {}
-    }
-})
 
 export default withAuthUser({whenAuthed: AuthAction.RENDER, whenUnauthed: AuthAction.REDIRECT_TO_LOGIN, whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN})(Profil)
 

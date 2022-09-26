@@ -2,7 +2,7 @@
 
 import { useQuery } from "@apollo/client"
 import { SwitchHorizontalIcon, UserGroupIcon, ViewGridAddIcon } from "@heroicons/react/solid"
-import { AuthAction, withAuthUser, withAuthUserTokenSSR } from "next-firebase-auth"
+import { AuthAction, withAuthUser} from "next-firebase-auth"
 import { useContext, useEffect } from "react"
 import Dashboard from "../components/dashboard/dashboard"
 import BurnTokenButton from "../components/token/buttons/burnTokenButton"
@@ -14,7 +14,6 @@ import { GET_CIRCULATING_TOKENS } from "../queries/getCirculatinTokens"
 import { GET_IS_TOKEN_OWNER } from "../queries/getIsTokenOwner"
 import { GET_TOKEN_TOTAL_ACCOUNTS } from "../queries/getTokenTotalAccounts"
 import { GET_TOTAL_SUPPLY } from "../queries/getTokenTotalSupply"
-import { getDefaultToken } from "../queries/getUser"
 
 const CirculatingTokensView = () => {
     const { firebaseUID, } = useContext(FirebaseUIDContext)
@@ -236,18 +235,6 @@ export function Token({ token }) {
     )
 }
 
-
-export const getServerSideProps = withAuthUserTokenSSR({
-    whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ AuthUser }) => {
-    const token = await AuthUser.getIdToken()
-    const { data } = await getDefaultToken(token)
-    return {
-        props: {
-            token: data.usersExist.defaultWallet
-        }
-    }
-})
 
 
 export default withAuthUser({whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN })(Token)

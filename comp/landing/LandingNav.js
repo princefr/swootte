@@ -1,4 +1,4 @@
-import ConnnectButton from "../../components/buttons/ConnectButton";
+import ConnnectButton from "../../components/buttons/connectButton";
 import SwootteLogo from "../../components/logo/swootte";
 
 

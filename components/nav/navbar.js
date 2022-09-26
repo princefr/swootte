@@ -1,5 +1,5 @@
 
-import ConnectButton from '../buttons/ConnectButton';
+import ConnectButton from '../buttons/connectButton';
 import Link from 'next/link'
 import SwootteLogo from '../logo/swootte';
 

@@ -1,5 +1,5 @@
 import ConnnectButton from "../../components/buttons/ConnectButton";
-import SwootteLogo from "../../components/logo/swootte"
+import SwootteLogo from "../../components/logo/swootte";
 
 
 

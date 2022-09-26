@@ -4,7 +4,6 @@ import {QRCodeSVG} from 'qrcode.react';
 import Lottie from "lottie-react";
 import loadingAnimation from "../lf30_editor_jsgxctvf.json"
 import { useRouter } from "next/router";
-import { useEffect } from "react/cjs/react.production.min";
 
 const PaymentPageView = (query) => { 
     const router = useRouter()
